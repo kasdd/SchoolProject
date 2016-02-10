@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace Projecten2.NET.Controllers
 {
+
+    //
     public class HomeController : Controller
     {
         public ActionResult Index()
