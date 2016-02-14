@@ -22,3 +22,18 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar
+{
+    background-color: #00a183;
+}
+
+.navbar a{
+    color: #FFFFFF;
+}
+    
+ul.nav a:hover
+{
+    background-color: #004d3e;
+}
+

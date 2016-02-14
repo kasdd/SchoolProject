@@ -65,7 +65,7 @@ namespace Projecten2.NET.Models
         //private void InitializeIdentityAndRoles()
         //{
 
-        //    CreateUserAndRoles("admin@hogent.be", "P@ssword1", "admin");
+        //    CreateUserAndRoles("docent@hogent.be", "P@ssword1", "docent");
         //    CreateUserAndRoles("student@hogent.be", "P@ssword1", "student");
         //}
 
