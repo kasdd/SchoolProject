@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -90,7 +91,14 @@ namespace Projecten2.NET
             }
         }
 
-        public virtual Materiaal Catalogu
+        public abstract void NieuwWachtwoord(string wachtwoord);
+
+        public void ZendEmail(string emailadres, string onderwerp, string bericht)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Materiaal Materiaal
         {
             get
             {
@@ -100,13 +108,6 @@ namespace Projecten2.NET
             set
             {
             }
-        }
-
-        public abstract void NieuwWachtwoord(string wachtwoord);
-
-        public void ZendEmail(string emailadres, string onderwerp, string bericht)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
