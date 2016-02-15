@@ -11,7 +11,6 @@ namespace Projecten2.NET
     {
         protected Gebruiker()
         {
-            throw new System.NotImplementedException();
         }
 
         protected Gebruiker(string Loginnaam, string Naam, string Voornaam)
@@ -19,77 +18,18 @@ namespace Projecten2.NET
             throw new System.NotImplementedException();
         }
 
-        public string Naam
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public string Naam { get; set; }
 
-            set
-            {
-            }
-        }
+        public String Email { get; set; }
 
-        public String Email
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public int GebruikerID { get; set; }
 
-            set
-            {
-            }
-        }
 
-        public int GebruikerID
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public String Loginnaam { get; set; }
 
-            set
-            {
-            }
-        }
-
-        public String Loginnaam
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public string Voornaam
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public string Wachtwoord
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+        public string Voornaam { get; set; }
+         
+        public string Wachtwoord { get; set; }
 
         public abstract void NieuwWachtwoord(string wachtwoord);
 
@@ -98,16 +38,10 @@ namespace Projecten2.NET
             throw new System.NotImplementedException();
         }
 
-        public Materiaal Materiaal
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public virtual ICollection<Materiaal> Materialen { get; set; }
+        public virtual ICollection<Reservatie> Reservaties { get; set; }
 
-            set
-            {
-            }
-        }
+        public abstract ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb);
+
     }
 }

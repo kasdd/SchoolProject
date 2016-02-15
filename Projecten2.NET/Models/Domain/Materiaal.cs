@@ -116,7 +116,7 @@ namespace Projecten2.NET
             }
         }
 
-        public Lening Lening
+        public Reservatie Reservatie
         {
             get
             {

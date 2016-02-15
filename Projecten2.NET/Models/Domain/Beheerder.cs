@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -6,42 +7,26 @@ using System.ComponentModel;
 
 namespace Projecten2.NET
 {
-    public class Beheerder
+    public class Beheerder : Gebruiker
     {
-        public int ID
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public int ID { get; set; }
 
-            set
-            {
-            }
+        public String Naam { get; set; }
+
+        public override void NieuwWachtwoord(string wachtwoord)
+        {
+            throw new NotImplementedException();
         }
 
-        public String Naam
+        public override ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb)
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+            ICollection<Materiaal> correcteCatalogus = null;
 
-            set
+            foreach (Materiaal m in gb.Materialen)
             {
+                    correcteCatalogus.Add(m);
             }
-        }
-
-        public Lening Lening
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            return correcteCatalogus;
         }
     }
 }

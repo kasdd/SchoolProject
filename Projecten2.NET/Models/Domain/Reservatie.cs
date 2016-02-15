@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Projecten2.NET
 {
-    public class Lening
+    public class Reservatie
     {
         public int numberOfItems
         {
@@ -31,5 +31,6 @@ namespace Projecten2.NET
             {
             }
         }
+        public Materiaal Materiaal { get; set; }
     }
 }
