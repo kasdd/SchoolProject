@@ -8,136 +8,27 @@ namespace Projecten2.NET
 {
     public class Materiaal
     {
-        public Boolean Uitleenbaar
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public Boolean Uitleenbaar { get; set; }
 
-            set
-            {
-            }
-        }
+        public int ArtikelNummer { get; set; }
 
-        public int ArtikelNummer
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public string Artikelnaam { get; set; }
 
-            set
-            {
-            }
-        }
+        public string Omschrijving { get; set; }
 
-        public string Artikelnaam
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public String Doelgroep { get; set; }
 
-            set
-            {
-            }
-        }
+        public double Prijs { get; set; }
 
-        public string Omschrijving
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public DateTime BeginDat { get; set; }
 
-            set
-            {
-            }
-        }
+        public DateTime EindDat { get; set; }
 
-        public String Doelgroep
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public int Leergebied { get; set; }
 
-            set
-            {
-            }
-        }
+        public Reservatie Reservatie { get; set; }
 
-        public string Prijs
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public string Foto { get; set; }
 
-            set
-            {
-            }
-        }
-
-        public DateTime BeginDat
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public DateTime EindDat
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public int Leergebied
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public Reservatie Reservatie
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public string Foto
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
     }
 }

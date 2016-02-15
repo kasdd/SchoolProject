@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Projecten2.NET.Models.Domain
+{
+    interface IGebruikerRepository
+    {
+        Gebruiker FindById(string id);
+        Gebruiker FindByEmail(string email);
+        IQueryable<Gebruiker> FindAll();
+        void SaveChanges();
+    }
+}

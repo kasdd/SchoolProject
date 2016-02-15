@@ -28,21 +28,14 @@
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Materialen" />
       <Property Name="Reservaties" />
+      <Property Name="Materialen" />
     </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="Projecten2.NET.Materiaal">
-    <Position X="10.75" Y="4.75" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAIgAAEQAAAAQACAIAAAAAAAYAAAAQA=</HashCode>
-      <FileName>Models\Domain\Materiaal.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="Projecten2.NET.Beheerder">
     <Position X="0.5" Y="7.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAABAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAABAAIAAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Beheerder.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -53,8 +46,17 @@
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Materiaal" />
       <Property Name="Gebruiker" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Projecten2.NET.Materiaal">
+    <Position X="11.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAIgAAEQAAAAQACAIAAAAAAAYAAAAQA=</HashCode>
+      <FileName>Models\Domain\Materiaal.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Reservatie" />
     </ShowAsAssociation>
   </Class>
   <Interface Name="Projecten2.NET.Zoeken">
