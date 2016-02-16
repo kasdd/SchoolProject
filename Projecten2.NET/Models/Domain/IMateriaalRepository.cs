@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projecten2.NET.Models.Domain
 {
-    interface IMateriaalRepository
+    public interface IMateriaalRepository
     {
         Materiaal findByArtikelNr(String nummer);
         IQueryable<Materiaal> findAll();

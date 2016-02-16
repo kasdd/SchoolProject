@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projecten2.NET.Models.Domain
 {
-    interface IGebruikerRepository
+    public interface IGebruikerRepository
     {
         Gebruiker FindById(string id);
         Gebruiker FindByEmail(string email);

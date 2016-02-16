@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Projecten2.NET.Materiaal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Uitleenbaar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtikelNummer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artikelnaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doelgroep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Leergebied)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uitleenbaar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtikelNummer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Artikelnaam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Omschrijving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doelgroep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prijs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Leergebied)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Foto)
+        </td>
+    </tr>
+}
+
+</table>

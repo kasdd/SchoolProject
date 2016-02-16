@@ -65,6 +65,7 @@ namespace Projecten2.NET.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IGebruikerRepository>().To<GebruikersRepository>().InRequestScope();
+            kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope();
             kernel.Bind<CatalogusContext>().ToSelf().InRequestScope();
         }        
     }

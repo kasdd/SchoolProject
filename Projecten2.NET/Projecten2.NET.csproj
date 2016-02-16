@@ -184,11 +184,13 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\CatalogusController.cs" />
     <Compile Include="Models\DAL\CatalogusContext.cs" />
     <Compile Include="Models\DAL\CatalogusInitializer.cs" />
     <Compile Include="Models\DAL\GebruikersRepository.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MateriaalMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservatieMapper.cs" />
     <Compile Include="Models\DAL\MateriaalRepository.cs" />
     <Compile Include="Models\Domain\Beheerder.cs" />
     <Compile Include="Models\Domain\Catalogus.cs" />
@@ -269,6 +271,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Catalogus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
