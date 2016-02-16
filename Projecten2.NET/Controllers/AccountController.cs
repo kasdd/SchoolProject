@@ -9,12 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Projecten2.NET.Models;
+using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private IGebruikerRepository repo;
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -51,14 +54,19 @@ namespace Projecten2.NET.Controllers
                 _userManager = value;
             }
         }
-
         //
-        // GET: /Account/Login
+        // GET: /Home/
+        public ActionResult Index()
+        {
+            return View("Index");
+        }
+        //
+        // GET: /Account/
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View("Login");
         }
 
         //
@@ -68,6 +76,8 @@ namespace Projecten2.NET.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            Gebruiker gebruiker = repo.FindById(model.UserName);
+            
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -76,10 +86,31 @@ namespace Projecten2.NET.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            string roles = "";
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (gebruiker.GetType().Equals(typeof(Student)))
+                    {
+                        roles = "Student";
+
+                    }
+                    else if (gebruiker.GetType().Equals(typeof(Lector)))
+                    {
+                        roles = "Lector";
+
+                    }
+
+                    
+                    if (gebruiker.GetType().Equals(typeof(Student)))
+                        return RedirectToAction("Index", "Student");
+                    if (gebruiker.GetType().Equals(typeof(Lector)))
+                        return RedirectToAction("Index", "Lector");
+                    else
+                        return RedirectToAction("Index");
+
+
+                //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

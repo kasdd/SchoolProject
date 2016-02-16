@@ -53,9 +53,13 @@ namespace Projecten2.NET.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Gebruikersnaam")]
+        public string UserName { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
