@@ -187,6 +187,9 @@
     <Compile Include="Models\DAL\CatalogusContext.cs" />
     <Compile Include="Models\DAL\CatalogusInitializer.cs" />
     <Compile Include="Models\DAL\GebruikersRepository.cs" />
+    <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\MateriaalMapper.cs" />
+    <Compile Include="Models\DAL\MateriaalRepository.cs" />
     <Compile Include="Models\Domain\Beheerder.cs" />
     <Compile Include="Models\Domain\Catalogus.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -197,6 +200,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Domain\IGebruikerRepository.cs" />
+    <Compile Include="Models\Domain\IMateriaalRepository.cs" />
     <Compile Include="Models\Domain\Materiaal.cs" />
     <Compile Include="Models\Domain\Lector.cs" />
     <Compile Include="Models\Domain\Reservatie.cs" />
@@ -268,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\DAL\Mapper\" />
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>

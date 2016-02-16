@@ -28,8 +28,8 @@
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Reservaties" />
       <Property Name="Materialen" />
+      <Property Name="Reservaties" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Beheerder">
@@ -42,7 +42,7 @@
   <Class Name="Projecten2.NET.Reservatie">
     <Position X="11.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAIAAAEAAAAAAAAAAAAAAAAgAAAAAgA=</HashCode>
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -52,7 +52,7 @@
   <Class Name="Projecten2.NET.Materiaal">
     <Position X="11.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAIgAAEQAAAAQACAIAAAAAAAYAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAgAAAQAAAAQACAIAAAAAAAYAAAAQA=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

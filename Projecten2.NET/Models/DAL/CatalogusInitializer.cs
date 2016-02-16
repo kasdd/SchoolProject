@@ -17,14 +17,11 @@ namespace Projecten2.NET.Models.DAL
                 {
                     ArtikelNummer = 2626568,
                     Artikelnaam = "Wereldbol",
-                    BeginDat = DateTime.Now,
-                    EindDat = DateTime.Today.AddDays(3),
                     Doelgroep = "Secundair onderwijs",
                     Foto = "foto1",
                     Omschrijving = "Wereldbol gekocht in hema",
                     Leergebied = 2,
                     Prijs = 0.4,
-                    Reservatie = new Reservatie(),
                     
                 };
                 Materiaal dobbelstenen2 = new Materiaal();

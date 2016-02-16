@@ -8,29 +8,10 @@ namespace Projecten2.NET
 {
     public class Reservatie
     {
-        public int numberOfItems
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public Gebruiker Gebruiker
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+        public int ReservatieId { get; set; }
+        public DateTime BeginDat { get; set; }
+        public DateTime EindDat { get; set; }
+        public Gebruiker Gebruiker { get; set; }
         public Materiaal Materiaal { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Projecten2.NET
     {
         public Boolean Uitleenbaar { get; set; }
 
-        public int ArtikelNummer { get; set; }
+        public String ArtikelNummer { get; set; }
 
         public string Artikelnaam { get; set; }
 
@@ -19,10 +19,6 @@ namespace Projecten2.NET
         public String Doelgroep { get; set; }
 
         public double Prijs { get; set; }
-
-        public DateTime BeginDat { get; set; }
-
-        public DateTime EindDat { get; set; }
 
         public int Leergebied { get; set; }
 
