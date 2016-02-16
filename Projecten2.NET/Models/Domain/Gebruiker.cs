@@ -9,14 +9,6 @@ namespace Projecten2.NET
 {
     public abstract class Gebruiker
     {
-        protected Gebruiker()
-        {
-        }
-
-        protected Gebruiker(string Loginnaam, string Naam, string Voornaam)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public string Naam { get; set; }
 
@@ -41,7 +33,20 @@ namespace Projecten2.NET
         public virtual ICollection<Materiaal> Materialen { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
 
+        public Gebruiker()
+        {
+            Materialen = new List<Materiaal>();
+            Reservaties = new List<Reservatie>();
+        }
+
+        protected Gebruiker(string Loginnaam, string Naam, string Voornaam)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public abstract ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb);
+
+        public abstract void reserveerMateriaal(Materiaal materiaal);
 
     }
 }

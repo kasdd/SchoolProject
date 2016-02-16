@@ -75,6 +75,23 @@ namespace Projecten2.NET.Models.DAL
                     Prijs = 80.99,
                 };
 
+                Student kas = new Student()
+                {
+                    Email ="kas_dedurpel@hotmail.com", 
+                    GebruikerID = 21357,
+                    Loginnaam = "103007kd",
+                    StudentenNr = "21357",
+                    Voornaam = "Kas",
+                    Wachtwoord = "paswoord"
+                };
+                
+                kas.Materialen.Add(dobbelstenen);
+                kas.Materialen.Add(dobbelstenen2);
+                kas.Materialen.Add(dobbelstenen3);
+                kas.Materialen.Add(wereldbol);
+                kas.Materialen.Add(wereldbol2);
+                kas.Materialen.Add(beemer);
+
                 context.SaveChanges();
 
             }
