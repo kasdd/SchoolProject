@@ -29,5 +29,10 @@ namespace Projecten2.NET
             }
             return correcteCatalogus;
         }
+
+        public override void reserveerMateriaal(Materiaal materiaal)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
