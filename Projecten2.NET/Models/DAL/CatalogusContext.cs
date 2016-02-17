@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Projecten2.NET.Models.DAL
 {
-    public class CatalogusContext : IdentityDbContext<ApplicationUser>
+    public class CatalogusContext : DbContext
     {
 
         public CatalogusContext() : base("Catalogus")
@@ -28,11 +28,5 @@ namespace Projecten2.NET.Models.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }
-
-        public static CatalogusContext Create()
-        {
-            return DependencyResolver.Current.GetService<CatalogusContext>();
-        }
-
     }
 }

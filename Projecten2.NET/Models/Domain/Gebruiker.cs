@@ -46,7 +46,5 @@ namespace Projecten2.NET
 
         public abstract ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb);
 
-        public abstract void reserveerMateriaal(Materiaal materiaal);
-
     }
 }

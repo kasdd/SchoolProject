@@ -28,5 +28,6 @@ namespace Projecten2.NET
             }
             return correcteCatalogus;
         }
+
     }
 }
