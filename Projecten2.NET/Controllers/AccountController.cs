@@ -76,7 +76,7 @@ namespace Projecten2.NET.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            Gebruiker gebruiker = repo.FindById(model.UserName);
+            //Gebruiker gebruiker = repo.FindById(model.UserName);
             
             if (!ModelState.IsValid)
             {
@@ -90,27 +90,27 @@ namespace Projecten2.NET.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (gebruiker.GetType().Equals(typeof(Student)))
-                    {
-                        roles = "Student";
+                    //if (gebruiker.GetType().Equals(typeof(Student)))
+                    //{
+                    //    roles = "Student";
 
-                    }
-                    else if (gebruiker.GetType().Equals(typeof(Lector)))
-                    {
-                        roles = "Lector";
+                    //}
+                    //else if (gebruiker.GetType().Equals(typeof(Lector)))
+                    //{
+                    //    roles = "Lector";
 
-                    }
+                    //}
 
                     
-                    if (gebruiker.GetType().Equals(typeof(Student)))
-                        return RedirectToAction("Index", "Student");
-                    if (gebruiker.GetType().Equals(typeof(Lector)))
-                        return RedirectToAction("Index", "Lector");
-                    else
-                        return RedirectToAction("Index");
+                    //if (gebruiker.GetType().Equals(typeof(Student)))
+                    //    return RedirectToAction("Index", "Student");
+                    //if (gebruiker.GetType().Equals(typeof(Lector)))
+                    //    return RedirectToAction("Index", "Lector");
+                    //else
+                        //return RedirectToAction("Index");
 
 
-                //return RedirectToLocal(returnUrl);
+                return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

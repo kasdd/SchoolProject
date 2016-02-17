@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web;
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Projecten2.NET.Models
@@ -42,48 +43,36 @@ namespace Projecten2.NET.Models
     public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         private ApplicationUserManager userManager;
-        //   private ApplicationRoleManager roleManager;
+        private ApplicationRoleManager roleManager;
+
         protected override void Seed(ApplicationDbContext context)
         {
             userManager =
-               HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            //roleManager =
-            //   HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+            roleManager =
+                HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
 
-            InitializeIdentity();
-            //InitializeIdentityAndRoles();
+            //InitializeIdentity();
+            InitializeIdentityAndRoles();
             base.Seed(context);
         }
 
-        private void InitializeIdentity()
-        {
-            CreateUser("docent@hogent.be", "P@ssword1"); //Create user Admin
-            CreateUser("student@hogent.be", "P@ssword1");  //Create User Student
-        }
-
-        //private void InitializeIdentityAndRoles()
+        //private void InitializeIdentity()
         //{
-
-        //    CreateUserAndRoles("docent@hogent.be", "P@ssword1", "docent");
-        //    CreateUserAndRoles("student@hogent.be", "P@ssword1", "student");
+        //    CreateUser("docent@hogent.be", "P@ssword1"); //Create user Admin
+        //    CreateUser("student@hogent.be", "P@ssword1");  //Create User Student
         //}
 
-        private void CreateUser(string name, string password)
+        private void InitializeIdentityAndRoles()
         {
-            ApplicationUser user = userManager.FindByName(name);
-            if (user == null)
-            {
-                user = new ApplicationUser { UserName = name, Email = name, LockoutEnabled = false };
-                IdentityResult result = userManager.Create(user, password);
-                if (!result.Succeeded)
-                    throw new ApplicationException(result.Errors.ToString());
-            }
+
+            CreateUserAndRoles("docent@hogent.be", "P@ssword1", "docent");
+            CreateUserAndRoles("student@hogent.be", "P@ssword1", "student");
         }
 
-        //private void CreateUserAndRoles(string name, string password, string roleName)
+        //private void CreateUser(string name, string password)
         //{
-        //    //Create user
         //    ApplicationUser user = userManager.FindByName(name);
         //    if (user == null)
         //    {
@@ -92,25 +81,39 @@ namespace Projecten2.NET.Models
         //        if (!result.Succeeded)
         //            throw new ApplicationException(result.Errors.ToString());
         //    }
+        //}
 
-        //    //Create roles
-        //    IdentityRole role = roleManager.FindByName(roleName);
-        //    if (role == null)
-        //    {
-        //        role = new IdentityRole(roleName);
-        //        IdentityResult result = roleManager.Create(role);
-        //        if (!result.Succeeded)
-        //            throw new ApplicationException(result.Errors.ToString());
-        //    }
+        private void CreateUserAndRoles(string name, string password, string roleName)
+        {
+            //Create user
+            ApplicationUser user = userManager.FindByName(name);
+            if (user == null)
+            {
+                user = new ApplicationUser {UserName = name, Email = name, LockoutEnabled = false};
+                IdentityResult result = userManager.Create(user, password);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+            }
 
-        //    //Associate user with role
-        //    IList<string> rolesForUser = userManager.GetRoles(user.Id);
-        //    if (!rolesForUser.Contains(role.Name))
-        //    {
-        //        IdentityResult result = userManager.AddToRole(user.Id, roleName);
-        //        if (!result.Succeeded)
-        //            throw new ApplicationException(result.Errors.ToString());
-        //    }
+            //Create roles
+            IdentityRole role = roleManager.FindByName(roleName);
+            if (role == null)
+            {
+                role = new IdentityRole(roleName);
+                IdentityResult result = roleManager.Create(role);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+            }
+
+            //Associate user with role
+            IList<string> rolesForUser = userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role.Name))
+            {
+                IdentityResult result = userManager.AddToRole(user.Id, roleName);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+            }
         }
 
     }
+}
