@@ -92,6 +92,10 @@ namespace Projecten2.NET.Models.DAL
                 kas.Materialen.Add(wereldbol2);
                 kas.Materialen.Add(beemer);
 
+                Materiaal[] materialen = new Materiaal[] {dobbelstenen, dobbelstenen2, dobbelstenen3, wereldbol, wereldbol2, beemer };
+                Gebruiker[] gebruikers = new Gebruiker[] {kas };
+                context.Materialen.AddRange(materialen);
+                context.Gebruikers.AddRange(gebruikers);
                 context.SaveChanges();
 
             }
