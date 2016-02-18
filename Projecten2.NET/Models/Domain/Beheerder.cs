@@ -9,9 +9,14 @@ namespace Projecten2.NET
 {
     public class Beheerder : Gebruiker
     {
-        public int ID { get; set; }
+        public Beheerder()
+        {
 
-        public String Naam { get; set; }
+        }
+        public Beheerder(string Loginnaam, string Naam, string Voornaam, String Email, int GebruikerID, String Wachtwoord) : base (Loginnaam, Naam, Voornaam, Email, GebruikerID, Wachtwoord)
+        {
+
+        }
 
         public override void NieuwWachtwoord(string wachtwoord)
         {
