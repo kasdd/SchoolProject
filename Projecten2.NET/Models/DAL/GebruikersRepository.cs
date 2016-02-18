@@ -14,7 +14,7 @@ namespace Projecten2.NET.Models.DAL
 
         public GebruikersRepository(CatalogusContext cxt)
         {
-            this.context = cxt;
+            context = cxt;
             gebruikers = cxt.Gebruikers;
         }
 
@@ -28,6 +28,11 @@ namespace Projecten2.NET.Models.DAL
             return gebruikers.FirstOrDefault(g => g.Email == email);
         }
 
+        public Gebruiker FindByName(string loginnaam)
+        {
+            Gebruiker gebruiker = (from g in gebruikers where g.Loginnaam.Equals(loginnaam) select g).FirstOrDefault();
+            return gebruiker;
+        }
         public IQueryable<Gebruiker> FindAll()
         {
             return gebruikers;
