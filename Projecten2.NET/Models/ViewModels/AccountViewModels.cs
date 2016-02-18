@@ -62,7 +62,7 @@ namespace Projecten2.NET.Models
         [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Gegevens opslaan?")]
         public bool RememberMe { get; set; }
     }
 
