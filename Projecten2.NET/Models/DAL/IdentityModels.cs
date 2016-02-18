@@ -5,11 +5,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace Projecten2.NET.Models
+namespace Projecten2.NET.Models.DAL
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
@@ -36,10 +35,10 @@ namespace Projecten2.NET.Models
             //new ApplicationDbContext();
         }
 
-        //static ApplicationDbContext()
-        //{
-        //    Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
-        //}
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
+        }
     }
 
     public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
