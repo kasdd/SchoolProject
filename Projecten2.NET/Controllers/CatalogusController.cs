@@ -7,6 +7,7 @@ using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Controllers
 {
+    [Authorize]
     public class CatalogusController : Controller
     {
         private IMateriaalRepository materiaalRepository;
