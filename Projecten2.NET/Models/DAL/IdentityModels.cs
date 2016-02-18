@@ -8,7 +8,7 @@ using System;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace Projecten2.NET.Models.DAL
+namespace Projecten2.NET.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
