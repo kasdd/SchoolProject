@@ -76,7 +76,7 @@ namespace Projecten2.NET.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            //Gebruiker gebruiker = repo.FindById(model.UserName);
+            Gebruiker gebruiker = repo.FindById(model.UserName);
             
             if (!ModelState.IsValid)
             {
@@ -89,7 +89,27 @@ namespace Projecten2.NET.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                  return RedirectToLocal(returnUrl);
+                    //if (gebruiker.GetType().Equals(typeof(Student)))
+                    //{
+                    //    roles = "Student";
+
+                    //}
+                    //else if (gebruiker.GetType().Equals(typeof(Lector)))
+                    //{
+                    //    roles = "Lector";
+
+                    //}
+
+                    
+                    //if (gebruiker.GetType().Equals(typeof(Student)))
+                    //    return RedirectToAction("Index", "Student");
+                    //if (gebruiker.GetType().Equals(typeof(Lector)))
+                    //    return RedirectToAction("Index", "Lector");
+                    //else
+                        //return RedirectToAction("Index");
+
+
+                return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -144,43 +164,10 @@ namespace Projecten2.NET.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
 
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
 
         //
         // GET: /Account/ConfirmEmail

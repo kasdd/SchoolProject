@@ -14,13 +14,6 @@
       <FileName>Models\Domain\Lector.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Projecten2.NET.Catalogus">
-    <Position X="11" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Domain\Catalogus.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Projecten2.NET.Gebruiker">
     <Position X="1.25" Y="3" Width="4.5" />
     <TypeIdentifier>
@@ -42,7 +35,7 @@
   <Class Name="Projecten2.NET.Reservatie">
     <Position X="11.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAIAAAEAAAAAAAAAAAAAAAAgAAAAAgA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAIAAAEAAAIAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -59,15 +52,8 @@
       <Property Name="Reservatie" />
     </ShowAsAssociation>
   </Class>
-  <Interface Name="Projecten2.NET.Zoeken">
-    <Position X="13.25" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Domain\Zoeken.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;">
-    <Position X="14.25" Y="5.25" Width="2.75" />
+    <Position X="13.25" Y="4.5" Width="2.75" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />
