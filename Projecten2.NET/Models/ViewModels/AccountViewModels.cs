@@ -53,7 +53,7 @@ namespace Projecten2.NET.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "*")]
+       // [Required(ErrorMessage = "*")]
         [Display(Name = "Gebruikersnaam")]
         public string UserName { get; set; }
 

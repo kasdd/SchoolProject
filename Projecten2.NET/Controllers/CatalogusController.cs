@@ -7,7 +7,7 @@ using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class CatalogusController : Controller
     {
         private IMateriaalRepository materiaalRepository;
@@ -17,9 +17,10 @@ namespace Projecten2.NET.Controllers
             this.materiaalRepository = materiaalRepository;
         }
         // GET: Catalogus
-        public ActionResult Index(Gebruiker gebruiker)
+        public ActionResult Index()//Gebruiker gebruiker)
         {
-            IEnumerable<Materiaal> materialen = gebruiker.GeefCorrecteCatalogus(gebruiker);
+            IEnumerable<Materiaal> materialen= materiaalRepository.findAll();
+            //IEnumerable<Materiaal> materialen = gebruiker.GeefCorrecteCatalogus(gebruiker);
             return View(materialen);
         }
 

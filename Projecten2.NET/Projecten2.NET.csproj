@@ -194,7 +194,7 @@
     <Compile Include="Models\DAL\CatalogusContext.cs" />
     <Compile Include="Models\DAL\CatalogusInitializer.cs" />
     <Compile Include="Models\DAL\GebruikersRepository.cs" />
-    <Compile Include="Models\DAL\Infrastructuur\GebruikerBinder.cs" />
+    <Compile Include="Infrastructuur\GebruikerBinder.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MateriaalMapper.cs" />
     <Compile Include="Models\DAL\Mapper\ReservatieMapper.cs" />

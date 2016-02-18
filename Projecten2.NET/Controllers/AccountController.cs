@@ -76,7 +76,7 @@ namespace Projecten2.NET.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            Gebruiker gebruiker = repo.FindById(model.UserName);
+           // Gebruiker gebruiker = repo.FindById(model.UserName);
             
             if (!ModelState.IsValid)
             {
