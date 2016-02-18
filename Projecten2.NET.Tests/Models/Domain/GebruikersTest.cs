@@ -125,3 +125,4 @@ namespace Projecten2.NET.Tests.Models.Domain
             Assert.AreEqual(correcteCatalogus, testStudent);
         }
     }
+}
