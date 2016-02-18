@@ -44,7 +44,18 @@ namespace Projecten2.NET
             throw new System.NotImplementedException();
         }
 
+        protected Gebruiker(string Loginnaam, string Naam, string Voornaam, String Email, int GebruikerID, String Wachtwoord)
+        {
+            this.Loginnaam = Loginnaam;
+            this.Naam = Naam;
+            this.Voornaam = Voornaam;
+            this.Email = Email;
+            this.GebruikerID = GebruikerID;
+            this.Wachtwoord = Wachtwoord;
+        }
+
         public abstract ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb);
 
+        public abstract void reserveerMateriaal(Materiaal materiaal);
     }
 }

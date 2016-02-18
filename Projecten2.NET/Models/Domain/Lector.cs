@@ -9,6 +9,14 @@ namespace Projecten2.NET
 {
     public class Lector : Gebruiker
     {
+        public Lector()
+        {
+
+        }
+        public Lector (string Loginnaam, string Naam, string Voornaam, String Email, int GebruikerID, String Wachtwoord) : base (Loginnaam, Naam, Voornaam, Email, GebruikerID, Wachtwoord)
+        {
+
+        }
         public override void NieuwWachtwoord(string wachtwoord)
         {
             this.Wachtwoord = wachtwoord;
@@ -30,6 +38,11 @@ namespace Projecten2.NET
                     correcteCatalogus.Add(r.Materiaal);
             }
             return correcteCatalogus;
+        }
+
+        public override void reserveerMateriaal(Materiaal materiaal)
+        {
+            throw new NotImplementedException();
         }
     }
 }

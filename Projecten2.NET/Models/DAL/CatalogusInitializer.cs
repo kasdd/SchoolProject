@@ -73,6 +73,7 @@ namespace Projecten2.NET.Models.DAL
                     Omschrijving = "Beemer gekocht in hema",
                     Leergebied = 2,
                     Prijs = 80.99,
+                    Uitleenbaar = false
                 };
 
                 Student kas = new Student()
