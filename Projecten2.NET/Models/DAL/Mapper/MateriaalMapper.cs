@@ -20,7 +20,6 @@ namespace Projecten2.NET.Models.DAL.Mapper
             Property(m => m.Prijs).IsRequired();
             Property(m => m.Uitleenbaar).IsRequired();
 
-            HasOptional(r => r.Reservatie).WithRequired().Map(m => m.MapKey("ReservatieId"));
         }
     }
 }

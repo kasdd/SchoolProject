@@ -14,7 +14,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
 
             HasKey(r => r.ReservatieId);
 
-            HasRequired(r => r.Materiaal).WithRequiredPrincipal().Map(r => r.MapKey("ReservatieId"));
+            HasRequired(r => r.Materialen).WithMany().Map(r => r.MapKey("ReservatieId"));
         }
     }
 }

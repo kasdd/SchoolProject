@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Projecten2.NET
 {
@@ -12,6 +13,6 @@ namespace Projecten2.NET
         public DateTime BeginDat { get; set; }
         public DateTime EindDat { get; set; }
         public Gebruiker Gebruiker { get; set; }
-        public Materiaal Materiaal { get; set; }
+        public List<Materiaal> Materialen { get; set; }
     }
 }

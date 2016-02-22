@@ -26,7 +26,8 @@ namespace Projecten2.NET
         //Als student iets heeft uitgeleend --> wel in catalogus
         public override ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb)
         {
-            ICollection<Materiaal> correcteCatalogus = null;
+            throw new NotImplementedException();
+ /*           ICollection<Materiaal> correcteCatalogus = null;
             foreach (Materiaal m in gb.Materialen)
             {
                 if (m.Uitleenbaar)
@@ -34,10 +35,10 @@ namespace Projecten2.NET
             }
             foreach (Reservatie r in Reservaties)
             {
-                if(!r.Materiaal.Uitleenbaar && r.Gebruiker.GetType() == typeof (Student))
-                    correcteCatalogus.Add(r.Materiaal);
+                if(!r.Materialen.Uitleenbaar && r.Gebruiker.GetType() == typeof (Student))
+                    correcteCatalogus.Add(r.Materialen);
             }
-            return correcteCatalogus;
+            return correcteCatalogus;*/
         }
 
         public override void reserveerMateriaal(Materiaal materiaal)
