@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Projecten2.NET.Models.DAL;
+using Projecten2.NET.Models.DAL.Infrastructuur;
 
 namespace Projecten2.NET
 {
@@ -16,6 +18,12 @@ namespace Projecten2.NET
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ModelBinders.Binders.Add(typeof(Gebruiker), new GebruikerModelBinder());
+
+            CatalogusContext db = new CatalogusContext();
+            db.Database.Initialize(true);
+
         }
     }
 }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Linq;
-using System.Web;
 
 namespace Projecten2.NET.Models.DAL
 {
@@ -13,6 +11,7 @@ namespace Projecten2.NET.Models.DAL
         {
             try
             {
+
                 Materiaal dobbelstenen = new Materiaal()
                 {
                     ArtikelNummer = "DL0568D",
@@ -76,28 +75,18 @@ namespace Projecten2.NET.Models.DAL
                     Uitleenbaar = false
                 };
 
-                Student kas = new Student()
+                var materialen = new List<Materiaal>()
                 {
-                    Email ="kas_dedurpel@hotmail.com", 
-                    GebruikerID = 21357,
-                    Loginnaam = "103007kd",
-                    StudentenNr = "21357",
-                    Voornaam = "Kas",
-                    Wachtwoord = "paswoord"
+                    dobbelstenen,
+                    dobbelstenen2,
+                    dobbelstenen3,
+                    wereldbol,
+                    wereldbol2,
+                    beemer
                 };
-                
-                kas.Materialen.Add(dobbelstenen);
-                kas.Materialen.Add(dobbelstenen2);
-                kas.Materialen.Add(dobbelstenen3);
-                kas.Materialen.Add(wereldbol);
-                kas.Materialen.Add(wereldbol2);
-                kas.Materialen.Add(beemer);
 
-                Materiaal[] materialen = new Materiaal[] {dobbelstenen, dobbelstenen2, dobbelstenen3, wereldbol, wereldbol2, beemer };
-                Gebruiker[] gebruikers = new Gebruiker[] {kas };
-                context.Materialen.AddRange(materialen);
-                context.Gebruikers.AddRange(gebruikers);
-                context.SaveChanges();
+                materialen.ForEach(m => context.Materialen.Add(m));
+                context.SaveChanges();  
 
             }
             catch (DbEntityValidationException e)

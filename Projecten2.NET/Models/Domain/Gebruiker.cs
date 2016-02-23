@@ -16,7 +16,6 @@ namespace Projecten2.NET
 
         public int GebruikerID { get; set; }
 
-
         public String Loginnaam { get; set; }
 
         public string Voornaam { get; set; }
@@ -29,13 +28,11 @@ namespace Projecten2.NET
         {
             throw new System.NotImplementedException();
         }
-
-        public virtual ICollection<Materiaal> Materialen { get; set; }
+        
         public virtual ICollection<Reservatie> Reservaties { get; set; }
 
         public Gebruiker()
         {
-            Materialen = new List<Materiaal>();
             Reservaties = new List<Reservatie>();
         }
 
@@ -53,8 +50,6 @@ namespace Projecten2.NET
             this.GebruikerID = GebruikerID;
             this.Wachtwoord = Wachtwoord;
         }
-
-        public abstract ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb);
 
         public abstract void reserveerMateriaal(Materiaal materiaal);
     }

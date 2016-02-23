@@ -12,7 +12,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
         {
             ToTable("Materiaal");
 
-            HasKey(m => m.ArtikelNummer);
+            HasKey(m => m.MateriaalId);
 
             Property(m => m.Artikelnaam).IsRequired().HasMaxLength(100);
             Property(m => m.Doelgroep).HasMaxLength(100);
@@ -20,6 +20,8 @@ namespace Projecten2.NET.Models.DAL.Mapper
             Property(m => m.Prijs).IsRequired();
             Property(m => m.Uitleenbaar).IsRequired();
 
+            HasOptional(m => m.Reservaties).WithMany().Map(m => m.MapKey("ReservatieId"));
         }
+
     }
 }

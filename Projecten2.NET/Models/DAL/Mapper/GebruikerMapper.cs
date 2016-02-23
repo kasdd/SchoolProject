@@ -21,7 +21,6 @@ namespace Projecten2.NET.Models.DAL.Mapper
             Property(g => g.Email).IsRequired().HasMaxLength(100);
 
             HasMany(r => r.Reservaties).WithRequired().Map(m => m.MapKey("GebruikersId"));
-            HasMany(m => m.Materialen).WithOptional().Map(m => m.MapKey("GebruikersId"));
         }
     }
 }

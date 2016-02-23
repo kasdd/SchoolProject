@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -8,6 +9,7 @@ namespace Projecten2.NET
 {
     public class Materiaal
     {
+        public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
 
         public String ArtikelNummer { get; set; }
@@ -22,9 +24,26 @@ namespace Projecten2.NET
 
         public int Leergebied { get; set; }
 
-        public Reservatie Reservatie { get; set; }
+        public ICollection<Reservatie> Reservaties { get; set; }
 
         public string Foto { get; set; }
 
+        public Materiaal()
+        {
+            Uitleenbaar = false;
+        }
+
+        public bool Equals(object obj)
+        {
+            if (obj != null && obj is Materiaal)
+                if ((obj as Materiaal).MateriaalId == MateriaalId)
+                    return true;
+            return false;
+        }
+
+        public int GetHashCode()
+        {
+            return MateriaalId;
+        }
     }
 }
