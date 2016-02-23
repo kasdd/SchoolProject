@@ -23,17 +23,6 @@ namespace Projecten2.NET
             throw new NotImplementedException();
         }
 
-        public override ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb)
-        {
-            ICollection<Materiaal> correcteCatalogus = null;
-
-            foreach (Materiaal m in gb.Materialen)
-            {
-                    correcteCatalogus.Add(m);
-            }
-            return correcteCatalogus;
-        }
-
         public override void reserveerMateriaal(Materiaal materiaal)
         {
             throw new NotImplementedException();

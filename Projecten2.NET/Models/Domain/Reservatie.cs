@@ -1,18 +1,36 @@
 ﻿using System;
-using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.ComponentModel;
 using System.Collections.Generic;
 
 namespace Projecten2.NET
 {
     public class Reservatie
     {
-        public int ReservatieId { get; set; }
-        public DateTime BeginDat { get; set; }
-        public DateTime EindDat { get; set; }
+        public int ReservatieId { get; private set; }
+        public DateTime BeginDat { get; private set; }
+        public DateTime EindDat { get; private set; }
         public Gebruiker Gebruiker { get; set; }
-        public List<Materiaal> Materialen { get; set; }
+        public ICollection<Materiaal> Materialen { get; set; }
+
+        public Reservatie()
+        {
+            Materialen = new List<Materiaal>();
+        }
+        public Reservatie(Gebruiker gebruiker, List<Materiaal> materialen, DateTime begin, DateTime eind)
+        {
+            
+        }
+
+        public bool Equals(object obj)
+        {
+            if (obj != null && obj is Reservatie)
+                if ((obj as Reservatie).ReservatieId == ReservatieId)
+                    return true;
+            return false;
+        }
+
+        public int GetHashCode()
+        {
+            return ReservatieId;
+        }
     }
 }

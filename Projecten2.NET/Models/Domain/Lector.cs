@@ -22,25 +22,6 @@ namespace Projecten2.NET
             this.Wachtwoord = wachtwoord;
         }
 
-        //Als andere lector iets heeft gereserveerd --> niet in catalogus
-        //Als student iets heeft uitgeleend --> wel in catalogus
-        public override ICollection<Materiaal> GeefCorrecteCatalogus(Gebruiker gb)
-        {
-            throw new NotImplementedException();
- /*           ICollection<Materiaal> correcteCatalogus = null;
-            foreach (Materiaal m in gb.Materialen)
-            {
-                if (m.Uitleenbaar)
-                    correcteCatalogus.Add(m);
-            }
-            foreach (Reservatie r in Reservaties)
-            {
-                if(!r.Materialen.Uitleenbaar && r.Gebruiker.GetType() == typeof (Student))
-                    correcteCatalogus.Add(r.Materialen);
-            }
-            return correcteCatalogus;*/
-        }
-
         public override void reserveerMateriaal(Materiaal materiaal)
         {
             throw new NotImplementedException();

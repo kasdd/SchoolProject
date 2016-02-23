@@ -224,7 +224,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\dobbelstenen.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\projector.jpg" />
+    <Content Include="Content\Images\wereldbol.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -277,8 +280,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalogus\Index.cshtml" />
-    <Content Include="Views\Lector\Index.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

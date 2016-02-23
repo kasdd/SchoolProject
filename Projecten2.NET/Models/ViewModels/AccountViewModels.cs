@@ -47,9 +47,8 @@ namespace Projecten2.NET.Models
     }
 
     public class LoginViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
+    { 
+        [Display(Name = "E-mailadres")]
         [EmailAddress]
         public string Email { get; set; }
 

@@ -12,9 +12,9 @@ namespace Projecten2.NET.Models.DAL.Mapper
         {
             ToTable("Reservatie");
 
-            HasKey(r => r.ReservatieId);
+            HasKey(r => new {r.ReservatieId});
 
-            HasRequired(r => r.Materialen).WithMany().Map(r => r.MapKey("ReservatieId"));
+            //HasRequired(r => r.Materialen).WithMany().Map(r => r.MapKey("MateriaalId"));
         }
     }
 }

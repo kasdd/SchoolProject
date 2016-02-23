@@ -8,10 +8,14 @@ namespace Projecten2.NET.Models.Domain
 {
     public interface IMateriaalRepository
     {
-        Materiaal findByArtikelNr(String nummer);
-        IQueryable<Materiaal> findAll();
+        Materiaal FindByArtikelNr(String nummer);
+        IQueryable<Materiaal> FindAll();
 
-        Materiaal findByName(String naam); 
+        Materiaal FindByName(String naam);
+
+        void Add(Materiaal materiaal);
+
+        void Delete(Materiaal materiaal);
         void SaveChanges();
     }
 }

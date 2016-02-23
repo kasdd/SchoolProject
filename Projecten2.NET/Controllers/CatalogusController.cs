@@ -10,17 +10,18 @@ namespace Projecten2.NET.Controllers
    // [Authorize]
     public class CatalogusController : Controller
     {
-        private IMateriaalRepository materiaalRepository;
+        private readonly IMateriaalRepository materiaalRepository;
 
         public CatalogusController(IMateriaalRepository materiaalRepository)
         {
             this.materiaalRepository = materiaalRepository;
         }
         // GET: Catalogus
-        public ActionResult Index()//Gebruiker gebruiker)
+        public ActionResult Index()
         {
-            IEnumerable<Materiaal> materialen= materiaalRepository.findAll();
+            IEnumerable<Materiaal> materialen= materiaalRepository.FindAll().OrderBy(m=>m.Artikelnaam).ToList();
             //IEnumerable<Materiaal> materialen = gebruiker.GeefCorrecteCatalogus(gebruiker);
+
             return View(materialen);
         }
 

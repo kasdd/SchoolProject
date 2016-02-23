@@ -23,8 +23,7 @@ namespace Projecten2.NET.Models.DAL
         public DbSet<Reservatie> Reservaties { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        { 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }
