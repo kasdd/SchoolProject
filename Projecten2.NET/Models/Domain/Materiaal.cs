@@ -12,8 +12,10 @@ namespace Projecten2.NET
         public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
 
+        [DisplayName("Artikel nummer")]
         public String ArtikelNummer { get; set; }
 
+        [DisplayName("Artikel")]
         public string Artikelnaam { get; set; }
 
         public string Omschrijving { get; set; }
@@ -28,9 +30,11 @@ namespace Projecten2.NET
 
         public string Foto { get; set; }
 
+        public String Plaats { get; set; }
+
         public Materiaal()
         {
-            Uitleenbaar = false;
+            Uitleenbaar = true;
         }
 
         public bool Equals(object obj)

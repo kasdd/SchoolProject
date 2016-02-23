@@ -15,64 +15,69 @@ namespace Projecten2.NET.Models.DAL
                 Materiaal dobbelstenen = new Materiaal()
                 {
                     ArtikelNummer = "DL0568D",
-                    Artikelnaam = "dobbelstenen",
+                    Artikelnaam = "Dobbelstenen",
                     Doelgroep = "Secundair onderwijs",
-                    Foto = "foto1",
+                    Foto = "dobbelstenen.jpg",
                     Omschrijving = "dobbelstenen gekocht in hema",
                     Leergebied = 2,
                     Prijs = 0.4,
+                    Plaats = "B1.032"
                     
                 };
                 Materiaal dobbelstenen2 = new Materiaal()
                 {
                     ArtikelNummer = "DL0568D",
-                    Artikelnaam = "dobbelstenen",
+                    Artikelnaam = "Dobbelstenen",
                     Doelgroep = "Secundair onderwijs",
-                    Foto = "foto1",
+                    Foto = "dobbelstenen.jpg",
                     Omschrijving = "dobbelstenen gekocht in hema",
                     Leergebied = 2,
                     Prijs = 0.4,
+                    Plaats = "B1.032"
                 };
                 Materiaal dobbelstenen3 = new Materiaal()
                 {
                     ArtikelNummer = "DL0568F",
-                    Artikelnaam = "dobbelstenen",
+                    Artikelnaam = "Dobbelstenen",
                     Doelgroep = "Lager onderwijs",
-                    Foto = "foto2",
+                    Foto = "dobbelstenen.jpg",
                     Omschrijving = "dobbelstenen gekocht in blokker",
                     Leergebied = 1,
                     Prijs = 0.8,
+                    Plaats = "B1.032"
                 };
                 Materiaal wereldbol = new Materiaal()
                 {
                     ArtikelNummer = "KL546ER",
                     Artikelnaam = "Wereldbol",
                     Doelgroep = "Secundair onderwijs",
-                    Foto = "foto1",
+                    Foto = "wereldbol.jpg",
                     Omschrijving = "Wereldbol gekocht in hema",
                     Leergebied = 2,
                     Prijs = 2.4,
+                    Plaats = "C1.032"
                 };
                 Materiaal wereldbol2 = new Materiaal()
                 {
                     ArtikelNummer = "KL546ER",
                     Artikelnaam = "Wereldbol",
                     Doelgroep = "Secundair onderwijs",
-                    Foto = "foto1",
+                    Foto = "wereldbol.jpg",
                     Omschrijving = "Wereldbol gekocht in hema",
                     Leergebied = 2,
                     Prijs = 2.4,
+                    Plaats = "C1.032"
                 };
                 Materiaal beemer = new Materiaal()
                 {
                     ArtikelNummer = "XR456PL",
-                    Artikelnaam = "Beemer",
+                    Artikelnaam = "Projector",
                     Doelgroep = "Secundair onderwijs",
-                    Foto = "foto3",
+                    Foto = "projector.jpg",
                     Omschrijving = "Beemer gekocht in hema",
                     Leergebied = 2,
                     Prijs = 80.99,
-                    Uitleenbaar = false
+                    Plaats = "B1.016"
                 };
 
                 var materialen = new List<Materiaal>()
