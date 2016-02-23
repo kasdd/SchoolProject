@@ -6,13 +6,27 @@
 
 <h2>Index</h2>
 
+<ul id="catalogus-list" class="list-unstyled">
+    @foreach (var item in Model)
+
+    {
+        <li class="col-lg-2 col-md-2 col-sm-2 col-xs-4 container">
+            <a asp-controller="Catalogus" asp-action="Details" asp-route-id="@item.ArtikelNummer">
+                @if (!string.IsNullOrEmpty(item.Foto))
+                {
+                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+                }
+                <h5 class="control-label">@item.Artikelnaam</h5>
+            </a>
+        </li>
+    }
+</ul>
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Uitleenbaar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArtikelNummer)
+            @Html.DisplayNameFor(model => model.Foto)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Artikelnaam)
@@ -21,27 +35,28 @@
             @Html.DisplayNameFor(model => model.Omschrijving)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Doelgroep)
+            @Html.DisplayNameFor(model => model.ArtikelNummer)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Prijs)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Leergebied)
+            @Html.DisplayNameFor(model => model.Uitleenbaar)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Foto)
+            @Html.DisplayName("Aantal")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plaats)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
+
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Uitleenbaar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtikelNummer)
+            <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Artikelnaam)
@@ -50,18 +65,21 @@
             @Html.DisplayFor(modelItem => item.Omschrijving)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Doelgroep)
+            @Html.DisplayFor(modelItem => item.ArtikelNummer)
+        </td>
+        <td class="text-right">
+            @($"{item.Prijs:00.0€}")
+        <td>
+            
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Prijs)
+            @Html.DisplayFor(modelItem => item.Uitleenbaar)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Leergebied)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Foto)
+            @Html.DisplayFor(modelItem => item.Plaats)
         </td>
     </tr>
 }
+    
 
 </table>

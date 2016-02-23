@@ -36,3 +36,31 @@ textarea {
  {
      background-color: #004d3e;
  }
+
+ 
+/* catalogus additions */
+
+ul#catalogus-list li {
+    height: 160px;
+}
+
+ul#catalogus-list li img:hover {
+    box-shadow: 1px 1px 7px #004d3e;
+}
+
+ul#catalogus-list li img {
+    box-shadow: 1px 1px 5px #00a183;
+    border: none;
+    padding: 0;
+}
+
+ul#catalogus-list li a, ul#catalogus-details li a {
+    text-decoration:none;
+}
+
+ul#catalogus-list li a:hover {
+    background: none;
+    -webkit-text-shadow: 1px 1px 2px #bbb;
+    text-shadow: 1px 1px 2px #bbb;
+    color: #363430;
+}
