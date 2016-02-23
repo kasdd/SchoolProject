@@ -280,8 +280,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalogus\Index.cshtml" />
-    <Content Include="Views\Lector\Index.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
