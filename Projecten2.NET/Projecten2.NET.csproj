@@ -224,6 +224,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ImagesMinified\dobbelstenen.jpg" />
+    <Content Include="Content\ImagesMinified\dobbelstenenMini.jpg" />
+    <Content Include="Content\ImagesMinified\logo.png" />
+    <Content Include="Content\ImagesMinified\logoMini.jpg" />
+    <Content Include="Content\ImagesMinified\projectorMini.jpg" />
+    <Content Include="Content\ImagesMinified\wereldbolMini.jpg" />
     <Content Include="Content\Images\dobbelstenen.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\projector.jpg" />
@@ -281,6 +287,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalogus\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Catalogus\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
