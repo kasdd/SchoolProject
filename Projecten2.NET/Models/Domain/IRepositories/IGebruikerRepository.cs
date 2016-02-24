@@ -9,7 +9,6 @@ namespace Projecten2.NET.Models.Domain
     public interface IGebruikerRepository
     {
         Gebruiker FindById(string id);
-        Gebruiker FindByName(string loginnaam);
         Gebruiker FindByEmail(string email);
         IQueryable<Gebruiker> FindAll();
         void SaveChanges();

@@ -28,11 +28,6 @@ namespace Projecten2.NET.Models.DAL
             return gebruikers.FirstOrDefault(g => g.Email == email);
         }
 
-        public Gebruiker FindByName(string loginnaam)
-        {
-            Gebruiker gebruiker = (from g in gebruikers where g.Loginnaam.Equals(loginnaam) select g).FirstOrDefault();
-            return gebruiker;
-        }
         public IQueryable<Gebruiker> FindAll()
         {
             return gebruikers;

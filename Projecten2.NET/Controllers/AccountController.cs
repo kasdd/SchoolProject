@@ -10,14 +10,18 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Projecten2.NET.Models;
 using Projecten2.NET.Models.Domain;
+using System.Net;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Projecten2.NET.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-       // private IGebruikerRepository repo;
 
+        private readonly IGebruikerRepository gebruikerRepository;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -76,39 +80,38 @@ namespace Projecten2.NET.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-           // Gebruiker gebruiker = repo.FindById(model.UserName);
             
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            Gebruiker gebruiker = gebruikerRepository.FindByEmail(model.Email);
+            if (gebruiker == null)
+            {
+                using (WebClient n = new WebClient())
+                {
+                    try
+                    {
+                        String hashPW = geefPaswoord(model.Password);
+                        var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
+                        gebruiker = JsonConvert.DeserializeObject<Gebruiker>(json);
+                    }
+                    catch (Exception)
+                    {
+                        throw new Exception("Ophalen van data mislukt");
+                    }
+                }
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    //if (gebruiker.GetType().Equals(typeof(Student)))
-                    //{
-                    //    roles = "Student";
-
-                    //}
-                    //else if (gebruiker.GetType().Equals(typeof(Lector)))
-                    //{
-                    //    roles = "Lector";
-
-                    //}
-
-                    
-                    //if (gebruiker.GetType().Equals(typeof(Student)))
-                    //    return RedirectToAction("Index", "Student");
-                    //if (gebruiker.GetType().Equals(typeof(Lector)))
-                    //    return RedirectToAction("Index", "Lector");
-                    //else
-                        //return RedirectToAction("Index");
-
-
+  
                 return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -119,6 +122,17 @@ namespace Projecten2.NET.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+        private string geefPaswoord(string password)
+        {
+            System.Security.Cryptography.SHA256Managed crypt = new System.Security.Cryptography.SHA256Managed();
+            System.Text.StringBuilder hash = new System.Text.StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(password), 0, Encoding.UTF8.GetByteCount(password));
+            foreach (byte theByte in crypto)
+            {
+                hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
         }
 
         //
@@ -163,11 +177,6 @@ namespace Projecten2.NET.Controllers
                     return View(model);
             }
         }
-
-
-                    
-
-
 
         //
         // GET: /Account/ConfirmEmail
