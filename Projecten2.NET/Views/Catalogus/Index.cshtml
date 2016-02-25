@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Catalogus</h2>
 
 <ul id="catalogus-list" class="list-unstyled">
     @foreach (var item in Model)
@@ -20,8 +20,21 @@
             </a>
         </li>
     }
+
+    <br />
 </ul>
 
+<p>
+    @using (Html.BeginForm())
+    {
+        <p>
+            Doelgroep: @Html.DropDownList("doelgroep", "All") <br />
+            Artikelnaam: @Html.TextBox("SearchString") <br />
+            <input type="submit" value="Filter"/>
+        </p>
+    }
+    
+</p>
 
 <table class="table">
     <tr>

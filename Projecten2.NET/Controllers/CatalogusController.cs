@@ -17,10 +17,29 @@ namespace Projecten2.NET.Controllers
             this.materiaalRepository = materiaalRepository;
         }
         // GET: Catalogus
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string doelgroep)
         {
-            IEnumerable<Materiaal> materialen= materiaalRepository.FindAll().OrderBy(m=>m.Artikelnaam).ToList();
+            var DoelgroepLst = new List<string>();
+
+            var DGQry = materiaalRepository.FindAll().Select(dg => dg.Doelgroep);
+
+            DoelgroepLst.AddRange(DGQry.Distinct());
+            ViewBag.doelgroep = new SelectList(DoelgroepLst);
+            
+
+            IEnumerable<Materiaal> materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
             //IEnumerable<Materiaal> materialen = gebruiker.GeefCorrecteCatalogus(gebruiker);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                materialen = materialen.Where(s => s.Artikelnaam.ToLower().Contains(searchString.ToLower()));
+                
+            }
+
+            if(!string.IsNullOrEmpty(doelgroep))
+            {
+                materialen = materialen.Where(dg => dg.Doelgroep == doelgroep);
+            }
 
             return View(materialen);
         }
