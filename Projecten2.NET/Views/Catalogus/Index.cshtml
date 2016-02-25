@@ -6,6 +6,18 @@
 
 <h2>Catalogus</h2>
 
+<p>
+    @using (Html.BeginForm())
+    {
+    <p>
+        Doelgroep: @Html.DropDownList("doelgroep", "All") 
+        Artikelnaam: @Html.TextBox("SearchString") 
+        <input type="submit" value="Filter" />
+    </p>
+    }
+
+    </p>
+
 <ul id="catalogus-list" class="list-unstyled">
     @foreach (var item in Model)
 
@@ -24,17 +36,7 @@
     <br />
 </ul>
 
-<p>
-    @using (Html.BeginForm())
-    {
-        <p>
-            Doelgroep: @Html.DropDownList("doelgroep", "All") <br />
-            Artikelnaam: @Html.TextBox("SearchString") <br />
-            <input type="submit" value="Filter"/>
-        </p>
-    }
-    
-</p>
+
 
 <table class="table">
     <tr>
