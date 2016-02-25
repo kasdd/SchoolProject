@@ -60,32 +60,13 @@ namespace Projecten2.NET.Models
             base.Seed(context);
         }
 
-        private void InitializeIdentity()
-        {
-            CreateUser("docent@hogent.be", "P@ssword1"); //Create user Docent
-            CreateUser("student@hogent.be", "P@ssword1");  //Create User Student
-        }
-
         private void InitializeIdentityAndRoles()
         {
-
             CreateUserAndRoles("personeel@hogent.be", "P@ssword1", "personeel");
             CreateUserAndRoles("student@hogent.be", "P@ssword1", "student");
         }
 
-        private void CreateUser(string name, string password)
-        {
-            ApplicationUser user = userManager.FindByName(name);
-            if (user == null)
-            {
-                user = new ApplicationUser { UserName = name, Email = name, LockoutEnabled = false };
-                IdentityResult result = userManager.Create(user, password);
-                if (!result.Succeeded)
-                    throw new ApplicationException(result.Errors.ToString());
-            }
-        }
-
-        private void CreateUserAndRoles(string name, string password, string roleName)
+       private void CreateUserAndRoles(string name, string password, string roleName)
         {
             //Create user
             ApplicationUser user = userManager.FindByName(name);

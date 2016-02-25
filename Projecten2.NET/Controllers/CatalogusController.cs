@@ -20,15 +20,12 @@ namespace Projecten2.NET.Controllers
         public ActionResult Index(string searchString, string doelgroep)
         {
             var DoelgroepLst = new List<string>();
-
             var DGQry = materiaalRepository.FindAll().Select(dg => dg.Doelgroep);
 
             DoelgroepLst.AddRange(DGQry.Distinct());
             ViewBag.doelgroep = new SelectList(DoelgroepLst);
             
-
             IEnumerable<Materiaal> materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
-            //IEnumerable<Materiaal> materialen = gebruiker.GeefCorrecteCatalogus(gebruiker);
 
             if (!String.IsNullOrEmpty(searchString))
             {
