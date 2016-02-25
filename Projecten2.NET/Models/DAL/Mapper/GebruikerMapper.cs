@@ -14,8 +14,6 @@ namespace Projecten2.NET.Models.DAL.Mapper
 
             HasKey(g => g.GebruikerID);
 
-            Property(g => g.Loginnaam).IsRequired();
-            Property(g => g.Wachtwoord).IsRequired();
             Property(g => g.Voornaam).IsRequired().HasMaxLength(100);
             Property(g => g.Naam).IsRequired().HasMaxLength(100);
             Property(g => g.Email).IsRequired().HasMaxLength(100);

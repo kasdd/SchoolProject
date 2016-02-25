@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +10,6 @@ using Projecten2.NET.Models;
 using Projecten2.NET.Models.Domain;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace Projecten2.NET.Controllers
@@ -20,8 +17,7 @@ namespace Projecten2.NET.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-
-        private readonly IGebruikerRepository gebruikerRepository;
+        private ApplicationDbInitializer initliazer;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -86,24 +82,6 @@ namespace Projecten2.NET.Controllers
                 return View(model);
             }
 
-            Gebruiker gebruiker = gebruikerRepository.FindByEmail(model.Email);
-            if (gebruiker == null)
-            {
-                using (WebClient n = new WebClient())
-                {
-                    try
-                    {
-                        String hashPW = geefPaswoord(model.Password);
-                        var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
-                        gebruiker = JsonConvert.DeserializeObject<Gebruiker>(json);
-                    }
-                    catch (Exception)
-                    {
-                        throw new Exception("Ophalen van data mislukt");
-                    }
-                }
-            }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -111,16 +89,36 @@ namespace Projecten2.NET.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-  
-                return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    using (WebClient n = new WebClient())
+                    {
+                        try
+                        {
+                            String hashPW = geefPaswoord(model.Password);
+                            var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
+                            Gebruiker gebruiker = JsonConvert.DeserializeObject<Gebruiker>(json);
+                            if(gebruiker == null)
+                            {
+                                ModelState.AddModelError("", "Gelieve een correct emailadres of wachtwoord in te geven.");
+                                return View(model);
+                            }
+                            else //Nieuwe user aanmaken ExternalLoginConfirmation? 
+                            {
+                                //ExternalLoginConfirmation(model , model.Email);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw new Exception("Ophalen van data mislukt");
+                        }
+                    }
+                    return RedirectToLocal(returnUrl);
             }
         }
         private string geefPaswoord(string password)
@@ -440,6 +438,7 @@ namespace Projecten2.NET.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
 
         private void AddErrors(IdentityResult result)
         {

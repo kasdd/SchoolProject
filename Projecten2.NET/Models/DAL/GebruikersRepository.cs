@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Models.DAL
@@ -36,6 +34,11 @@ namespace Projecten2.NET.Models.DAL
         public void SaveChanges()
         {
             context.SaveChanges();
+        }
+
+        public object FindByName(string name)
+        {
+            return gebruikers.Find(name);
         }
     }
 }
