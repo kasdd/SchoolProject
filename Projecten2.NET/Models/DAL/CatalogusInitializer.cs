@@ -68,26 +68,91 @@ namespace Projecten2.NET.Models.DAL
                     Prijs = 2.4,
                     Plaats = "C1.032"
                 };
-                Materiaal beemer = new Materiaal()
+                Materiaal beamer = new Materiaal()
                 {
                     ArtikelNummer = "XR456PL",
                     Artikelnaam = "Projector",
                     Doelgroep = "Secundair onderwijs",
                     Foto = "projectorMini.jpg",
-                    Omschrijving = "Beemer gekocht in hema",
+                    Omschrijving = "Beamer gekocht in hema",
                     Leergebied = 2,
                     Prijs = 80.99,
                     Plaats = "B1.016"
                 };
 
+                Materiaal gezondheidsspel = new Materiaal()
+                {
+                    ArtikelNummer = "XR444DD",
+                    Artikelnaam = "Snap je Hapje-bordspel",
+                    Doelgroep = "Secundair onderwijs",
+                    Foto = "snap-je-hapje.jpg",
+                    Omschrijving = "Koopspel -Informeren over voeding en een gezonde, evenwichtige eetstijl stimuleren.",
+                    Leergebied = 2,
+                    Prijs = 38.59,
+                    Plaats = "B1.017"
+                };
+
+                Materiaal reanimatiePop = new Materiaal()
+                {
+                    ArtikelNummer = "YZ554fa",
+                    Artikelnaam = "Little Anne reanimatie-oefenpop",
+                    Doelgroep = "Secundair onderwijs",
+                    Foto = "reanimatiePop.jpg",
+                    Omschrijving = "De Little Anne reanimatie-oefenpop is ontworpen om meer leerlingen te trainen in kwaliteitsvolle reanimatie en is realistisch, duurzaam, betaalbaar en handig. ",
+                    Leergebied = 2,
+                    Prijs = 200,
+                    Plaats = "B1.018"
+                };
+
+                Materiaal bovenkamer = new Materiaal()
+                {
+                    ArtikelNummer = "AA451PL",
+                    Artikelnaam = "De Bovenkamer-bordspel",
+                    Doelgroep = "Secundair onderwijs",
+                    Foto = "db_bordspel.jpg",
+                    Omschrijving = "Kan je met een persoon met dementie op reis? Bevordert sport de ontwikkeling van de hersenen? En komt dementie meer voor bij mannen dan bij vrouwen? Op deze en 157 andere vragen biedt De Bovenkamer antwoord. Kernwoorden: Dementie, geheugen",
+                    Leergebied = 3,
+                    Prijs = 46.55,
+                    Plaats = "B1.019"
+                };
+
+                Materiaal aidsbekerspel = new Materiaal()
+                {
+                    ArtikelNummer = "PO666IO",
+                    Artikelnaam = "Aidsbekerspel",
+                    Doelgroep = "Secundair onderwijs",
+                    Foto = "aidsbekerspel.jpg",
+                    Omschrijving = "Informeren over het HIV- virus, de gevolgen van onveilig vrijen aankaarten, seksualiteit en AIDS bespreekbaar maken.",
+                    Leergebied = 1,
+                    Prijs = 29.99,
+                    Plaats = "B1.020"
+                };
+
+                Materiaal quotationsGame = new Materiaal()
+                {
+                    ArtikelNummer = "RX111MM",
+                    Artikelnaam = "The Quotations Game - Engels",
+                    Doelgroep = "Secundair onderwijs",
+                    Foto = "quotation.jpg",
+                    Omschrijving = "Getting to know oneself and the others (better). Inspring one-liners and challenging questions about: leadership, communication, giving, meaning, change, personal development and relationships",
+                    Leergebied = 2,
+                    Prijs = 40.99,
+                    Plaats = "B1.045"
+                };
+                
                 var materialen = new List<Materiaal>()
                 {
+                    reanimatiePop,
+                    quotationsGame,
+                    aidsbekerspel,
+                    bovenkamer,
                     dobbelstenen,
                     dobbelstenen2,
                     dobbelstenen3,
                     wereldbol,
                     wereldbol2,
-                    beemer
+                    gezondheidsspel,
+                    beamer
                 };
 
                 materialen.ForEach(m => context.Materialen.Add(m));
