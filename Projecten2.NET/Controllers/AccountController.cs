@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,9 +8,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Projecten2.NET.Models;
-using Projecten2.NET.Models.Domain;
 using System.Net;
 using System.Text;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 
 namespace Projecten2.NET.Controllers
@@ -17,9 +18,9 @@ namespace Projecten2.NET.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationDbInitializer initliazer;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
@@ -102,15 +103,16 @@ namespace Projecten2.NET.Controllers
                         {
                             String hashPW = geefPaswoord(model.Password);
                             var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
-                            Gebruiker gebruiker = JsonConvert.DeserializeObject<Gebruiker>(json);
-                            if(gebruiker == null)
+                            Gebruiker g = JsonConvert.DeserializeObject<Gebruiker>(json);
+                            if(g == null)
                             {
                                 ModelState.AddModelError("", "Gelieve een correct emailadres of wachtwoord in te geven.");
                                 return View(model);
                             }
-                            else //Nieuwe user aanmaken ExternalLoginConfirmation? 
+                            else //Nieuwe user aanmaken
                             {
-                                //ExternalLoginConfirmation(model , model.Email);
+                                CreateUserAndRoles(g, model.Password);
+                                
                             }
                         }
                         catch (Exception)
@@ -131,6 +133,38 @@ namespace Projecten2.NET.Controllers
                 hash.Append(theByte.ToString("x2"));
             }
             return hash.ToString();
+        }
+
+        private void CreateUserAndRoles(Gebruiker gebruiker, string password)
+        {
+            //Create user
+            ApplicationUser user = _userManager.FindByName(gebruiker.Naam);
+            if (user == null)
+            {
+                user = new ApplicationUser { UserName = gebruiker.Naam, Email = gebruiker.Email, LockoutEnabled = false };
+                IdentityResult result = _userManager.Create(user, password);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+            }
+
+            //Create roles
+            IdentityRole role = _roleManager.FindByName(gebruiker.Type);
+            if (role == null)
+            {
+                role = new IdentityRole(gebruiker.Type);
+                IdentityResult result = _roleManager.Create(role);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+            }
+
+            //Associate user with role
+            IList<string> rolesForUser = _userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role.Name))
+            {
+                IdentityResult result = _userManager.AddToRole(user.Id, gebruiker.Type);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+            }
         }
 
         //

@@ -18,9 +18,7 @@ namespace Projecten2.NET
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             ModelBinders.Binders.Add(typeof(Gebruiker), new GebruikerModelBinder());
-
             CatalogusContext db = new CatalogusContext();
             db.Database.Initialize(true);
 
