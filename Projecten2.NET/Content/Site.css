@@ -23,6 +23,8 @@ textarea {
     max-width: 280px;
 }
 
+/* navbar */
+
 .navbar
  {
      background-color: #00a183;
@@ -34,6 +36,20 @@ textarea {
      
  ul.nav a:hover
  {
+     background-color: #004d3e;
+ }
+
+ /* buttons */
+
+ .btn-groen {
+  color: #ffffff;
+  background-color: #00a183;
+  border-color: #ffffff;
+}
+
+ .btn-groen:hover
+ {
+     color: #ffffff;
      background-color: #004d3e;
  }
 
