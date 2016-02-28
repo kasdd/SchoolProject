@@ -16,11 +16,6 @@ namespace Projecten2.NET.Models.DAL
             gebruikers = cxt.Gebruikers;
         }
 
-        public Gebruiker FindById(string id)
-        {
-            return gebruikers.Find(id);
-        }
-
         public Gebruiker FindByEmail(string email)
         {
             return gebruikers.FirstOrDefault(g => g.Email == email);
@@ -39,6 +34,11 @@ namespace Projecten2.NET.Models.DAL
         public object FindByName(string name)
         {
             return gebruikers.Find(name);
+        }
+
+        public void AddGebruiker(Gebruiker gebruiker)
+        {
+            gebruikers.Add(gebruiker);
         }
     }
 }

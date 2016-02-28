@@ -33,7 +33,7 @@ namespace Projecten2.NET.Models
         public static ApplicationDbContext Create()
         {
             return DependencyResolver.Current.GetService<ApplicationDbContext>();
-            //new ApplicationDbContext();
+
         }
 
         static ApplicationDbContext()
@@ -49,14 +49,12 @@ namespace Projecten2.NET.Models
 
         protected override void Seed(ApplicationDbContext context)
         {
-            userManager =
-                HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            //userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            roleManager =
-                HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+            //roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
 
            // InitializeIdentity();
-            InitializeIdentityAndRoles();
+            //InitializeIdentityAndRoles();
             base.Seed(context);
         }
 
@@ -68,6 +66,7 @@ namespace Projecten2.NET.Models
 
        private void CreateUserAndRoles(string name, string password, string roleName)
         {
+
             //Create user
             ApplicationUser user = userManager.FindByName(name);
             if (user == null)

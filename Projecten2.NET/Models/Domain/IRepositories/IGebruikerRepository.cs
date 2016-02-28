@@ -8,10 +8,11 @@ namespace Projecten2.NET.Models.Domain
 {
     public interface IGebruikerRepository
     {
-        Gebruiker FindById(string id);
         Gebruiker FindByEmail(string email);
         IQueryable<Gebruiker> FindAll();
         void SaveChanges();
         object FindByName(string name);
+        void AddGebruiker(Gebruiker gebruiker);
+
     }
 }
