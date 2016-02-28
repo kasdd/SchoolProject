@@ -11,33 +11,34 @@
 
 <hr />
 
-<div class="">
+<div class="searchbar">
     <p>
         @using (Html.BeginForm("Index", "Catalogus",
-            new { ReturnUrl = ViewBag.returnUrl },
-            FormMethod.Post, new { @class = "form-inline" }))
+                new { ReturnUrl = ViewBag.returnUrl },
+                FormMethod.Post, new { @class = "form-inline" }))
         {
-        <p>
-            <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
 
 
-                @*<label>Doelgroep: @Html.DropDownList("doelgroep", (IEnumerable<SelectListItem>)ViewBag.doelgroep, new { @class = "btn btn-groen" })  </label>*@
-                <label>Doelgroep: @Html.DropDownList("doelgroep", "All")  </label>
-                <label>ArtikelNaam: @Html.TextBox("SearchString")  </label>
-                <input type="submit" class="btn btn-groen" value="Filter" />
+                    <label>Doelgroep: @Html.DropDownList("doelgroep", (IEnumerable<SelectListItem>)ViewBag.doelgroep, "-- Alle doelgroepen --", new { @class = "form-control" })  </label>
+                    <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
+                    <input type="submit" class="btn btn-groen" value="Filter" />
+                    @*<input type="reset" class="btn btn-groen" value="Reset" />*@
 
+                </div>
             </div>
-        </p>
+        
         }
 
 
-    </div>
+</div>
 
     
             
-<hr />
+@*<hr />*@
 
-<ul id="catalogus-list" class="list-unstyled">
+@*<ul id="catalogus-list" class="list-unstyled">
     @foreach (var item in Model)
 
     {
@@ -53,7 +54,7 @@
     }
 
     <br />
-</ul>
+</ul>*@
 
 
 

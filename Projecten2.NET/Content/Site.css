@@ -80,3 +80,10 @@ ul#catalogus-list li a:hover {
     text-shadow: 1px 1px 2px #bbb;
     color: #363430;
 }
+
+/* Searchbar*/
+
+.searchbar 
+{
+    margin-bottom: 3em;
+}
