@@ -20,15 +20,15 @@ namespace Projecten2.NET.Controllers
         // GET: Catalogus
         public ActionResult Index(string searchString, string doelgroep)
         {
-            var DoelgroepLst = new List<string>();
+           /* var DoelgroepLst = new List<string>();
             var DGQry = materiaalRepository.FindAll().Select(dg => dg.Doelgroep);
 
             DoelgroepLst.AddRange(DGQry.Distinct());
-            ViewBag.doelgroep = new SelectList(DoelgroepLst);
+            ViewBag.doelgroep = new SelectList(DoelgroepLst);*/
             
             IEnumerable<Materiaal> materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
 
-            if (!String.IsNullOrEmpty(searchString))
+           /* if (!String.IsNullOrEmpty(searchString))
             {
                 materialen = materialen.Where(s => s.Artikelnaam.ToLower().Contains(searchString.ToLower()));
                 
@@ -37,7 +37,7 @@ namespace Projecten2.NET.Controllers
             if(!string.IsNullOrEmpty(doelgroep))
             {
                 materialen = materialen.Where(dg => dg.Doelgroep == doelgroep);
-            }
+            }*/
 
             return View(materialen);
         }

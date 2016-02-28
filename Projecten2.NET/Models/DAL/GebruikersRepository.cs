@@ -31,7 +31,7 @@ namespace Projecten2.NET.Models.DAL
             context.SaveChanges();
         }
 
-        public object FindByName(string name)
+        public Gebruiker FindByName(string name)
         {
             return gebruikers.Find(name);
         }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
 using System.ComponentModel;
 
 namespace Projecten2.NET
@@ -11,29 +8,24 @@ namespace Projecten2.NET
     {
         public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
-
         [DisplayName("Artikel nummer")]
         public String ArtikelNummer { get; set; }
-
         [DisplayName("Artikel")]
         public string Artikelnaam { get; set; }
-
         public string Omschrijving { get; set; }
-
-        public String Doelgroep { get; set; }
-
         public double Prijs { get; set; }
-
-        public int Leergebied { get; set; }
-
-        public ICollection<Reservatie> Reservaties { get; set; }
-
         public string Foto { get; set; }
-
         public String Plaats { get; set; }
+        public int Aantal { get; set; }
+        public virtual ICollection<ReservatieLijn> Reservatielijnen { get; set; }
+        public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
+        public virtual ICollection<Leergebied> Leergebieden { get; set; }
 
         public Materiaal()
         {
+            Reservatielijnen = new List<ReservatieLijn>();
+            Doelgroepen = new List<Doelgroep>();
+            Leergebieden = new List<Leergebied>();
             Uitleenbaar = true;
         }
 

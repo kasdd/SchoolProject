@@ -15,12 +15,12 @@ namespace Projecten2.NET.Models.DAL.Mapper
             HasKey(m => m.MateriaalId);
 
             Property(m => m.Artikelnaam).IsRequired().HasMaxLength(100);
-            Property(m => m.Doelgroep).HasMaxLength(100);
             Property(m => m.ArtikelNummer).IsRequired();
             Property(m => m.Prijs).IsRequired();
             Property(m => m.Uitleenbaar).IsRequired();
 
-            HasOptional(m => m.Reservaties).WithMany().Map(m => m.MapKey("ReservatieId"));
+            HasMany(m => m.Doelgroepen).WithMany().Map(m => m.MapLeftKey("DoelgroepId"));
+            HasMany(m => m.Leergebieden).WithMany().Map(m => m.MapLeftKey("LeergebiedId"));
         }
 
     }

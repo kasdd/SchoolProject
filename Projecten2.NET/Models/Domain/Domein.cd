@@ -1,27 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="Projecten2.NET.Gebruiker">
-    <Position X="1.25" Y="3" Width="4.5" />
-    <NestedTypes>
-      <Enum Name="Projecten2.NET.Gebruiker.Type" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Models\Domain\Gebruiker.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
+  <Class Name="Projecten2.NET.Reservatie">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <AssociationLine Name="Gebruiker" Type="Projecten2.NET.Gebruiker">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.369" Y="0.529" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAgACEAAAAAAAQAhAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>Models\Domain\Gebruiker.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAkAAAAAIAAAAAAIAAAAAgAAAAAAQ=</HashCode>
+      <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Gebruiker" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Reservaties" />
+      <Property Name="Materialen" />
+      <Property Name="ReservatieLijnen" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Projecten2.NET.Reservatie">
-    <Position X="6.75" Y="6.25" Width="1.5" />
+  <Class Name="Projecten2.NET.Materiaal">
+    <Position X="6.5" Y="6.25" Width="1.5" />
+    <AssociationLine Name="Leergebieden" Type="Projecten2.NET.Leergebied">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.727" Y="0.068" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAkAEAAAIAAAAAAIAAAAAgAAAAAAA=</HashCode>
-      <FileName>Models\Domain\Reservatie.cs</FileName>
+      <HashCode>AAAACAAQAAAgAAAAwAAAAAAAAACAIoAAAAAAaAAAARA=</HashCode>
+      <FileName>Models\Domain\Materiaal.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Doelgroepen" />
+      <Property Name="Leergebieden" />
+      <Property Name="Reservatielijnen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Projecten2.NET.Doelgroep">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACEAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Doelgroep.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Materialen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Projecten2.NET.Leergebied">
+    <Position X="11.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAEAAAA=</HashCode>
+      <FileName>Models\Domain\Leergebied.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Materialen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Projecten2.NET.Verlanglijst">
+    <Position X="7" Y="2.75" Width="1.5" />
+    <AssociationLine Name="Materialen" Type="Projecten2.NET.Materiaal">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.765" Y="0.518" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Verlanglijst.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Gebruiker" />
@@ -30,16 +74,37 @@
       <Property Name="Materialen" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Projecten2.NET.Materiaal">
-    <Position X="10.5" Y="4.75" Width="1.5" />
+  <Class Name="Projecten2.NET.Gebruiker">
+    <Position X="2.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAgAAAggAAAgAAAQACAIIAAAAAAYAAAARA=</HashCode>
-      <FileName>Models\Domain\Materiaal.cs</FileName>
+      <HashCode>AAAAAAAgACEAAAAAAAQAhAABAAAAAAAAAQAAQAAAAAA=</HashCode>
+      <FileName>Models\Domain\Gebruiker.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+      <Property Name="Verlanglijst" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reservaties" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Projecten2.NET.ReservatieLijn">
+    <Position X="2.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAIAAAEAAAIAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\Domain\ReservatieLijn.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;">
-    <Position X="13.25" Y="4.5" Width="2.75" />
+    <Position X="14.75" Y="4.5" Width="2.75" />
     <TypeIdentifier />
   </Interface>
+  <Enum Name="Projecten2.NET.Type">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Type.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

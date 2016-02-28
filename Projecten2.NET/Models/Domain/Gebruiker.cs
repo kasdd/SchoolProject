@@ -15,13 +15,13 @@ namespace Projecten2.NET
         public String Email { get; set; }
         public int GebruikerID { get; set; }
         public string Voornaam { get; set; }
-        public String Type { get; set; }
+        public Type Type { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
-
+        public virtual Verlanglijst Verlanglijst { get; set; }
         public Gebruiker()
         {
             Reservaties = new List<Reservatie>();
+            Verlanglijst = new Verlanglijst();
         }
-        
     }
 }

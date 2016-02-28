@@ -146,7 +146,6 @@ namespace Projecten2.NET.Controllers
                     throw new Exception("Ophalen van data mislukt");
                 }
             }
-            return null;
         }
         private string geefPaswoord(string password)
         {
@@ -175,7 +174,19 @@ namespace Projecten2.NET.Controllers
                     throw new ApplicationException(result.Errors.ToString());
 
             //Create roles
-                IdentityRole role = new IdentityRole(gebruiker.Type);
+            String enumValue;
+            if (gebruiker.Type == Type.STUDENT)
+                enumValue = "Student";
+            else
+                enumValue = "Personeel";
+            /*switch (gebruiker.Type)
+            {
+                case Type.STUDENT: enumValue = "Student";
+                case Type.PERSONEEL: enumValue = "Personeel";
+                default:
+                    throw Exception("Slecht type");
+            }*/
+                IdentityRole role = new IdentityRole(enumValue);
                 result = roleManager.Create(role);
                 if (!result.Succeeded)
                     throw new ApplicationException(result.Errors.ToString());
@@ -184,7 +195,7 @@ namespace Projecten2.NET.Controllers
             IList<string> rolesForUser = userManager.GetRoles(user.Id);
             if (!rolesForUser.Contains(role.Name))
             {
-                result = userManager.AddToRole(user.Id, gebruiker.Type);
+                result = userManager.AddToRole(user.Id, enumValue);
                 if (!result.Succeeded)
                     throw new ApplicationException(result.Errors.ToString());
             }

@@ -4,10 +4,7 @@
     ViewBag.Title = "Artikel - " + Model.Title;
 }
 <h2>Model.Title</h2>
-<p>
-    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => Model.Foto)" a>
 
-</p>
 <div id="catalogus-details">
     <table class="table">
         <tr>
@@ -30,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.Uitleenbaar)
             </th>
             <th>
-                @Html.DisplayName("Aantal")
+                @Html.DisplayNameFor(model => model.Aantal)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Plaats)
