@@ -12,6 +12,7 @@ using System.Net;
 using System.Text;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
+using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Controllers
 {
@@ -21,15 +22,19 @@ namespace Projecten2.NET.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private IGebruikerRepository _gebruikersRepository;
 
-        public AccountController()
+        public AccountController(IGebruikerRepository gebruikersRepository)
         {
+            this._gebruikersRepository = gebruikersRepository;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,ApplicationRoleManager roleManager, IGebruikerRepository gebruikersRepository)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
+            this._gebruikersRepository = gebruikersRepository;
         }
 
         public ApplicationSignInManager SignInManager
@@ -53,6 +58,18 @@ namespace Projecten2.NET.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
             }
         }
         //
@@ -83,45 +100,53 @@ namespace Projecten2.NET.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
-            switch (result)
+            using (WebClient n = new WebClient())
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    using (WebClient n = new WebClient())
+                try
+                {
+                    String hashPW = geefPaswoord(model.Password);
+                    var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
+                    if (json.Equals("\"[]\""))
                     {
-                        try
+                        ModelState.AddModelError("", "Gelieve een correct emailadres of wachtwoord in te geven.");
+                        return View(model);
+                    } 
+                    else
+                    {
+                        Gebruiker g = JsonConvert.DeserializeObject<Gebruiker>(json);
+                        if (_gebruikersRepository.FindByEmail(g.Email) == null)
                         {
-                            String hashPW = geefPaswoord(model.Password);
-                            var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
-                            Gebruiker g = JsonConvert.DeserializeObject<Gebruiker>(json);
-                            if(g == null)
-                            {
-                                ModelState.AddModelError("", "Gelieve een correct emailadres of wachtwoord in te geven.");
-                                return View(model);
-                            }
-                            else //Nieuwe user aanmaken
-                            {
-                                CreateUserAndRoles(g, model.Password);
-                                
-                            }
+                            await CreateUserAndRoles(g, model.Password);
                         }
-                        catch (Exception)
-                        {
-                            throw new Exception("Ophalen van data mislukt");
+                            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout:false);
+
+                            // This doesn't count login failures towards account lockout
+                            // To enable password failures to trigger account lockout, change to shouldLockout: true
+                            switch (result)
+                             {
+                                 case SignInStatus.Success:
+                                    _gebruikersRepository.AddGebruiker(g);
+                                    _gebruikersRepository.SaveChanges();
+                                    return RedirectToLocal(returnUrl);
+
+                                case SignInStatus.LockedOut:
+                                     return View("Lockout");
+                                 case SignInStatus.RequiresVerification:
+                                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                                 case SignInStatus.Failure:
+                                 default:
+                                     ModelState.AddModelError("", "Invalid login attempt.");
+                                     return View(model);
+                             }
                         }
                     }
-                    return RedirectToLocal(returnUrl);
+                
+                catch (Exception)
+                {
+                    throw new Exception("Ophalen van data mislukt");
+                }
             }
+            return null;
         }
         private string geefPaswoord(string password)
         {
@@ -135,36 +160,36 @@ namespace Projecten2.NET.Controllers
             return hash.ToString();
         }
 
-        private void CreateUserAndRoles(Gebruiker gebruiker, string password)
+        private async Task<IdentityResult> CreateUserAndRoles(Gebruiker gebruiker, string password)
         {
+
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
             //Create user
-            ApplicationUser user = _userManager.FindByName(gebruiker.Naam);
-            if (user == null)
-            {
-                user = new ApplicationUser { UserName = gebruiker.Naam, Email = gebruiker.Email, LockoutEnabled = false };
-                IdentityResult result = _userManager.Create(user, password);
-                if (!result.Succeeded)
+            ApplicationUser user = new ApplicationUser { UserName = gebruiker.Email, Email = gebruiker.Email, LockoutEnabled = false };
+                IdentityResult result =  userManager.Create(user, password);
+            if (!result.Succeeded)
                     throw new ApplicationException(result.Errors.ToString());
-            }
 
             //Create roles
-            IdentityRole role = _roleManager.FindByName(gebruiker.Type);
-            if (role == null)
+                IdentityRole role = new IdentityRole(gebruiker.Type);
+                result = roleManager.Create(role);
+                if (!result.Succeeded)
+                    throw new ApplicationException(result.Errors.ToString());
+
+            //Associate user with role
+            IList<string> rolesForUser = userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role.Name))
             {
-                role = new IdentityRole(gebruiker.Type);
-                IdentityResult result = _roleManager.Create(role);
+                result = userManager.AddToRole(user.Id, gebruiker.Type);
                 if (!result.Succeeded)
                     throw new ApplicationException(result.Errors.ToString());
             }
 
-            //Associate user with role
-            IList<string> rolesForUser = _userManager.GetRoles(user.Id);
-            if (!rolesForUser.Contains(role.Name))
-            {
-                IdentityResult result = _userManager.AddToRole(user.Id, gebruiker.Type);
-                if (!result.Succeeded)
-                    throw new ApplicationException(result.Errors.ToString());
-            }
+            return null;
         }
 
         //
