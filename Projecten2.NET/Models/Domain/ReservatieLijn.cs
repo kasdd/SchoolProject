@@ -10,7 +10,6 @@ namespace Projecten2.NET
     {
         public int MateriaalId { get; set; }
         public int ReservatieId { get; set; }
-        public virtual Materiaal Materiaal { get; set; }
         public DateTime BeginDat { get; private set; }
         public DateTime EindDat { get; private set; }
 

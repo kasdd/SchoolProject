@@ -15,7 +15,7 @@ namespace Projecten2.NET
 
         public Verlanglijst()
         {
-            Materialen = new List<Materiaal>();
+           Materialen = new List<Materiaal>();
         }
     }
 }

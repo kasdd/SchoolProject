@@ -8,12 +8,12 @@ namespace Projecten2.NET
         public int ReservatieId { get; private set; }
         public virtual Gebruiker Gebruiker { get; set; }
         public virtual ICollection<Materiaal> Materialen { get; set; }
-        //public virtual ICollection<ReservatieLijn> ReservatieLijnen { get; set; }
+        public virtual ICollection<ReservatieLijn> ReservatieLijnen { get; set; }
 
         public Reservatie()
         {
-            Materialen = new List<Materiaal>();
-           // ReservatieLijnen = new List<ReservatieLijn>();
+           Materialen = new List<Materiaal>();
+           ReservatieLijnen = new List<ReservatieLijn>();
         }
         public Reservatie(Gebruiker gebruiker, List<Materiaal> materialen, DateTime begin, DateTime eind)
         {
