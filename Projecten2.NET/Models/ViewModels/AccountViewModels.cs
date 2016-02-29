@@ -47,18 +47,21 @@ namespace Projecten2.NET.Models
     }
 
     public class LoginViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
+    { 
+        [Display(Name = "E-mailadres")]
         [EmailAddress]
         public string Email { get; set; }
 
+       // [Required(ErrorMessage = "*")]
+        [Display(Name = "Gebruikersnaam")]
+        public string UserName { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Gegevens opslaan?")]
         public bool RememberMe { get; set; }
     }
 

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Projecten2.NET.Materiaal>
+
+{
+    ViewBag.Title = "Artikel - " + Model.Title;
+}
+<h2>Model.Title</h2>
+
+<div id="catalogus-details">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artikelnaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Omschrijving)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtikelNummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prijs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uitleenbaar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aantal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plaats)
+            </th>
+            <th></th>
+        </tr>
+
+    </table>
+   
+</div>

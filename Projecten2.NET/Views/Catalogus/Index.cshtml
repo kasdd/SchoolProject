@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Projecten2.NET.Materiaal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+                       
+        
+
+<h2>Catalogus</h2>
+
+<hr />
+
+<div class="searchbar">
+    <p>
+        @using (Html.BeginForm("Index", "Catalogus",
+                new { ReturnUrl = ViewBag.returnUrl },
+                FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="form-inline">
+                <div class="form-group">
+
+
+                    <label>Doelgroep: @Html.DropDownList("doelgroep", (IEnumerable<SelectListItem>)ViewBag.doelgroep, "-- Alle doelgroepen --", new { @class = "form-control" })  </label>
+                    <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
+                    <input type="submit" class="btn btn-groen" value="Filter" />
+                    @*<input type="reset" class="btn btn-groen" value="Reset" />*@
+
+                </div>
+            </div>
+        
+        }
+
+
+</div>
+
+    
+            
+@*<hr />*@
+
+@*<ul id="catalogus-list" class="list-unstyled">
+    @foreach (var item in Model)
+
+    {
+        <li class="col-lg-2 col-md-2 col-sm-2 col-xs-4 container">
+            <a asp-controller="Catalogus" asp-action="Details" asp-route-id="@item.ArtikelNummer">
+                @if (!string.IsNullOrEmpty(item.Foto))
+                {
+                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+                }
+                <h5 class="control-label">@item.Artikelnaam</h5>
+            </a>
+        </li>
+    }
+
+    <br />
+</ul>*@
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artikelnaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtikelNummer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uitleenbaar)
+        </th>
+        <th>
+            @Html.DisplayName("Aantal")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plaats)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+
+    <tr>
+        <td>
+            <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Artikelnaam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Omschrijving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtikelNummer)
+        </td>
+        <td class="text-right">
+            @($"{item.Prijs:00.0€}")
+        <td>
+            @Html.DisplayFor(modelItem => item.Aantal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uitleenbaar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plaats)
+        </td>
+    </tr>
+}
+    
+
+</table>
