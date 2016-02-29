@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace Projecten2.NET.Models.DAL.Mapper
 {
@@ -10,7 +6,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
     {
         public MateriaalMapper()
         {
-            ToTable("Materiaal");
+           ToTable("Materiaal");
 
             HasKey(m => m.MateriaalId);
 
@@ -21,6 +17,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
 
             HasMany(m => m.Doelgroepen).WithMany().Map(m => m.MapLeftKey("DoelgroepId"));
             HasMany(m => m.Leergebieden).WithMany().Map(m => m.MapLeftKey("LeergebiedId"));
+
         }
 
     }

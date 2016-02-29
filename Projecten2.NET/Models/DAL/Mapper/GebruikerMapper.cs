@@ -19,8 +19,8 @@ namespace Projecten2.NET.Models.DAL.Mapper
             Property(g => g.Email).IsRequired().HasMaxLength(100);
             Property(g => g.Type).IsRequired().HasColumnName("Type");
 
-            HasRequired(g => g.Verlanglijst).WithRequiredDependent().Map(g => g.MapKey("VerlanglijstId"));
-            HasMany(r => r.Reservaties).WithRequired().Map(m => m.MapKey("ReservatieId"));
+            //HasRequired(g => g.Verlanglijst).WithRequiredPrincipal().Map(g => g.MapKey("VerlanglijstId"));
+            //HasMany(r => r.Reservaties).WithRequired().Map(m => m.MapKey("ReservatieId"));
         }
     }
 }

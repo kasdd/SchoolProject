@@ -17,13 +17,13 @@ namespace Projecten2.NET
         public string Foto { get; set; }
         public String Plaats { get; set; }
         public int Aantal { get; set; }
-        public virtual ICollection<ReservatieLijn> Reservatielijnen { get; set; }
+        //public virtual ICollection<ReservatieLijn> Reservatielijnen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
         public virtual ICollection<Leergebied> Leergebieden { get; set; }
 
         public Materiaal()
         {
-            Reservatielijnen = new List<ReservatieLijn>();
+           // Reservatielijnen = new List<ReservatieLijn>();
             Doelgroepen = new List<Doelgroep>();
             Leergebieden = new List<Leergebied>();
             Uitleenbaar = true;

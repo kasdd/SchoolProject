@@ -17,11 +17,11 @@ namespace Projecten2.NET
         public string Voornaam { get; set; }
         public Type Type { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
-        public virtual Verlanglijst Verlanglijst { get; set; }
+        //public virtual Verlanglijst Verlanglijst { get; set; }
         public Gebruiker()
         {
             Reservaties = new List<Reservatie>();
-            Verlanglijst = new Verlanglijst();
+           // Verlanglijst = new Verlanglijst();
         }
     }
 }

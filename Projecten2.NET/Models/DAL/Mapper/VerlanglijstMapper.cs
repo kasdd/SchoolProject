@@ -6,10 +6,10 @@ namespace Projecten2.NET.Models.DAL.Mapper
     {
         public VerlanglijstMapper()
         {
-            ToTable("VerlangLijst");
+           /* ToTable("VerlangLijst");
             HasKey(v => v.VerlanglijstId);
 
-            HasMany(l => l.Materialen).WithOptional().Map(l => l.MapKey("MateriaalId"));
+            HasMany(l => l.Materialen).WithOptional().Map(l => l.MapKey("MateriaalId"));*/
         }
     }
 }

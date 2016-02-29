@@ -10,10 +10,10 @@ namespace Projecten2.NET.Models.DAL.Mapper
     {
         public ReservatieMapper()
         {
-            ToTable("Reservatie");
+            /*ToTable("Reservatie");
             HasKey(r => r.ReservatieId);
 
-            HasMany(r => r.Materialen).WithOptional().Map(m => m.MapKey("MateriaalId"));
+            HasMany(r => r.Materialen).WithOptional().Map(m => m.MapKey("MateriaalId"));*/
         }
     }
 }
