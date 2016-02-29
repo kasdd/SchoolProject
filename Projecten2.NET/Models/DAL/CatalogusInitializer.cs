@@ -99,27 +99,33 @@ namespace Projecten2.NET.Models.DAL
 
                 Doelgroep doelgroep1 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Spelletjes"
+                    DoelgroepNaam = "Kleuter onderwijs"
                 };
 
                 Doelgroep doelgroep2 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Apparatuur"
+                    DoelgroepNaam = "Lager onderwijs"
                 };
 
                 Doelgroep doelgroep3 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Poppen"
+                    DoelgroepNaam = "Secundair onderwijs"
                 };
 
                 Leergebied leergebied1 = new Leergebied()
                 {
-                    LeergebiedNaam = "Kleuteronderwijs"
+                    LeergebiedNaam = "Spelletjes"
                 };
 
                 Leergebied leergebied2 = new Leergebied()
                 {
-                    LeergebiedNaam = "Secundair onderwijs"
+                    LeergebiedNaam = "Apparatuur"
+                };
+
+
+                Leergebied leergebied3 = new Leergebied()
+                {
+                    LeergebiedNaam = "Poppen"
                 };
 
                 var materialen = new List<Materiaal>()
@@ -142,7 +148,8 @@ namespace Projecten2.NET.Models.DAL
                 var leergebieden = new List<Leergebied>()
                 {
                     leergebied1,
-                    leergebied2
+                    leergebied2,
+                    leergebied3
                 };
 
                 materialen.ForEach(m => context.Materialen.Add(m));
