@@ -84,10 +84,10 @@
             @Html.DisplayFor(modelItem => item.Plaats)
         </td>
         <td>
-            @using (Html.BeginForm())
-            {
-                <button type="submit" formaction="Verlanglijst/AddToVerlanglijst/@item.Artikelnaam" class="btn  btn-xs"><span class="glyphicon-plus glyphicon"></span></button>
-            }
+                @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
+                {
+                    <button type="submit" class="btn btn-default"><span class="glyphicon-plus glyphicon"></span></button>
+                }
         </td>
     </tr>
 }
