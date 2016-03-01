@@ -23,8 +23,6 @@ namespace Projecten2.NET.Models.DAL
         public DbSet<Gebruiker> Gebruikers { get; set; }
         public DbSet<Materiaal> Materialen { get; set; }
         public DbSet<Reservatie> Reservaties { get; set; } 
-        public DbSet<Lijst> Lijst { get; set; }
-
             
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 

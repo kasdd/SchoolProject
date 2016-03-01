@@ -10,9 +10,7 @@ namespace Projecten2.NET
     public class Verlanglijst
     { 
         public int VerlanglijstId { get; set; }
-        public virtual Gebruiker Gebruiker { get; set; }
         public virtual ICollection<Materiaal> Materialen { get; set; }
-
         public Verlanglijst()
         {
            Materialen = new List<Materiaal>();

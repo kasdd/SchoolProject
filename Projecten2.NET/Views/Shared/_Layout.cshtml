@@ -17,12 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Didactische leermiddelen", "Index", "Catalogus", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Didactische leermiddelen", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Catalogus", "Index", "Catalogus")</li>
-                    <li>@{Html.RenderAction("Overzicht", "Verlanglijstje");}  </li>
+                    <li>@{Html.ActionLink("Uw verlanglijst", "Index", "Verlanglijst");} </li>
+
                     
                 </ul>
                 @Html.Partial("_LoginPartial")

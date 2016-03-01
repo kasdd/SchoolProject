@@ -2,14 +2,9 @@
 
 @{
     ViewBag.Title = "Index";
-}
-
-                       
-        
+}   
 
 <h2>Catalogus</h2>
-
-<hr />
 
 <div class="searchbar">
     <p>
@@ -24,7 +19,6 @@
                     <label>Doelgroep: @Html.DropDownList("doelgroep", (IEnumerable<SelectListItem>)ViewBag.doelgroep, "-- Alle doelgroepen --", new { @class = "form-control" })  </label>
                     <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
                     <input type="submit" class="btn btn-groen" value="Filter" />
-                    @*<input type="reset" class="btn btn-groen" value="Reset" />*@
 
                 </div>
             </div>
@@ -33,30 +27,6 @@
 
 
 </div>
-
-    
-            
-@*<hr />*@
-
-@*<ul id="catalogus-list" class="list-unstyled">
-    @foreach (var item in Model)
-
-    {
-        <li class="col-lg-2 col-md-2 col-sm-2 col-xs-4 container">
-            <a asp-controller="Catalogus" asp-action="Details" asp-route-id="@item.ArtikelNummer">
-                @if (!string.IsNullOrEmpty(item.Foto))
-                {
-                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
-                }
-                <h5 class="control-label">@item.Artikelnaam</h5>
-            </a>
-        </li>
-    }
-
-    <br />
-</ul>*@
-
-
 
 <table class="table">
     <tr>
@@ -112,11 +82,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Plaats)
-            <p class="button">
-                @Html.ActionLink("Voeg toe aan verlanglijstje", "AddToVerlanglijstje",
-        "Verlanglijstje", new { id = item.MateriaalId}, "")
-            </p>
-
+        </td>
+        <td>
+            @using (Html.BeginForm())
+            {
+                <button type="submit" formaction="Verlanglijst/AddToVerlanglijst/@item.Artikelnaam" class="btn  btn-xs"><span class="glyphicon-plus glyphicon"></span></button>
+            }
         </td>
     </tr>
 }

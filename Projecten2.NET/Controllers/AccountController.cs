@@ -127,7 +127,6 @@ namespace Projecten2.NET.Controllers
                                  case SignInStatus.Success:
                                     _gebruikersRepository.AddGebruiker(g);
                                     _gebruikersRepository.SaveChanges();
-                                    CombineerVerlanglijstjeUser(g.Email);
                                 return RedirectToLocal(returnUrl);
 
                                 case SignInStatus.LockedOut:
@@ -398,14 +397,6 @@ namespace Projecten2.NET.Controllers
             }
 
             base.Dispose(disposing);
-        }
-
-        private void CombineerVerlanglijstjeUser(string email)
-        {
-            // Associate shopping cart items with logged-in user
-            var lijst = Verlanglijstje.GetVerlanglijstje(this.HttpContext);
-
-            lijst.CombineerLijstUser(email);
         }
 
         #region Helpers
