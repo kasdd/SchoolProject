@@ -1,26 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Projecten2.NET.Models.Domain;
 using IModelBinder = System.Web.Mvc.IModelBinder;
 
-namespace Projecten2.NET.Models.DAL.Infrastructuur
+namespace Projecten2.NET.Infrastructuur
 {
     public class GebruikerModelBinder : IModelBinder
     {
-        public object BindModel(ControllerContext controllerContext, System.Web.Mvc.ModelBindingContext bindingContext)
+        private const string gebruikerSessionKey = "gebruiker";
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            if (controllerContext.HttpContext.User.Identity.IsAuthenticated)
+            /*Gebruiker gebruiker = controllerContext.HttpContext.Session[gebruikerSessionKey] as Gebruiker;
+
+            if (gebruiker == null)
             {
-                IGebruikerRepository repo =
-                    (IGebruikerRepository) DependencyResolver.Current.GetService(typeof (IGebruikerRepository));
-                return repo.FindByEmail(controllerContext.HttpContext.User.Identity.Name);
+                gebruiker = new Gebruiker();
+                controllerContext.HttpContext.Session[gebruikerSessionKey] = gebruiker;
             }
+
+            return gebruiker;*/
+
+             if (controllerContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                Gebruiker gebruiker = controllerContext.HttpContext.Session[gebruikerSessionKey] as Gebruiker;
+                if (gebruiker == null)
+                {
+                    IGebruikerRepository repo =
+                    (IGebruikerRepository)DependencyResolver.Current.GetService(typeof(IGebruikerRepository));
+                    gebruiker = repo.FindByEmail(controllerContext.HttpContext.User.Identity.Name);
+                    controllerContext.HttpContext.Session[gebruikerSessionKey] = gebruiker;
+                }
+                return gebruiker;
+            }
+
             return null;
+
         }
+
     }
 
 }
