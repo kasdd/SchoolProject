@@ -9,12 +9,12 @@ namespace Projecten2.NET.Controllers
     public class VerlanglijstController : Controller
     {
         private IMateriaalRepository materiaalRepository;
-        private IGebruikerRepository gebruikerRepository;
+        private IGebruikerRepository gebruikersRepository;
 
         public VerlanglijstController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
             this.materiaalRepository = materiaalRepository;
-            this.gebruikerRepository = gebruikerRepository;
+            this.gebruikersRepository = gebruikerRepository;
         }
 
         public ActionResult Index(Gebruiker gebruiker)
@@ -38,7 +38,6 @@ namespace Projecten2.NET.Controllers
                 else
                 {
                     gebruiker.Verlanglijst.Materialen.Add(m);
-                    //gebruikerRepository.SaveChanges();
                     if (gebruiker.Verlanglijst.Materialen.Contains(m))
                         TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
                 }
@@ -52,7 +51,6 @@ namespace Projecten2.NET.Controllers
             gebruiker.Verlanglijst.Materialen.Remove(m);
             if (!gebruiker.Verlanglijst.Materialen.Contains(m))
                 TempData["Info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-            //gebruikerRepository.SaveChanges();
             return RedirectToAction("Index", "Verlanglijst");
 
         }
