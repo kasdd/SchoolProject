@@ -112,6 +112,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Plaats)
+            <p class="button">
+                @Html.ActionLink("Voeg toe aan verlanglijstje", "AddToVerlanglijstje",
+        "Verlanglijstje", new { id = item.MateriaalId}, "")
+            </p>
+
         </td>
     </tr>
 }

@@ -13,15 +13,17 @@ namespace Projecten2.NET.Models.DAL
     public class CatalogusContext : DbContext
     {
 
-        public CatalogusContext() : base("Catalogus")
-        {
+        //public CatalogusContext() : base("Catalogus")
+        //{
             
-        }
+        //}
 
         public DbSet<Gebruiker> Gebruikers { get; set; }
         public DbSet<Materiaal> Materialen { get; set; }
         public DbSet<Reservatie> Reservaties { get; set; } 
+        public DbSet<Lijst> Lijst { get; set; }
 
+            
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

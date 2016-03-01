@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Catalogus", "Index", "Catalogus")</li>
-                    
+                    <li>@{Html.RenderAction("Overzicht", "Verlanglijstje");}  </li>
                     
                 </ul>
                 @Html.Partial("_LoginPartial")
