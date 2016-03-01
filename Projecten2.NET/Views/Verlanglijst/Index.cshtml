@@ -24,10 +24,10 @@
             @Html.DisplayNameFor(model => model.Prijs)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Uitleenbaar)
+            @Html.DisplayNameFor(model => model.Aantal)
         </th>
         <th>
-            @Html.DisplayName("Aantal")
+            @Html.DisplayNameFor(model => model.Uitleenbaar)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Plaats)
@@ -60,7 +60,7 @@
                 @Html.DisplayFor(modelItem => item.Uitleenbaar)
             </td>
             <td>
-                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam  }))
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer  }))
                 {
                     <button type="submit" class="btn btn-default"><span class="glyphicon-plus glyphicon"></span></button>
                 }

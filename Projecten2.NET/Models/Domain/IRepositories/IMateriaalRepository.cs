@@ -10,7 +10,6 @@ namespace Projecten2.NET.Models.Domain
     {
         Materiaal FindByArtikelNr(String nummer);
         IQueryable<Materiaal> FindAll();
-        Materiaal FindByName(String naam);
         void SaveChanges();
     }
 }
