@@ -17,7 +17,7 @@ namespace Projecten2.NET.Models.DAL.Infrastructuur
             {
                 IGebruikerRepository repo =
                     (IGebruikerRepository) DependencyResolver.Current.GetService(typeof (IGebruikerRepository));
-                return repo.FindByName(controllerContext.HttpContext.User.Identity.Name);
+                return repo.FindByEmail(controllerContext.HttpContext.User.Identity.Name);
             }
             return null;
         }

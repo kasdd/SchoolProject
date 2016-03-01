@@ -17,33 +17,14 @@ namespace Projecten2.NET.Models.DAL
             this.context = context;
             materialen = context.Materialen;
         }
-
         public Materiaal FindByArtikelNr(String nummer)
         {
-            return materialen.Find(nummer);
+            return materialen.FirstOrDefault(m => m.ArtikelNummer == nummer);
         }
-
         public IQueryable<Materiaal> FindAll()
         {
            return materialen;
         }
-
-        public Materiaal FindByName(string naam)
-        {
-            return materialen.Find(naam);
-        }
-
-        public void Add(Materiaal materiaal)
-        {
-            materialen.Add(materiaal);
-        }
-
-        public void Delete(Materiaal materiaal)
-        {
-            materialen.Remove(materiaal);
-        }
-
-
         public void SaveChanges()
         {
             context.SaveChanges();

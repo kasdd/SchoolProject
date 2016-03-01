@@ -13,10 +13,9 @@ namespace Projecten2.NET.Models.DAL
     public class CatalogusContext : DbContext
     {
 
-        //public CatalogusContext() : base("Catalogus")
-        //{
-            
-        //}
+        public CatalogusContext() : base("Catalogus")
+        {
+        }
 
         public DbSet<Doelgroep> Doelgroepen { get; set; }
         public DbSet<Leergebied> Leergebieden { get; set; }
