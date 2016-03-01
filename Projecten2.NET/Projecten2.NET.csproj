@@ -190,13 +190,20 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
     <Compile Include="Controllers\VerlanglijstjeController.cs" />
+    <Compile Include="Models\DAL\DoelgroepRepository.cs" />
+    <Compile Include="Models\DAL\LeergebiedRepository.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservatieLijnMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\VerlanglijstMapper.cs" />
+    <Compile Include="Models\Domain\Doelgroep.cs" />
+    <Compile Include="Models\Domain\IRepositories\IDoelgroepRepository.cs" />
+    <Compile Include="Models\Domain\IRepositories\ILeergebiedRepository.cs" />
+    <Compile Include="Models\Domain\Leergebied.cs" />
     <Compile Include="Models\DAL\CatalogusContext.cs" />
     <Compile Include="Models\DAL\CatalogusInitializer.cs" />
     <Compile Include="Models\DAL\GebruikersRepository.cs" />
     <Compile Include="Infrastructuur\GebruikerBinder.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MateriaalMapper.cs" />
-    <Compile Include="Models\DAL\Mapper\ReservatieMapper.cs" />
     <Compile Include="Models\DAL\MateriaalRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -211,6 +218,8 @@
     <Compile Include="Models\Domain\Reservatie.cs" />
     <Compile Include="Models\Domain\Lijst.cs" />
     <Compile Include="Models\Domain\Verlanglijstje.cs" />
+    <Compile Include="Models\Domain\ReservatieLijn.cs" />
+    <Compile Include="Models\Domain\Verlanglijst.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DAL\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\VerlanglijstjeRemoveViewModel.cs" />
@@ -218,6 +227,7 @@
     <Compile Include="Models\ViewModels\VerlanglijstjeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Models\Domain\Type.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -266,7 +276,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -278,12 +287,8 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalogus\Index.cshtml" />
@@ -294,6 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

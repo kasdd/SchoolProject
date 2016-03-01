@@ -18,6 +18,8 @@ namespace Projecten2.NET.Models.DAL
             
         //}
 
+        public DbSet<Doelgroep> Doelgroepen { get; set; }
+        public DbSet<Leergebied> Leergebieden { get; set; }
         public DbSet<Gebruiker> Gebruikers { get; set; }
         public DbSet<Materiaal> Materialen { get; set; }
         public DbSet<Reservatie> Reservaties { get; set; } 

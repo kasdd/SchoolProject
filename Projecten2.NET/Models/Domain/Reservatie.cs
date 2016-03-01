@@ -6,14 +6,14 @@ namespace Projecten2.NET
     public class Reservatie
     {
         public int ReservatieId { get; private set; }
-        public DateTime BeginDat { get; private set; }
-        public DateTime EindDat { get; private set; }
-        public Gebruiker Gebruiker { get; set; }
-        public ICollection<Materiaal> Materialen { get; set; }
+        public virtual Gebruiker Gebruiker { get; set; }
+        public virtual ICollection<Materiaal> Materialen { get; set; }
+        public virtual ICollection<ReservatieLijn> ReservatieLijnen { get; set; }
 
         public Reservatie()
         {
-            Materialen = new List<Materiaal>();
+           Materialen = new List<Materiaal>();
+           ReservatieLijnen = new List<ReservatieLijn>();
         }
         public Reservatie(Gebruiker gebruiker, List<Materiaal> materialen, DateTime begin, DateTime eind)
         {

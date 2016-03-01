@@ -6,15 +6,14 @@ using System.Web;
 
 namespace Projecten2.NET.Models.DAL.Mapper
 {
-    public class ReservatieMapper: EntityTypeConfiguration<Reservatie>
+    public class ReservatieMapper : EntityTypeConfiguration<Reservatie>
     {
         public ReservatieMapper()
         {
-            ToTable("Reservatie");
+            /*ToTable("Reservatie");
+            HasKey(r => r.ReservatieId);
 
-            HasKey(r => new {r.ReservatieId});
-
-            //HasRequired(r => r.Materialen).WithMany().Map(r => r.MapKey("MateriaalId"));
+            HasMany(r => r.Materialen).WithOptional().Map(m => m.MapKey("MateriaalId"));*/
         }
     }
 }
