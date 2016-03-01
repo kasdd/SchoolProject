@@ -16,6 +16,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
             Property(g => g.Type).IsRequired().HasColumnName("Type");
 
             HasRequired(g => g.Verlanglijst).WithRequiredPrincipal();
+            HasRequired(g => g.Reservaties).WithRequiredPrincipal();
             //Geeft ModelValidationException! --> EF mapt ReservatieId vanzelf? 
             //HasMany(r => r.Reservaties).WithRequired().Map(m => m.MapKey("ReservatieId"));
         }
