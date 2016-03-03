@@ -28,7 +28,7 @@
 
 </div>
 
-<table class="table">
+<table class="table table-hover table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Foto)
@@ -56,41 +56,42 @@
         </th>
         <th></th>
     </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
 
-@foreach (var item in Model) {
-
-    <tr>
-        <td>
-            <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Artikelnaam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Omschrijving)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtikelNummer)
-        </td>
-        <td class="text-right">
-            @($"{item.Prijs:00.0€}")
-        <td>
-            @Html.DisplayFor(modelItem => item.Aantal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Uitleenbaar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Plaats)
-        </td>
-        <td>
-                @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
+            <tr>
+                <td>
+                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artikelnaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Omschrijving)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtikelNummer)
+                </td>
+                <td class="text-right">
+                    @($"{item.Prijs:00.00€}")
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aantal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uitleenbaar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plaats)
+                </td>
+                <td>
+                    @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
                 {
-                    <button type="submit" class="btn btn-default"><span class="glyphicon-plus glyphicon"></span></button>
-                }
-        </td>
-    </tr>
-}
-    
+                        <button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>    
 
 </table>

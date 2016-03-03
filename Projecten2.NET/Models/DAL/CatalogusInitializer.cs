@@ -94,8 +94,22 @@ namespace Projecten2.NET.Models.DAL
                     Omschrijving = "Getting to know oneself and the others (better). Inspring one-liners and challenging questions about: leadership, communication, giving, meaning, change, personal development and relationships",
                     Prijs = 40.99,
                     Plaats = "B1.045",
-                    Aantal = 2,
+                    Aantal = 2
                 };
+
+                Materiaal puzzelkoffer = new Materiaal()
+                {
+                    ArtikelNummer = "RX111MN",
+                    Artikelnaam = "Janod Puzzelkoffer Onderwaterwereld",
+                    Foto = "puzzelkoffer.jpg",
+                    Omschrijving = "Een mooie ronde puzzelkoffer (met stoffen handvat). De puzzel heeft 100 stukjes en de afmeting is 40x50 cm. ",
+                    Prijs = 19.50,
+                    Plaats = "B1.045",
+                    Aantal = 4
+                    
+
+                };
+
 
                 Doelgroep doelgroep1 = new Doelgroep()
                 {
@@ -137,7 +151,8 @@ namespace Projecten2.NET.Models.DAL
                     dobbelstenen,
                     wereldbol,
                     gezondheidsspel,
-                    projector
+                    projector,
+                    puzzelkoffer
                 };
                 var doelgroepen = new List<Doelgroep>()
                 {
@@ -155,6 +170,13 @@ namespace Projecten2.NET.Models.DAL
                 materialen.ForEach(m => context.Materialen.Add(m));
                 doelgroepen.ForEach(d => context.Doelgroepen.Add(d));
                 leergebieden.ForEach(l => context.Leergebieden.Add(l));
+
+                //puzzelkoffer.addDoelgroep(doelgroep1);
+
+
+              
+                
+                
                 context.SaveChanges();  
 
             }
