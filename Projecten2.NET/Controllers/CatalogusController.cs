@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.Domain.IRepositories;
@@ -21,32 +20,41 @@ namespace Projecten2.NET.Controllers
             this.doelgroepRepository = doelgroepRepository;
         }
         // GET: Catalogus
-        public ActionResult Index(string searchString, string doelgroep)
+        public ActionResult Index(string searchString, int doelgroepId=0)
         {
-            var DoelgroepLst = new List<String>();
-            var DGQry = doelgroepRepository.FindAll().Select(n => n.DoelgroepNaam);
+            IEnumerable<Materiaal> materialen;
+            Doelgroep doelgroep;
 
-            
-            DoelgroepLst.AddRange(DGQry);
-            ViewBag.doelgroep = new SelectList(DoelgroepLst);
-            
-            IEnumerable<Materiaal> materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (doelgroepId == 0)
+                materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
+            else
             {
-                materialen = materialen.Where(s => s.Artikelnaam.ToLower().Contains(searchString.ToLower()) || s.Omschrijving.ToLower().Contains(searchString.ToLower()));
-                
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    materialen =
+                        materiaalRepository.FindAll()
+                            .Where(
+                                s =>
+                                    s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||
+                                    s.Omschrijving.ToLower().Contains(searchString.ToLower()));
+                }
+                else
+                {
+                    doelgroep = doelgroepRepository.FindById(doelgroepId);
+                    materialen = doelgroep.Materialen.OrderBy(m => m.Artikelnaam);
+                }
             }
-
-            if(!string.IsNullOrEmpty(doelgroep))
-            {
-                materialen = materialen.Where(dg => dg.Doelgroepen.Equals(doelgroep));
-
-                //materialen = materialen.Where(dg => dg.Doelgroep == doelgroep);
-            }
+            
+            ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
+            ViewBag.DoelgroepId = doelgroepId;
 
             return View(materialen);
         }
 
+        private SelectList getDoelgroepSelectList(int selectedValue = 0)
+        {
+            return new SelectList(doelgroepRepository.FindAll().OrderBy(d=>d.DoelgroepNaam), "DoelgroepId", "DoelgroepNaam", selectedValue);
+
+        }
     }
 }

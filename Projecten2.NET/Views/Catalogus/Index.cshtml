@@ -15,17 +15,13 @@
             <div class="form-inline">
                 <div class="form-group">
 
-
-                    <label>Doelgroep: @Html.DropDownList("doelgroep", (IEnumerable<SelectListItem>)ViewBag.doelgroep, "-- Alle doelgroepen --", new { @class = "form-control" })  </label>
+                    <label>Doelgroep: @Html.DropDownList("DoelgroepId", ViewBag.doelgroep as SelectList, "-- Alle doelgroepen --", new { @class = "form-control" })  </label>
                     <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
                     <input type="submit" class="btn btn-groen" value="Filter" />
 
                 </div>
-            </div>
-        
+            </div>     
         }
-
-
 </div>
 
 <table class="table">

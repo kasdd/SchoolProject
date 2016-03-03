@@ -99,34 +99,39 @@ namespace Projecten2.NET.Models.DAL
 
                 Doelgroep doelgroep1 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Kleuter onderwijs"
+                    DoelgroepNaam = "EHBO"
                 };
 
                 Doelgroep doelgroep2 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Lager onderwijs"
+                    DoelgroepNaam = "Apparatuur"
                 };
 
                 Doelgroep doelgroep3 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Secundair onderwijs"
+                    DoelgroepNaam = "Bordspel"
                 };
 
                 Leergebied leergebied1 = new Leergebied()
                 {
-                    LeergebiedNaam = "Spelletjes"
+                    LeergebiedNaam = "Kleuter onderwijs"
                 };
 
                 Leergebied leergebied2 = new Leergebied()
                 {
-                    LeergebiedNaam = "Apparatuur"
+                    LeergebiedNaam = "Lager onderwijs"
                 };
-
-
+                
                 Leergebied leergebied3 = new Leergebied()
                 {
-                    LeergebiedNaam = "Poppen"
+                    LeergebiedNaam = "Secundair onderwijs"
                 };
+
+                doelgroep1.addMateriaal(reanimatiePop);
+                doelgroep1.addMateriaal(aidsbekerspel);
+                doelgroep2.addMateriaal(reanimatiePop);
+                doelgroep2.addMateriaal(projector);
+                doelgroep3.addMateriaal(aidsbekerspel);
 
                 var materialen = new List<Materiaal>()
                 {
