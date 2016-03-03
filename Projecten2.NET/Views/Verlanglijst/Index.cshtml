@@ -65,13 +65,25 @@
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>
             <td>
-                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer  }))
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new {nummer = item.ArtikelNummer}))
                 {
                     <button type="submit" class="btn btn-default"><span class="glyphicon-minus glyphicon"></span></button>
-                    <input id="aantal" name="aantal" type="Text" />
-                    <button type="submit" id="reservatieButton"class="btn btn-default"><span class="glyphicon-minus glyphicon"></span></button>
+                    <input id="aantal" name="aantal" type="Text"/>
+                    <button type="submit" id="reservatieButton"class="btn btn-default"><span class="glyphicon-plus-sign glyphicon"></span></button>
                 }
             </td>
+
+            <td>
+                @using (Html.BeginForm())
+            {
+                <button type="submit" formaction="" class="btn  btn-xs"><span class="glyphicon-plus glyphicon"></span></button>
+                <button type="submit" formaction="" class="btn  btn-xs"><span class="glyphicon-minus glyphicon"></span></button>
+                <button type="submit" formaction="Verlanglijst/RemoveFromVerlanglijst/@item.ArtikelNummer" class="btn  btn-xs"><span class="glyphicon-remove glyphicon"></span></button>
+                <button type="submit" formaction="Resvatie/AddToReservaties/@item.ArtikelNummer" class="btn btn-xs"><span class="glyphicon glyphicon-ok"></span></button>
+
+                }
+        </td>
+
         </tr>
     }
 
