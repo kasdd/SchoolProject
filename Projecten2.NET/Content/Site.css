@@ -39,6 +39,11 @@ textarea {
      background-color: #004d3e;
  }
 
+ .icon-bar
+ {
+       background-color:#FFFFFF;
+ }
+
  /* buttons */
 
  .btn-groen {

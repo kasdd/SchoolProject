@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Projecten2.NET.Models.DAL;
 using Projecten2.NET.Models.Domain;
-
+using System;
 
 namespace Projecten2.NET.Controllers
 {
@@ -19,10 +19,33 @@ namespace Projecten2.NET.Controllers
 
         public ActionResult Index(Gebruiker gebruiker)
         {
+
+            DateTime startdatum = new DateTime();
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            {
+                if (DateTime.Now.TimeOfDay.Hours < 17 /*Convert.ToDateTime("05:00:00 PM")*/)
+                {
+                    startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
+                }
+                else
+                {
+                    startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+                }
+            }
+            else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
+            {
+                startdatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
+            }
+            else
+            {
+                startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+            }
+
             if (gebruiker.Verlanglijst.Materialen.Count == 0)
             {
                 return View("LegeLijst");
             }
+            ViewBag.Startdatum = startdatum;
             ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
             return View(gebruiker.Verlanglijst.Materialen);
 
@@ -53,6 +76,13 @@ namespace Projecten2.NET.Controllers
                 TempData["Info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
             return RedirectToAction("Index", "Verlanglijst");
 
+        }
+
+        //hulpklasses
+        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
+        {
+            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
+            return vandaag.AddDays(daysToAdd);
         }
     }
 }

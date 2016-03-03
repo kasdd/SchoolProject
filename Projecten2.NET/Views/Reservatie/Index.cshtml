@@ -68,7 +68,7 @@
                 @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
                 {
                     <input id="aantal" name="aantal" type="Text" />
-                    <button type="submit" class="btn btn-default"><span class="glyphicon-minus glyphicon"></span></button>
+                    <button type="submit" id="verwijderReservatieButton" class="btn btn-default"><span class="glyphicon-minus glyphicon"></span></button>
                 }
             </td>
         </tr>
