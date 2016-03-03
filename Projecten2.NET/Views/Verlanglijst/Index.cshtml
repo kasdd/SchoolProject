@@ -5,6 +5,7 @@
 }
 
 <h2>Uw Verlanglijst</h2>
+<h2>@TempData["info"]</h2>
 
 <p> Indien u nu reserveert, kan u het materiaal ophalen op @ViewBag.Startdatum</p>
 
@@ -19,18 +20,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Omschrijving)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArtikelNummer)
-        </th>
+    
         <th>
             @Html.DisplayNameFor(model => model.Prijs)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Aantal)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Uitleenbaar)
-        </th>
+  
         <th>
             @Html.DisplayNameFor(model => model.Plaats)
         </th>
@@ -50,17 +47,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Omschrijving)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArtikelNummer)
-            </td>
+         
             <td class="text-right">
                 @($"{item.Prijs:00.00€}")
             <td>
                 @Html.DisplayFor(modelItem => item.Aantal)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uitleenbaar)
-            </td>
+   
             <td>
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>

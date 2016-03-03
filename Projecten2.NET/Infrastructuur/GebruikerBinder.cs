@@ -9,15 +9,6 @@ namespace Projecten2.NET.Infrastructuur
         private const string gebruikerSessionKey = "gebruiker";
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            /*Gebruiker gebruiker = controllerContext.HttpContext.Session[gebruikerSessionKey] as Gebruiker;
-
-            if (gebruiker == null)
-            {
-                gebruiker = new Gebruiker();
-                controllerContext.HttpContext.Session[gebruikerSessionKey] = gebruiker;
-            }
-
-            return gebruiker;*/
 
              if (controllerContext.HttpContext.User.Identity.IsAuthenticated)
             {
