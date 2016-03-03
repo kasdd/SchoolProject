@@ -66,7 +66,7 @@ namespace Projecten2.NET.Controllers
                     gebruiker.Verlanglijst.Materialen.Add(m);
                     if (gebruiker.Verlanglijst.Materialen.Contains(m))
                         TempData["info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
-                    //gebruikersRepository.SaveChanges();
+                   // gebruikersRepository.SaveChanges();
                     //<div class="alert alert-success"></div>
                 }
             }
@@ -77,7 +77,7 @@ namespace Projecten2.NET.Controllers
         {
             Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
             gebruiker.Verlanglijst.Materialen.Remove(m);
-            gebruikersRepository.SaveChanges();
+            //gebruikersRepository.SaveChanges();
             if (!gebruiker.Verlanglijst.Materialen.Contains(m))
                 TempData["info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
             return RedirectToAction("Index", "Verlanglijst");

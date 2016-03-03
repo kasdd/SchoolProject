@@ -11,7 +11,7 @@ namespace Projecten2.NET.Controllers
     public class ReservatieController : Controller
     {
 
-        private IMateriaalRepository materiaalRepository;
+        /*private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
 
         public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
@@ -26,7 +26,7 @@ namespace Projecten2.NET.Controllers
             DateTime startdatum = new DateTime();
             if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
             {
-                if (DateTime.Now.TimeOfDay.Hours < 17 /*Convert.ToDateTime("05:00:00 PM")*/)
+                if (DateTime.Now.TimeOfDay.Hours < 17 )
                 {
                     startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
                 }
@@ -71,6 +71,6 @@ namespace Projecten2.NET.Controllers
         {
             int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
             return vandaag.AddDays(daysToAdd);
-        }
+        }*/
     }
 }

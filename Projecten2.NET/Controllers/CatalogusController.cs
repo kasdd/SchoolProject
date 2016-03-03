@@ -8,7 +8,6 @@ using Projecten2.NET.Models.Domain.IRepositories;
 namespace Projecten2.NET.Controllers
 {
     [Authorize]
-   
     public class CatalogusController : Controller
     {
         private readonly IMateriaalRepository materiaalRepository;

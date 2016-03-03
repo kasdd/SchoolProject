@@ -16,13 +16,13 @@ namespace Projecten2.NET
         public int GebruikerID { get; set; }
         public string Voornaam { get; set; }
         public Type Type { get; set; }
-        //public virtual ICollection<Reservatie> Reservaties { get; set; }
-        public virtual Reservatie Reservatie { get; set; }
+        public virtual ICollection<Reservatie> Reservaties { get; set; }
+        //public virtual Reservatie Reservatie { get; set; }
         public virtual Verlanglijst Verlanglijst { get; set; }
         public Gebruiker()
         {
-            //Reservaties = new List<Reservatie>();
-            Reservatie = new Reservatie();
+            Reservaties = new List<Reservatie>();
+            //Reservatie = new Reservatie();
             Verlanglijst = new Verlanglijst();
         }
     }
