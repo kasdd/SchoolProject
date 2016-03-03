@@ -1,25 +1,28 @@
-﻿using System.Web.Mvc;
-using Projecten2.NET.Models.DAL;
-using Projecten2.NET.Models.Domain;
+﻿using Projecten2.NET.Models.Domain;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Projecten2.NET.Controllers
 {
     [Authorize]
-    public class VerlanglijstController : Controller
+    public class ReservatieController : Controller
     {
+
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
 
-        public VerlanglijstController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
+        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
         }
 
+        // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
-
             DateTime startdatum = new DateTime();
             if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
             {
@@ -41,26 +44,27 @@ namespace Projecten2.NET.Controllers
                 startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
             }
 
-            if (gebruiker.Verlanglijst.Materialen.Count == 0)
+
+            if (gebruiker.Reservatie.ReservatieLijnen.Count == 0)
             {
                 return View("LegeLijst");
             }
+            ViewBag.Total = gebruiker.Reservatie.ReservatieLijnen.Count;
             ViewBag.Startdatum = startdatum;
-            ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
-            return View(gebruiker.Verlanglijst.Materialen);
+            return View(gebruiker.Reservatie.Materialen);
 
         }
 
-        public ActionResult AddToVerlanglijst(string nummer, Gebruiker gebruiker)
+        public ActionResult AddToReservaties(string nummer, Gebruiker gebruiker, int aantal)
         {
             Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
             if (m != null)
             {
-                if (gebruiker.Verlanglijst.Materialen.Contains(m))
+                if (gebruiker.Reservatie.Materialen.Contains(m))
                     TempData["Info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                 else
                 {
-                    gebruiker.Verlanglijst.Materialen.Add(m);
+                    gebruiker.Reservatie.Materialen.Add(m);
                     if (gebruiker.Verlanglijst.Materialen.Contains(m))
                         TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
                 }
@@ -68,17 +72,6 @@ namespace Projecten2.NET.Controllers
             return RedirectToAction("Index", "Catalogus");
         }
 
-        public ActionResult RemoveFromVerlanglijst(string nummer, Gebruiker gebruiker)
-        {
-            Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-            gebruiker.Verlanglijst.Materialen.Remove(m);
-            if (!gebruiker.Verlanglijst.Materialen.Contains(m))
-                TempData["Info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-            return RedirectToAction("Index", "Verlanglijst");
-
-        }
-
-        //hulpklasses
         public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
         {
             int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
