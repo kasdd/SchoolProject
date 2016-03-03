@@ -45,14 +45,31 @@ namespace Projecten2.NET.Controllers
             }
 
 
-            if (gebruiker.Verlanglijst.Materialen.Count == 0)
+            if (gebruiker.Reservatie.ReservatieLijnen.Count == 0)
             {
                 return View("LegeLijst");
             }
-            ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
+            ViewBag.Total = gebruiker.Reservatie.ReservatieLijnen.Count;
             ViewBag.Startdatum = startdatum;
-            return View(gebruiker.Verlanglijst.Materialen);
+            return View(gebruiker.Reservatie.Materialen);
 
+        }
+
+        public ActionResult AddToReservaties(string nummer, Gebruiker gebruiker, int aantal)
+        {
+            Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
+            if (m != null)
+            {
+                if (gebruiker.Reservatie.Materialen.Contains(m))
+                    TempData["Info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
+                else
+                {
+                    gebruiker.Reservatie.Materialen.Add(m);
+                    if (gebruiker.Verlanglijst.Materialen.Contains(m))
+                        TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                }
+            }
+            return RedirectToAction("Index", "Catalogus");
         }
 
         public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
