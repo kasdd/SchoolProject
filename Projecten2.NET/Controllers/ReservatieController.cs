@@ -60,16 +60,11 @@ namespace Projecten2.NET.Controllers
             Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
             if (m != null)
             {
-                if (gebruiker.Reservatie.Materialen.Contains(m))
-                    TempData["Info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
-                else
-                {
-                    gebruiker.Reservatie.Materialen.Add(m);
-                    if (gebruiker.Verlanglijst.Materialen.Contains(m))
-                        TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
-                }
+                gebruiker.Reservatie.AddReservatieLijn(m, aantal);
+                if (gebruiker.Reservatie.GetReservatieLijn(m.MateriaalId) != null)
+                    TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw reservaties toegevoegd!";
             }
-            return RedirectToAction("Index", "Catalogus");
+            return RedirectToAction("Index", "Verlanglijst");
         }
 
         public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
