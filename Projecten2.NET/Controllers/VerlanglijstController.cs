@@ -41,9 +41,12 @@ namespace Projecten2.NET.Controllers
                 startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
             }
 
-            if (gebruiker.Verlanglijst.Materialen.Count == 0)
+            if (gebruiker != null)
             {
-                return View("LegeLijst");
+                if (gebruiker.Verlanglijst.Materialen.Count == 0)
+                {
+                    return View("LegeLijst");
+                }
             }
             ViewBag.Startdatum = startdatum;
             ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
@@ -57,12 +60,14 @@ namespace Projecten2.NET.Controllers
             if (m != null)
             {
                 if (gebruiker.Verlanglijst.Materialen.Contains(m))
-                    TempData["Info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
+                    TempData["info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                 else
                 {
                     gebruiker.Verlanglijst.Materialen.Add(m);
                     if (gebruiker.Verlanglijst.Materialen.Contains(m))
-                        TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                        TempData["info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                    //gebruikersRepository.SaveChanges();
+                    //<div class="alert alert-success"></div>
                 }
             }
             return RedirectToAction("Index", "Catalogus");
@@ -72,8 +77,9 @@ namespace Projecten2.NET.Controllers
         {
             Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
             gebruiker.Verlanglijst.Materialen.Remove(m);
+            gebruikersRepository.SaveChanges();
             if (!gebruiker.Verlanglijst.Materialen.Contains(m))
-                TempData["Info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                TempData["info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
             return RedirectToAction("Index", "Verlanglijst");
 
         }
@@ -83,6 +89,11 @@ namespace Projecten2.NET.Controllers
         {
             int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
             return vandaag.AddDays(daysToAdd);
+        }
+
+        private int getAantal(int selectedValue = 1)
+        {
+            return selectedValue;
         }
     }
 }
