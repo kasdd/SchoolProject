@@ -40,19 +40,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Omschrijving)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ArtikelNummer)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Prijs)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Aantal)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Uitleenbaar)
-        </th>
-        <th>
+      <th>
             @Html.DisplayNameFor(model => model.Plaats)
         </th>
         <th></th>
@@ -71,17 +68,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Omschrijving)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.ArtikelNummer)
-                </td>
+                </td>*@
                 <td class="text-right">
                     @($"{item.Prijs:00.00€}")
                 <td>
                     @Html.DisplayFor(modelItem => item.Aantal)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Uitleenbaar)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Plaats)
                 </td>
