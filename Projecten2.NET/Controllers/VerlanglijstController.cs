@@ -60,13 +60,14 @@ namespace Projecten2.NET.Controllers
             if (m != null)
             {
                 if (gebruiker.Verlanglijst.Materialen.Contains(m))
-                    TempData["Info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
+                    TempData["info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                 else
                 {
                     gebruiker.Verlanglijst.Materialen.Add(m);
                     if (gebruiker.Verlanglijst.Materialen.Contains(m))
-                        TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                        TempData["info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
                     //gebruikersRepository.SaveChanges();
+                    //<div class="alert alert-success"></div>
                 }
             }
             return RedirectToAction("Index", "Catalogus");
@@ -78,7 +79,7 @@ namespace Projecten2.NET.Controllers
             gebruiker.Verlanglijst.Materialen.Remove(m);
             gebruikersRepository.SaveChanges();
             if (!gebruiker.Verlanglijst.Materialen.Contains(m))
-                TempData["Info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                TempData["info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
             return RedirectToAction("Index", "Verlanglijst");
 
         }
