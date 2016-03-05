@@ -17,13 +17,29 @@ namespace Projecten2.NET
         public string Voornaam { get; set; }
         public Type Type { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
-        //public virtual Reservatie Reservatie { get; set; }
         public virtual Verlanglijst Verlanglijst { get; set; }
         public Gebruiker()
         {
             Reservaties = new List<Reservatie>();
-            //Reservatie = new Reservatie();
             Verlanglijst = new Verlanglijst();
+        }
+
+        public void AddMateriaalToVerlanglijst(Materiaal m)
+        {
+            if (m != null)
+                Verlanglijst.AddMateriaal(m);
+            else
+                throw new Exception("Materiaal kan nu niet worden toegevoegd");
+        }
+
+        public void RemoveMateriaalFromVerlanglijst(Materiaal m)
+        {
+            if(m!=null)
+            Verlanglijst.RemoveMateriaal(m);
+            else
+            {
+                throw new Exception("Materiaal kan nu niet van lijst worden verwijderd");
+            }
         }
     }
 }

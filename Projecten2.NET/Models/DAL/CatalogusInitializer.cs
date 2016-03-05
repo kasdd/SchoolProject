@@ -113,32 +113,32 @@ namespace Projecten2.NET.Models.DAL
 
                 Doelgroep doelgroep1 = new Doelgroep()
                 {
-                    DoelgroepNaam = "EHBO"
+                    DoelgroepNaam = "Kleuter onderwijs"
                 };
 
                 Doelgroep doelgroep2 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Apparatuur"
+                    DoelgroepNaam = "Lager onderwijs"
                 };
 
                 Doelgroep doelgroep3 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Bordspel"
+                    DoelgroepNaam = "Secundair onderwijs"
                 };
 
                 Leergebied leergebied1 = new Leergebied()
                 {
-                    LeergebiedNaam = "Kleuter onderwijs"
+                    LeergebiedNaam = "Geschiedenis"
                 };
 
                 Leergebied leergebied2 = new Leergebied()
                 {
-                    LeergebiedNaam = "Lager onderwijs"
+                    LeergebiedNaam = "Aardrijkskunde"
                 };
                 
                 Leergebied leergebied3 = new Leergebied()
                 {
-                    LeergebiedNaam = "Secundair onderwijs"
+                    LeergebiedNaam = "Biologie"
                 };
 
                 doelgroep1.addMateriaal(reanimatiePop);

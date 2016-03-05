@@ -16,7 +16,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
 
 
             //HasRequired(g => g.Reservatie).WithRequiredPrincipal().WillCascadeOnDelete(false);
-            HasRequired(g => g.Verlanglijst).WithRequiredPrincipal().WillCascadeOnDelete(false);
+            //HasRequired(g => g.Verlanglijst).WithRequiredPrincipal().WillCascadeOnDelete(false);
             //Geeft ModelValidationException! --> EF mapt ReservatieId vanzelf? 
             //HasMany(r => r.Reservaties).WithRequired().Map(m => m.MapKey("ReservatieId"));
         }

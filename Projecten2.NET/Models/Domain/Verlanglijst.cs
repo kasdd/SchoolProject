@@ -17,5 +17,15 @@ namespace Projecten2.NET
         {
            Materialen = new List<Materiaal>();
         }
+
+        public void AddMateriaal(Materiaal materiaal)
+        {
+            Materialen.Add(materiaal);
+        }
+
+        public void RemoveMateriaal(Materiaal materiaal)
+        {
+            Materialen.Remove(materiaal);
+        }
     }
 }
