@@ -232,16 +232,18 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\ImagesMinified\aidsbekerspel.jpg" />
-    <Content Include="Content\ImagesMinified\db_bordspel.jpg" />
-    <Content Include="Content\ImagesMinified\dobbelstenenMini.jpg" />
+    <Content Include="Content\ImagesMinified\ceti.jpg" />
+    <Content Include="Content\ImagesMinified\dissectiebak.jpg" />
+    <Content Include="Content\ImagesMinified\dissectieset.jpg" />
+    <Content Include="Content\ImagesMinified\dobbelsteen.jpg" />
+    <Content Include="Content\ImagesMinified\draaischijf.jpg" />
+    <Content Include="Content\ImagesMinified\Euromex.jpg" />
+    <Content Include="Content\ImagesMinified\loco.jpg" />
     <Content Include="Content\ImagesMinified\logoMini.jpg" />
-    <Content Include="Content\ImagesMinified\projectorMini.jpg" />
-    <Content Include="Content\ImagesMinified\puzzelkoffer.jpg" />
-    <Content Include="Content\ImagesMinified\quotation.jpg" />
-    <Content Include="Content\ImagesMinified\reanimatiePop.jpg" />
-    <Content Include="Content\ImagesMinified\snap-je-hapje.jpg" />
-    <Content Include="Content\ImagesMinified\wereldbolMini.jpg" />
+    <Content Include="Content\ImagesMinified\pincet.jpg" />
+    <Content Include="Content\ImagesMinified\scalpel.jpg" />
+    <Content Include="Content\ImagesMinified\spinners.jpg" />
+    <Content Include="Content\ImagesMinified\splitsbomen.jpg" />
     <Content Include="Content\Images\dobbelstenen.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\projector.jpg" />
