@@ -23,9 +23,27 @@ namespace Projecten2.NET
             Materialen.Add(materiaal);
         }
 
-        public void RemoveMateriaal(Materiaal materiaal)
+        public void RemoveMateriaal(Materiaal m)
         {
-            Materialen.Remove(materiaal);
+            foreach (Materiaal materiaal in Materialen)
+            {
+                if (materiaal.ArtikelNummer == m.ArtikelNummer)
+                {
+                    Materialen.Remove(materiaal);
+                    break;
+                }                    
+            }
+        }
+
+        public bool BezitVerlanglijstMateriaal(Materiaal m)
+        {
+            bool bezit = false;
+            foreach(Materiaal materiaal in Materialen)
+            {
+                if (materiaal.ArtikelNummer == m.ArtikelNummer)
+                    bezit = true;
+            }
+            return bezit;
         }
     }
 }

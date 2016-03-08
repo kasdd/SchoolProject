@@ -41,5 +41,10 @@ namespace Projecten2.NET
                 throw new Exception("Materiaal kan nu niet van lijst worden verwijderd");
             }
         }
+
+        public Boolean BezitVerlanglijstMateriaal(Materiaal m)
+        {
+            return Verlanglijst.BezitVerlanglijstMateriaal(m);
+        }
     }
 }

@@ -58,19 +58,16 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-
                     Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-                    if (gebruiker.Verlanglijst.Materialen.Contains(m))
+                if (gebruiker.BezitVerlanglijstMateriaal(m))
                         TempData["info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                     else
                     {
                         gebruiker.AddMateriaalToVerlanglijst(m);
                         gebruikersRepository.SaveChanges();
-                        if (gebruiker.Verlanglijst.Materialen.Contains(m))
+                        if (gebruiker.BezitVerlanglijstMateriaal(m))
                             TempData["info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
                     }
-             
-
             }
             return RedirectToAction("Index", "Catalogus");
         }
@@ -79,18 +76,18 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
+                //try
+                //{
                     Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
                     gebruiker.RemoveMateriaalFromVerlanglijst(m);
                     gebruikersRepository.SaveChanges();
-                    if (!gebruiker.Verlanglijst.Materialen.Contains(m))
+                    if (!gebruiker.BezitVerlanglijstMateriaal(m))
                         TempData["info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-                }
-                catch (Exception e)
+               /*}
+               // catch (Exception e)
                 { 
                     throw new Exception(e.Message);
-                }
+                }*/
             }
             return RedirectToAction("Index", "Verlanglijst");
 

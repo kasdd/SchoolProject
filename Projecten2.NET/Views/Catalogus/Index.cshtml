@@ -1,9 +1,11 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model IEnumerable<Projecten2.NET.Materiaal>
+@model IEnumerable < Projecten2.NET.Materiaal>
 
 @{
     ViewBag.Title = "Index";
 }
+<link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 
 <h2>Catalogus</h2>
 
@@ -80,7 +82,7 @@
             <td>
                 @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {nummer = item.ArtikelNummer}))
                 {
-                    <button id="b1" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
                 }
             </td>
         </tr>
@@ -89,8 +91,9 @@
 </table>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#b1').onclick(function() {
-            $(this).find('button').toggleClass('btn btn-groen btn btn-on');
-        })});
+    $(function () {
+        $('#button').click(function () {
+            $('#button').toggleClass("btn btn-default");
+        });
+    });
 </script>

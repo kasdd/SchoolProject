@@ -21,9 +21,7 @@ namespace Projecten2.NET.Models.DAL
                     Prijs = 30,
                     Plaats = "GLEDE 1.011",
                     Aantal = 1
-
                 };
-
                 Materiaal spinners = new Materiaal()
                 {
                     ArtikelNummer = "GN5991",
@@ -35,7 +33,6 @@ namespace Projecten2.NET.Models.DAL
                     Aantal = 3,
                     Uitleenbaar = true
                 };
-
                 Materiaal draaischijf = new Materiaal()
                 {
                     ArtikelNummer = "E15955",
@@ -46,9 +43,7 @@ namespace Projecten2.NET.Models.DAL
                     Plaats = "GLEDE 1.011",
                     Aantal = 1,
                     Uitleenbaar = true
-
                 };
-
                 Materiaal splitsbomen = new Materiaal()
                 {
                     ArtikelNummer = "RK2367",
@@ -58,7 +53,6 @@ namespace Projecten2.NET.Models.DAL
                     Prijs = 2.9,
                     Plaats = "GLEDE 1.011"
                 };
-
                 Materiaal loco = new Materiaal()
                 {
                     ArtikelNummer = "NC2038",
@@ -68,44 +62,36 @@ namespace Projecten2.NET.Models.DAL
                     Prijs = 15.9,
                     Plaats = "GLEDE 1.011"
                 };
-
                 Materiaal ceti = new Materiaal()
                 {
-                    ArtikelNummer = "",
+                    ArtikelNummer = "NK2038",
                     Artikelnaam = "Microscoop Ceti",
                     Foto = "ceti.jpg",
                     Omschrijving = "Microscoop Ceti",
                     Prijs = 42.35,
                     Plaats = "biolabo kast 1 &2",
                     Aantal = 4,
-                    Uitleenbaar = false
                 };
-
                 Materiaal euromex = new Materiaal()
                 {
-                    ArtikelNummer = "",
+                    ArtikelNummer = "PL2038",
                     Artikelnaam = "Microscoop Euromex",
                     Foto = "euromex.jpg",
                     Omschrijving = "Microscoop Euromex",
                     Prijs = 29.99,
                     Plaats = "biolabo kast 1 &2",
                     Aantal = 12,
-                    Uitleenbaar = false
                 };
-
                 Materiaal dissectiebak = new Materiaal()
                 {
-                    ArtikelNummer = "",
+                    ArtikelNummer = "FPL238",
                     Artikelnaam = "Dissectiebakken",
                     Foto = "dissectiebak.jpg",
                     Omschrijving = "dissectiebakken",
                     Prijs = 9.99,
                     Plaats = "biolabo kast 5",
                     Aantal = 5,
-                    Uitleenbaar = true
                 };
-
-
                 Doelgroep doelgroep1 = new Doelgroep()
                 {
                     DoelgroepNaam = "Kleuter onderwijs"
@@ -170,17 +156,10 @@ namespace Projecten2.NET.Models.DAL
                     leergebied2,
                     leergebied3
                 };
-
                 materialen.ForEach(m => context.Materialen.Add(m));
                 doelgroepen.ForEach(d => context.Doelgroepen.Add(d));
                 leergebieden.ForEach(l => context.Leergebieden.Add(l));
-
                 //puzzelkoffer.addDoelgroep(doelgroep1);
-
-
-              
-                
-                
                 context.SaveChanges();  
 
             }

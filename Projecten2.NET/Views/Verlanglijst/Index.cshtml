@@ -4,10 +4,11 @@
     ViewBag.Title = "Index";
 }
 
+<link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+
 <h2>Uw Verlanglijst</h2>
 <h2>@TempData["info"]</h2>
-
-<p> Indien u nu reserveert, kan u het materiaal ophalen op @ViewBag.Startdatum</p>
 
 <table class="table">
     <tr>
@@ -60,15 +61,19 @@
             <td>
                 @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer  }))
                 {
-                    <button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button>               
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>               
                 }
-                <input id="aantal" name="aantal" type="Text" placeholder="-- Aantal Stuks --" />
-                <button type="submit" id="reservatieButton" class="btn btn-groen">Reserveren</button>
+                <!-- Examples of creating a Datepicker -->
+                <input type="text" id="MyDate" />
             </td>
         </tr>
     }
-
-
 </table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#MyDate').datepicker();
+    });
+</script>
 
 
