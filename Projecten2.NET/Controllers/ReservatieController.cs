@@ -1,4 +1,5 @@
 ﻿using Projecten2.NET.Models.Domain;
+using Projecten2.NET.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Web.Mvc;
 
 namespace Projecten2.NET.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Student")]
     public class ReservatieController : Controller
     {
 
-        /*private IMateriaalRepository materiaalRepository;
+        private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
 
         public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
@@ -23,54 +24,35 @@ namespace Projecten2.NET.Controllers
         // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
-            DateTime startdatum = new DateTime();
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
-            {
-                if (DateTime.Now.TimeOfDay.Hours < 17 )
-                {
-                    startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
-                }
-                else
-                {
-                    startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-                }
-            }
-            else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
-            {
-                startdatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
-            }
-            else
-            {
-                startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-            }
-
-
-            if (gebruiker.Reservatie.ReservatieLijnen.Count == 0)
+            if (gebruiker.Reservaties.Count==0)
             {
                 return View("LegeLijst");
-            }
-            ViewBag.Total = gebruiker.Reservatie.ReservatieLijnen.Count;
-            ViewBag.Startdatum = startdatum;
-            return View(gebruiker.Reservatie.Materialen);
-
+            }            
+            return View(gebruiker.Reservaties);
         }
 
-        public ActionResult AddToReservaties(string nummer, Gebruiker gebruiker, int aantal)
+        public ActionResult AddReservatie(Gebruiker gebruiker, DateTime date, string nummer)
         {
-            Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-            if (m != null)
+            if (ModelState.IsValid)
             {
-                gebruiker.Reservatie.AddReservatieLijn(m, aantal);
-                if (gebruiker.Reservatie.GetReservatieLijn(m.MateriaalId) != null)
-                    TempData["Info"] = "Materiaal " + m.Artikelnaam + " is aan uw reservaties toegevoegd!";
+                ReservatieLijnViewModel model = new ReservatieLijnViewModel();
+                Materiaal materiaal = materiaalRepository.FindByArtikelNr(nummer);
+                gebruiker.AddMateriaalToReservatie(materiaal);
             }
-            return RedirectToAction("Index", "Verlanglijst");
+            return View();
         }
 
-        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
+        public ActionResult Plus(String nummer, Gebruiker gebruiker)
         {
-            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
-            return vandaag.AddDays(daysToAdd);
-        }*/
+            return View();
+        }
+
+        public ActionResult Min(String nummer, Gebruiker gebruiker)
+        {
+            return View();
+        }
+
+
+
     }
 }

@@ -42,6 +42,11 @@ namespace Projecten2.NET
             }
         }
 
+        internal void AddMateriaalToReservatie(Materiaal materiaal)
+        {
+            throw new NotImplementedException();
+        }
+
         public Boolean BezitVerlanglijstMateriaal(Materiaal m)
         {
             return Verlanglijst.BezitVerlanglijstMateriaal(m);

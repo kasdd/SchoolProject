@@ -1,72 +1,31 @@
-﻿@model IEnumerable<Projecten2.NET.Materiaal>
+﻿@model IEnumerable<Projecten2.NET.Reservatie>
 
 @{
-    ViewBag.Title = "Reserveren";
+    ViewBag.Title = "Index";
 }
 
-<h2>Reserveren</h2>
+<h2>Index</h2>
 
-<p> De dag waarop u uw gereserveerd materiaal kunt ophalen is @ViewBag.Startdatum</p>
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Foto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Artikelnaam)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Omschrijving)
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.Prijs)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Aantal)
-        </th>
-  
-        <th>
-            @Html.DisplayNameFor(model => model.Plaats)
-        </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+@foreach (var item in Model) {
+    foreach (var lijn in item.ReservatieLijnen)
     {
-
         <tr>
             <td>
-                <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Artikelnaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Omschrijving)
-            </td>
-            
-            <td class="text-right">
-                @($"{item.Prijs:00.0€}")
-            <td>
-                @Html.DisplayFor(modelItem => item.Aantal)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Plaats)
-            </td>
-            <td>
-                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
-                {
-                    <input id="aantal" name="aantal" type="Text" />
-                    <button type="submit" id="verwijderReservatieButton" class="btn btn-default"><span class="glyphicon-minus glyphicon"></span></button>
-                }
+                <a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
+                <a href='@Url.Action("Min", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button></a>
+                <a href='@Url.Action("Remove", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button></a>
             </td>
         </tr>
     }
 
+}
 
 </table>
-
-

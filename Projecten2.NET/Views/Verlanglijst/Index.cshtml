@@ -12,6 +12,7 @@
 
 <table class="table">
     <tr>
+        <th class="text-right">Aantal</th>
         <th>
             @Html.DisplayNameFor(model => model.Foto)
         </th>
@@ -21,14 +22,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Omschrijving)
         </th>
-    
+
         <th>
             @Html.DisplayNameFor(model => model.Prijs)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Aantal)
         </th>
-  
+
         <th>
             @Html.DisplayNameFor(model => model.Plaats)
         </th>
@@ -39,6 +40,7 @@
     {
 
         <tr>
+            <td class="text-right">1</td>
             <td>
                 <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
             </td>
@@ -48,44 +50,58 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Omschrijving)
             </td>
-         
+
             <td class="text-right">
                 @($"{item.Prijs:00.00€}")
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.Aantal)
             </td>
-   
+
             <td>
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>
             <td>
-                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer  }))
+                @using (Html.BeginForm("Plus", "Reservatie", new { nummer = item.ArtikelNummer }))
                 {
-                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>               
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                }
+                @using (Html.BeginForm("Min", "Reservatie", new { nummer = item.ArtikelNummer }))
+                {
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button>
+                }
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
+                {
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>
                 }
             </td>
             <td>&nbsp;</td>
             <td>
-                <!-- Examples of creating a Datepicker -->
-                <input type="text" class="date" placeholder="Selecteer datum"/>
-                <span></span> 
+                    <input type="text" class="date" placeholder="Selecteer datum" />
             </td>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBoxFor(m => m.BeginDat, new {
+                   @type = "date",
+                   @Value = Model.BeginDat.ToString("d")
+               })
+                    <button id = "button" type = "submit" > Reserveer </ button >
+                  }
+              </td>
             <td>&nbsp;</td>
         </tr>
     }
 </table>
-
 <script type="text/javascript">
+    var date = $.date.dateFormat("dd-mm-yy")
     $(function () {
-        $('.date').not('.hasDatePicker').datepicker({  
+        $('.date').not('.hasDatePicker').datepicker({
+            dateFormat: 'dd-mm-yy',
             showOn: 'button'
         }).next('button').button({
             icons: {
                 primary: 'ui-icon-calendar'
             }, text:false
-        });       
+        });
     });
 </script>
-
-
-
