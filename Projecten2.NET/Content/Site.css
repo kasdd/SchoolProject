@@ -1,4 +1,10 @@
-﻿body {
+﻿html {
+  position: relative;
+  min-height: 100%;
+    
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -37,6 +43,11 @@ textarea {
  ul.nav a:hover
  {
      background-color: #004d3e;
+ }
+
+ .icon-bar
+ {
+       background-color:#FFFFFF;
  }
 
  /* buttons */
@@ -86,4 +97,19 @@ ul#catalogus-list li a:hover {
 .searchbar 
 {
     margin-bottom: 3em;
+}
+
+/* footer */
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 3em;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  /*width:100%;*/
+  /* Set the fixed height of the footer here */
+  height: 3em;
+  background-color: #f5f5f5;
 }

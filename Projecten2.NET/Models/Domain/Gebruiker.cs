@@ -21,6 +21,30 @@ namespace Projecten2.NET
         public Gebruiker()
         {
             Reservaties = new List<Reservatie>();
+            Verlanglijst = new Verlanglijst();
+        }
+
+        public void AddMateriaalToVerlanglijst(Materiaal m)
+        {
+            if (m != null)
+                Verlanglijst.AddMateriaal(m);
+            else
+                throw new Exception("Materiaal kan nu niet worden toegevoegd");
+        }
+
+        public void RemoveMateriaalFromVerlanglijst(Materiaal m)
+        {
+            if(m!=null)
+            Verlanglijst.RemoveMateriaal(m);
+            else
+            {
+                throw new Exception("Materiaal kan nu niet van lijst worden verwijderd");
+            }
+        }
+
+        public Boolean BezitVerlanglijstMateriaal(Materiaal m)
+        {
+            return Verlanglijst.BezitVerlanglijstMateriaal(m);
         }
     }
 }

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Projecten2.NET.Materiaal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+
+<h2>Uw Verlanglijst</h2>
+<h2>@TempData["info"]</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artikelnaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </th>
+    
+        <th>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aantal)
+        </th>
+  
+        <th>
+            @Html.DisplayNameFor(model => model.Plaats)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artikelnaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Omschrijving)
+            </td>
+         
+            <td class="text-right">
+                @($"{item.Prijs:00.00€}")
+            <td>
+                @Html.DisplayFor(modelItem => item.Aantal)
+            </td>
+   
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaats)
+            </td>
+            <td>
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer  }))
+                {
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>               
+                }
+                <!-- Examples of creating a Datepicker -->
+                <input type="text" id="MyDate" />
+            </td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#MyDate').datepicker();
+    });
+</script>
+
+

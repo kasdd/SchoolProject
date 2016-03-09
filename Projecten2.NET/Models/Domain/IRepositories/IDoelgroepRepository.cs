@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projecten2.NET.Models.Domain.IRepositories
 {
-    interface IDoelgroepRepository
+    public interface IDoelgroepRepository
     {
         Doelgroep FindById(int id);
         IQueryable<Doelgroep> FindAll();

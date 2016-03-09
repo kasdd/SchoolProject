@@ -49,6 +49,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -189,10 +193,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Controllers\ReservatieController.cs" />
+    <Compile Include="Controllers\VerlanglijstController.cs" />
     <Compile Include="Models\DAL\DoelgroepRepository.cs" />
     <Compile Include="Models\DAL\LeergebiedRepository.cs" />
     <Compile Include="Models\DAL\Mapper\ReservatieLijnMapper.cs" />
-    <Compile Include="Models\DAL\Mapper\VerlanglijstMapper.cs" />
     <Compile Include="Models\Domain\Doelgroep.cs" />
     <Compile Include="Models\Domain\IRepositories\IDoelgroepRepository.cs" />
     <Compile Include="Models\Domain\IRepositories\ILeergebiedRepository.cs" />
@@ -221,25 +226,61 @@
     <Compile Include="Models\DAL\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="Models\Domain\Type.cs" />
+    <Compile Include="StartUp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\ImagesMinified\aidsbekerspel.jpg" />
-    <Content Include="Content\ImagesMinified\db_bordspel.jpg" />
-    <Content Include="Content\ImagesMinified\dobbelstenenMini.jpg" />
+    <Content Include="Content\ImagesMinified\ceti.jpg" />
+    <Content Include="Content\ImagesMinified\dissectiebak.jpg" />
+    <Content Include="Content\ImagesMinified\dissectieset.jpg" />
+    <Content Include="Content\ImagesMinified\dobbelsteen.jpg" />
+    <Content Include="Content\ImagesMinified\draaischijf.jpg" />
+    <Content Include="Content\ImagesMinified\Euromex.jpg" />
+    <Content Include="Content\ImagesMinified\loco.jpg" />
     <Content Include="Content\ImagesMinified\logoMini.jpg" />
-    <Content Include="Content\ImagesMinified\projectorMini.jpg" />
-    <Content Include="Content\ImagesMinified\quotation.jpg" />
-    <Content Include="Content\ImagesMinified\reanimatiePop.jpg" />
-    <Content Include="Content\ImagesMinified\snap-je-hapje.jpg" />
-    <Content Include="Content\ImagesMinified\wereldbolMini.jpg" />
+    <Content Include="Content\ImagesMinified\pincet.jpg" />
+    <Content Include="Content\ImagesMinified\scalpel.jpg" />
+    <Content Include="Content\ImagesMinified\spinners.jpg" />
+    <Content Include="Content\ImagesMinified\splitsbomen.jpg" />
     <Content Include="Content\Images\dobbelstenen.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\projector.jpg" />
     <Content Include="Content\Images\wereldbol.jpg" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -252,6 +293,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -272,14 +315,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -289,10 +327,16 @@
     <Content Include="Views\Catalogus\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Catalogus\Details.cshtml" />
+    <Content Include="Views\Verlanglijst\Index.cshtml" />
+    <Content Include="Views\Verlanglijst\LegeLijst.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Reservatie\LegeLijst.cshtml" />
+    <Content Include="Views\Reservatie\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

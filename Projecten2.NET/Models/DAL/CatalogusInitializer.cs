@@ -12,127 +12,138 @@ namespace Projecten2.NET.Models.DAL
             try
             {
 
-                Materiaal dobbelstenen = new Materiaal()
+                Materiaal dobbelsteen = new Materiaal()
                 {
-                    ArtikelNummer = "DL0568D",
-                    Artikelnaam = "Dobbelstenen",
-                    Foto = "dobbelstenenMini.jpg",
-                    Omschrijving = "dobbelstenen gekocht in hema",
-                    Prijs = 0.4,
-                    Plaats = "B1.032",
-                    Aantal = 20
-                    
+                    ArtikelNummer = "MHt447",
+                    Artikelnaam = "Dobbelsteen-schatkist-162 delig",
+                    Foto = "dobbelsteen.jpg",
+                    Omschrijving = "Koffertje met verschillende soorten dobbelstenen: blanco, met cijfers, ..",
+                    Prijs = 30,
+                    Plaats = "GLEDE 1.011",
+                    Aantal = 1
                 };
-
-                Materiaal wereldbol = new Materiaal()
+                Materiaal spinners = new Materiaal()
                 {
-                    ArtikelNummer = "KL546ER",
-                    Artikelnaam = "Wereldbol",
-                    Foto = "wereldbolMini.jpg",
-                    Omschrijving = "Wereldbol gekocht in hema",
-                    Prijs = 2.4,
-                    Plaats = "C1.032",
-                    Aantal = 3
+                    ArtikelNummer = "GN5991",
+                    Artikelnaam = "Spinners klas assortiment",
+                    Foto = "spinners.jpg",
+                    Omschrijving = "magnetische spinners in de vorm van een pijl, een vinger en een potlood",
+                    Prijs = 19.2,
+                    Plaats = "GLEDE 1.012",
+                    Aantal = 3,
+                    Uitleenbaar = true
                 };
-
-                Materiaal projector = new Materiaal()
+                Materiaal draaischijf = new Materiaal()
                 {
-                    ArtikelNummer = "XR456PL",
-                    Artikelnaam = "Projector",
-                    Foto = "projectorMini.jpg",
-                    Omschrijving = "Beamer gekocht in hema",
-                    Prijs = 80.99,
-                    Plaats = "B1.016"
+                    ArtikelNummer = "E15955",
+                    Artikelnaam = "Blanco draaischijf",
+                    Foto = "draaischijf.jpg",
+                    Omschrijving = "met verschillende blanco schijven in hard papier",
+                    Prijs = 31.45,
+                    Plaats = "GLEDE 1.011",
+                    Aantal = 1,
+                    Uitleenbaar = true
                 };
-
-                Materiaal gezondheidsspel = new Materiaal()
+                Materiaal splitsbomen = new Materiaal()
                 {
-                    ArtikelNummer = "XR444DD",
-                    Artikelnaam = "Snap je Hapje-bordspel",
-                    Foto = "snap-je-hapje.jpg",
-                    Omschrijving = "Koopspel -Informeren over voeding en een gezonde, evenwichtige eetstijl stimuleren.",
-                    Prijs = 38.59,
-                    Plaats = "B1.017"
+                    ArtikelNummer = "RK2367",
+                    Artikelnaam = "Splitsbomen",
+                    Foto = "splitsbomen.jpg",
+                    Omschrijving = "aan de hand van rode bolletjes kunnen getallen tot 10, in de stam van de boom gesplitst worden in 2 getallen(kaartjes) of in 2 x aantal bolleties(boom)",
+                    Prijs = 2.9,
+                    Plaats = "GLEDE 1.011"
                 };
-
-                Materiaal reanimatiePop = new Materiaal()
+                Materiaal loco = new Materiaal()
                 {
-                    ArtikelNummer = "YZ554fa",
-                    Artikelnaam = "Little Anne reanimatie-oefenpop",
-                    Foto = "reanimatiePop.jpg",
-                    Omschrijving = "De Little Anne reanimatie-oefenpop is ontworpen om meer leerlingen te trainen in kwaliteitsvolle reanimatie en is realistisch, duurzaam, betaalbaar en handig. ",
-                    Prijs = 200,
-                    Plaats = "B1.018"
+                    ArtikelNummer = "NC2038",
+                    Artikelnaam = "Mini-loco-spelbord",
+                    Foto = "loco.jpg",
+                    Omschrijving = "spelbord: klapt open met een rode, becijferde kant en een doorzichtige kant + 12 blokjes met de getallen van l tot en met 12 ",
+                    Prijs = 15.9,
+                    Plaats = "GLEDE 1.011"
                 };
-
-                Materiaal bovenkamer = new Materiaal()
+                Materiaal ceti = new Materiaal()
                 {
-                    ArtikelNummer = "AA451PL",
-                    Artikelnaam = "De Bovenkamer-bordspel",
-                    Foto = "db_bordspel.jpg",
-                    Omschrijving = "Kan je met een persoon met dementie op reis? Bevordert sport de ontwikkeling van de hersenen? En komt dementie meer voor bij mannen dan bij vrouwen? Op deze en 157 andere vragen biedt De Bovenkamer antwoord. Kernwoorden: Dementie, geheugen",
-                    Prijs = 46.55,
-                    Plaats = "B1.019"
+                    ArtikelNummer = "NK2038",
+                    Artikelnaam = "Microscoop Ceti",
+                    Foto = "ceti.jpg",
+                    Omschrijving = "Microscoop Ceti",
+                    Prijs = 42.35,
+                    Plaats = "biolabo kast 1 &2",
+                    Aantal = 4,
                 };
-
-                Materiaal aidsbekerspel = new Materiaal()
+                Materiaal euromex = new Materiaal()
                 {
-                    ArtikelNummer = "PO666IO",
-                    Artikelnaam = "Aidsbekerspel",
-                    Foto = "aidsbekerspel.jpg",
-                    Omschrijving = "Informeren over het HIV- virus, de gevolgen van onveilig vrijen aankaarten, seksualiteit en AIDS bespreekbaar maken.",
+                    ArtikelNummer = "PL2038",
+                    Artikelnaam = "Microscoop Euromex",
+                    Foto = "euromex.jpg",
+                    Omschrijving = "Microscoop Euromex",
                     Prijs = 29.99,
-                    Plaats = "B1.020",
-                    Aantal = 5
+                    Plaats = "biolabo kast 1 &2",
+                    Aantal = 12,
                 };
-
-                Materiaal quotationsGame = new Materiaal()
+                Materiaal dissectiebak = new Materiaal()
                 {
-                    ArtikelNummer = "RX111MM",
-                    Artikelnaam = "The Quotations Game - Engels",
-                    Foto = "quotation.jpg",
-                    Omschrijving = "Getting to know oneself and the others (better). Inspring one-liners and challenging questions about: leadership, communication, giving, meaning, change, personal development and relationships",
-                    Prijs = 40.99,
-                    Plaats = "B1.045",
-                    Aantal = 2,
+                    ArtikelNummer = "FPL238",
+                    Artikelnaam = "Dissectiebakken",
+                    Foto = "dissectiebak.jpg",
+                    Omschrijving = "dissectiebakken",
+                    Prijs = 9.99,
+                    Plaats = "biolabo kast 5",
+                    Aantal = 5,
                 };
-
                 Doelgroep doelgroep1 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Spelletjes"
+                    DoelgroepNaam = "Kleuter onderwijs"
                 };
 
                 Doelgroep doelgroep2 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Apparatuur"
+                    DoelgroepNaam = "Lager onderwijs"
                 };
 
                 Doelgroep doelgroep3 = new Doelgroep()
                 {
-                    DoelgroepNaam = "Poppen"
+                    DoelgroepNaam = "Secundair onderwijs"
                 };
 
                 Leergebied leergebied1 = new Leergebied()
                 {
-                    LeergebiedNaam = "Kleuteronderwijs"
+                    LeergebiedNaam = "Geschiedenis"
                 };
 
                 Leergebied leergebied2 = new Leergebied()
                 {
-                    LeergebiedNaam = "Secundair onderwijs"
+                    LeergebiedNaam = "Aardrijkskunde"
                 };
+                
+                Leergebied leergebied3 = new Leergebied()
+                {
+                    LeergebiedNaam = "Biologie"
+                };
+
+                doelgroep1.addMateriaal(dobbelsteen);
+                doelgroep1.addMateriaal(loco);
+                doelgroep2.addMateriaal(dobbelsteen);
+                doelgroep2.addMateriaal(loco);
+                doelgroep2.addMateriaal(euromex);
+                doelgroep2.addMateriaal(ceti);
+                doelgroep3.addMateriaal(loco);
+                doelgroep3.addMateriaal(ceti);
+                doelgroep3.addMateriaal(euromex);
 
                 var materialen = new List<Materiaal>()
                 {
-                    reanimatiePop,
-                    quotationsGame,
-                    aidsbekerspel,
-                    bovenkamer,
-                    dobbelstenen,
-                    wereldbol,
-                    gezondheidsspel,
-                    projector
+                    dobbelsteen,
+                    draaischijf,
+                    spinners,
+                    loco,
+                    splitsbomen,
+                    ceti,
+                    euromex,
+                    dissectiebak
                 };
+
                 var doelgroepen = new List<Doelgroep>()
                 {
                     doelgroep1, 
@@ -142,12 +153,13 @@ namespace Projecten2.NET.Models.DAL
                 var leergebieden = new List<Leergebied>()
                 {
                     leergebied1,
-                    leergebied2
+                    leergebied2,
+                    leergebied3
                 };
-
                 materialen.ForEach(m => context.Materialen.Add(m));
                 doelgroepen.ForEach(d => context.Doelgroepen.Add(d));
                 leergebieden.ForEach(l => context.Leergebieden.Add(l));
+                //puzzelkoffer.addDoelgroep(doelgroep1);
                 context.SaveChanges();  
 
             }

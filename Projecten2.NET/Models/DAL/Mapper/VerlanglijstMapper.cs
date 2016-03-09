@@ -7,6 +7,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
         public VerlanglijstMapper()
         {
             ToTable("VerlangLijst");
+
             HasKey(v => v.VerlanglijstId);
 
             //Geeft foutmelding

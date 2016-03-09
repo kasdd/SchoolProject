@@ -31,9 +31,9 @@
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
+      <Property Name="Reservatielijnen" />
       <Property Name="Doelgroepen" />
       <Property Name="Leergebieden" />
-      <Property Name="Reservatielijnen" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Doelgroep">
@@ -73,7 +73,7 @@
   <Class Name="Projecten2.NET.Verlanglijst">
     <Position X="6.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Verlanglijst.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>

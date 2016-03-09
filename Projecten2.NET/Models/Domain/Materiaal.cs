@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Projecten2.NET
 {
@@ -41,5 +42,16 @@ namespace Projecten2.NET
         {
             return MateriaalId;
         }
+
+        public bool BevatDoelgroep(string naam)
+        {
+            return Doelgroepen.Any(doelgroep => doelgroep.DoelgroepNaam.ToLower().Contains(naam.ToLower()));
+        }
+
+        //public void addDoelgroep(Doelgroep doelgroep)
+        //{
+        //    Doelgroepen.Add(doelgroep);
+
+        //}
     }
 }

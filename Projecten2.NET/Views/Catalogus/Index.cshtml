@@ -1,15 +1,18 @@
-﻿@model IEnumerable<Projecten2.NET.Materiaal>
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable < Projecten2.NET.Materiaal>
 
 @{
     ViewBag.Title = "Index";
 }
-
-                       
-        
+<link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 
 <h2>Catalogus</h2>
 
-<hr />
+@if (TempData["info"] != null)
+{
+    <div class="alert alert-success">@TempData["info"]</div>
+}
 
 <div class="searchbar">
     <p>
@@ -20,45 +23,16 @@
             <div class="form-inline">
                 <div class="form-group">
 
-
-                    <label>Doelgroep: @Html.DropDownList("doelgroep", (IEnumerable<SelectListItem>)ViewBag.doelgroep, "-- Alle doelgroepen --", new { @class = "form-control" })  </label>
+                    <label>Doelgroep: @Html.DropDownList("DoelgroepId", ViewBag.doelgroep as SelectList, "-- Alle doelgroepen --", new {@class = "form-control"}) </label>
+                    <label>Leergebied: @Html.DropDownList("LeergebiedId", ViewBag.leergebied as SelectList, "-- Alle leergebieden --", new { @class = "form-control" })  </label>
                     <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
-                    <input type="submit" class="btn btn-groen" value="Filter" />
-                    @*<input type="reset" class="btn btn-groen" value="Reset" />*@
-
+                    <input type="submit" class="btn btn-groen" value="Zoek" />
                 </div>
-            </div>
-        
+            </div>     
         }
-
-
 </div>
 
-    
-            
-@*<hr />*@
-
-@*<ul id="catalogus-list" class="list-unstyled">
-    @foreach (var item in Model)
-
-    {
-        <li class="col-lg-2 col-md-2 col-sm-2 col-xs-4 container">
-            <a asp-controller="Catalogus" asp-action="Details" asp-route-id="@item.ArtikelNummer">
-                @if (!string.IsNullOrEmpty(item.Foto))
-                {
-                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
-                }
-                <h5 class="control-label">@item.Artikelnaam</h5>
-            </a>
-        </li>
-    }
-
-    <br />
-</ul>*@
-
-
-
-<table class="table">
+<table class="table table-hover table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Foto)
@@ -69,52 +43,57 @@
         <th>
             @Html.DisplayNameFor(model => model.Omschrijving)
         </th>
+       
         <th>
-            @Html.DisplayNameFor(model => model.ArtikelNummer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prijs)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Uitleenbaar)
-        </th>
-        <th>
-            @Html.DisplayName("Aantal")
+            @Html.DisplayNameFor(model => model.Aantal)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Plaats)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </th>
         <th></th>
     </tr>
+    <tbody>
+    @foreach (var item in Model)
+    {
 
-@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artikelnaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Omschrijving)
+            </td>
+            
+            <td class="text-right">
+                @Html.DisplayFor(modelItem => item.Aantal)
+            </td>
 
-    <tr>
-        <td>
-            <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Artikelnaam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Omschrijving)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtikelNummer)
-        </td>
-        <td class="text-right">
-            @($"{item.Prijs:00.0€}")
-        <td>
-            @Html.DisplayFor(modelItem => item.Aantal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Uitleenbaar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Plaats)
-        </td>
-    </tr>
-}
-    
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaats)
+            </td>
+            <td class="text-right">
+                @($"{item.Prijs:€00.00}")
+            <td>
+                @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {nummer = item.ArtikelNummer}))
+                {
+                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
 </table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#button').click(function () {
+            $('#button').toggleClass("btn btn-default");
+        });
+    });
+</script>

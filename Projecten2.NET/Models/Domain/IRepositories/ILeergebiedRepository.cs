@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projecten2.NET.Models.Domain.IRepositories
 {
-    interface ILeergebiedRepository
+    public interface ILeergebiedRepository
     {
         Leergebied FindById(int Id);
         IQueryable<Leergebied> FindAll();

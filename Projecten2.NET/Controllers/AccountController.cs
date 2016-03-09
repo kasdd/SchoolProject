@@ -29,7 +29,7 @@ namespace Projecten2.NET.Controllers
             this._gebruikersRepository = gebruikersRepository;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,ApplicationRoleManager roleManager, IGebruikerRepository gebruikersRepository)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager, IGebruikerRepository gebruikersRepository)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -43,9 +43,9 @@ namespace Projecten2.NET.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -94,7 +94,7 @@ namespace Projecten2.NET.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -110,37 +110,36 @@ namespace Projecten2.NET.Controllers
                     {
                         ModelState.AddModelError("", "Gelieve een correct emailadres of wachtwoord in te geven.");
                         return View(model);
-                    } 
+                    }
                     else
                     {
                         Gebruiker g = JsonConvert.DeserializeObject<Gebruiker>(json);
                         if (_gebruikersRepository.FindByEmail(g.Email) == null)
                         {
                             await CreateUserAndRoles(g, model.Password);
+                            _gebruikersRepository.AddGebruiker(g);
+                            _gebruikersRepository.SaveChanges();
                         }
-                            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout:false);
+                        var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
-                            // This doesn't count login failures towards account lockout
-                            // To enable password failures to trigger account lockout, change to shouldLockout: true
-                            switch (result)
-                             {
-                                 case SignInStatus.Success:
-                                    _gebruikersRepository.AddGebruiker(g);
-                                    _gebruikersRepository.SaveChanges();
-                                    return RedirectToLocal(returnUrl);
-
-                                case SignInStatus.LockedOut:
-                                     return View("Lockout");
-                                 case SignInStatus.RequiresVerification:
-                                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                                 case SignInStatus.Failure:
-                                 default:
-                                     ModelState.AddModelError("", "Invalid login attempt.");
-                                     return View(model);
-                             }
+                        // This doesn't count login failures towards account lockout
+                        // To enable password failures to trigger account lockout, change to shouldLockout: true
+                        switch (result)
+                        {
+                            case SignInStatus.Success:
+                                return RedirectToLocal(returnUrl);
+                            case SignInStatus.LockedOut:
+                                return View("Lockout");
+                            case SignInStatus.RequiresVerification:
+                                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                            case SignInStatus.Failure:
+                            default:
+                                ModelState.AddModelError("", "Invalid login attempt.");
+                                return View(model);
                         }
                     }
-                
+                }
+
                 catch (Exception)
                 {
                     throw new Exception("Ophalen van data mislukt");
@@ -169,9 +168,9 @@ namespace Projecten2.NET.Controllers
 
             //Create user
             ApplicationUser user = new ApplicationUser { UserName = gebruiker.Email, Email = gebruiker.Email, LockoutEnabled = false };
-                IdentityResult result =  userManager.Create(user, password);
+            IdentityResult result = userManager.Create(user, password);
             if (!result.Succeeded)
-                    throw new ApplicationException(result.Errors.ToString());
+                throw new ApplicationException(result.Errors.ToString());
 
             //Create roles
             String enumValue;
@@ -186,10 +185,10 @@ namespace Projecten2.NET.Controllers
                 default:
                     throw Exception("Slecht type");
             }*/
-                IdentityRole role = new IdentityRole(enumValue);
-                result = roleManager.Create(role);
-                if (!result.Succeeded)
-                    throw new ApplicationException(result.Errors.ToString());
+            IdentityRole role = new IdentityRole(enumValue);
+            result = roleManager.Create(role);
+            if (!result.Succeeded)
+                throw new ApplicationException(result.Errors.ToString());
 
             //Associate user with role
             IList<string> rolesForUser = userManager.GetRoles(user.Id);
@@ -232,7 +231,7 @@ namespace Projecten2.NET.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -246,7 +245,7 @@ namespace Projecten2.NET.Controllers
             }
         }
 
-        
+
         //
         // POST: /Account/ExternalLogin
         [HttpPost]

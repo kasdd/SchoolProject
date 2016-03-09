@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Projecten2.NET.Materiaal>
+
+@{
+    ViewBag.Title = "Reserveren";
+}
+
+<h2>Reserveren</h2>
+
+<p> De dag waarop u uw gereserveerd materiaal kunt ophalen is @ViewBag.Startdatum</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artikelnaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aantal)
+        </th>
+  
+        <th>
+            @Html.DisplayNameFor(model => model.Plaats)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artikelnaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Omschrijving)
+            </td>
+            
+            <td class="text-right">
+                @($"{item.Prijs:00.0€}")
+            <td>
+                @Html.DisplayFor(modelItem => item.Aantal)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaats)
+            </td>
+            <td>
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
+                {
+                    <input id="aantal" name="aantal" type="Text" />
+                    <button type="submit" id="verwijderReservatieButton" class="btn btn-default"><span class="glyphicon-minus glyphicon"></span></button>
+                }
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+

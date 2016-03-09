@@ -12,6 +12,7 @@ namespace Projecten2.NET
         public int ReservatieId { get; set; }
         public DateTime BeginDat { get; private set; }
         public DateTime EindDat { get; private set; }
+        public int Aantal { get; set; }
 
     }
 }

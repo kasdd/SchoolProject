@@ -1,5 +1,6 @@
 using Projecten2.NET.Models.DAL;
 using Projecten2.NET.Models.Domain;
+using Projecten2.NET.Models.Domain.IRepositories;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Projecten2.NET.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Projecten2.NET.App_Start.NinjectWebCommon), "Stop")]
@@ -66,6 +67,8 @@ namespace Projecten2.NET.App_Start
         {
             kernel.Bind<IGebruikerRepository>().To<GebruikersRepository>().InRequestScope();
             kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope();
+            kernel.Bind<IDoelgroepRepository>().To<DoelgroepRepository>().InRequestScope();
+            kernel.Bind<ILeergebiedRepository>().To<LeergebiedRepository>().InRequestScope();
             kernel.Bind<CatalogusContext>().ToSelf().InRequestScope();
         }        
     }
