@@ -63,17 +63,29 @@
                 {
                     <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>               
                 }
-                <!-- Examples of creating a Datepicker -->
-                <input type="text" id="MyDate" />
             </td>
+            <td>&nbsp;</td>
+            <td>
+                <!-- Examples of creating a Datepicker -->
+                <input type="text" class="date" placeholder="Selecteer datum"/>
+                <span></span> 
+            </td>
+            <td>&nbsp;</td>
         </tr>
     }
 </table>
 
 <script type="text/javascript">
     $(function () {
-        $('#MyDate').datepicker();
+        $('.date').not('.hasDatePicker').datepicker({  
+            showOn: 'button'
+        }).next('button').button({
+            icons: {
+                primary: 'ui-icon-calendar'
+            }, text:false
+        });       
     });
 </script>
+
 
 
