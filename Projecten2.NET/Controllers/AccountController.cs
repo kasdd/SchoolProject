@@ -425,7 +425,7 @@ namespace Projecten2.NET.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalogus");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
