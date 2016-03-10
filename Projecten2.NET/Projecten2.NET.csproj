@@ -329,9 +329,6 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Catalogus\Details.cshtml" />
     <Content Include="Views\Verlanglijst\LegeLijst.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Reservatie\LegeLijst.cshtml" />
     <Content Include="Views\Reservatie\Index.cshtml" />
     <Content Include="Views\Verlanglijst\Index.cshtml" />
