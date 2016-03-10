@@ -51,7 +51,7 @@ namespace Projecten2.NET.Controllers
             {
                 leergbied = leergebiedRepository.FindById(leergebiedId);
                 materialen = leergbied.Materialen.OrderBy(m => m.ArtikelNummer);
-                if (!String.IsNullOrEmpty(searchString))
+                if (!string.IsNullOrEmpty(searchString))
                 {
                     materialen.Where(s =>
                         s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||
@@ -65,7 +65,7 @@ namespace Projecten2.NET.Controllers
                 return View(materialen);
 
             }
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
                 {
                     materialen =
                         materiaalRepository.FindAll()
