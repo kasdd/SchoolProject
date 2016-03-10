@@ -19,36 +19,10 @@ namespace Projecten2.NET.Controllers
 
         public ActionResult Index(Gebruiker gebruiker)
         {
-
-            DateTime startdatum = new DateTime();
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            if (gebruiker?.Verlanglijst.Materialen.Count == 0)
             {
-                if (DateTime.Now.TimeOfDay.Hours < 17 /*Convert.ToDateTime("05:00:00 PM")*/)
-                {
-                    startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
-                }
-                else
-                {
-                    startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-                }
+                return View("LegeLijst");
             }
-            else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
-            {
-                startdatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
-            }
-            else
-            {
-                startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-            }
-
-            if (gebruiker != null)
-            {
-                if (gebruiker.Verlanglijst.Materialen.Count == 0)
-                {
-                    return View("LegeLijst");
-                }
-            }
-            ViewBag.Startdatum = startdatum;
             ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
             return View(gebruiker.Verlanglijst.Materialen);
 

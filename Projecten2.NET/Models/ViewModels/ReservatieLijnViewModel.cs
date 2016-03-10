@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Core.Common.EntitySql;
 
 namespace Projecten2.NET.Models.ViewModels
 {
@@ -26,11 +27,13 @@ namespace Projecten2.NET.Models.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Startdatum van reservatie")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime BeginDatum { get; set; }
+        public DateTime beginDatum { get; set; }
+
+        public int beschikbaar { get; set; }
 
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
-            this.BeginDatum = DateTime.Today;
+            this.beginDatum = GeefCorrecteDatumTerug();
             this.materiaal = materiaal;
         }
 
@@ -38,6 +41,47 @@ namespace Projecten2.NET.Models.ViewModels
         {
             
         }
+
+        public DateTime GeefCorrecteDatumTerug()
+        {
+
+            beginDatum = DateTime.Today;
+            return beginDatum;
+        }
+
+        public int AantalBeschikbaar(DateTime datum)
+        {
+            beschikbaar = aantal;
+            foreach (ReservatieLijn lijn in materiaal.Reservatielijnen)
+            {
+                if (lijn.BeginDat != null && beginDatum == lijn.BeginDat.Value)
+                {
+                    beschikbaar--;
+                }
+            }
+            return beschikbaar;
+        }
+
+    //    DateTime startdatum = new DateTime();
+    //        if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+    //        {
+    //            if (DateTime.Now.TimeOfDay.Hours< 17 /*Convert.ToDateTime("05:00:00 PM")*/)
+    //            {
+    //                startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
+    //}
+    //            else
+    //            {
+    //                startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+    //            }
+    //        }
+    //        else if (DateTime.Now.DayOfWeek<DayOfWeek.Friday)
+    //        {
+    //            startdatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
+    //        }
+    //        else
+    //        {
+    //            startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+    //        }
 
     }
 }
