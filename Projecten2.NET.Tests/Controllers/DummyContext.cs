@@ -24,7 +24,7 @@ namespace Projecten2.NET.Tests.Controllers
         public DummyContext()
         {
             materialen = new List<Materiaal>();
-            // student = new Gebruiker { Name = "Gent", Postalcode = "9000" };
+            //student = new Gebruiker { Name = "Gent", Postalcode = "9000" };
             nederlands = new Leergebied { LeergebiedNaam = "spelenderwijs", LeergebiedId = 1 };
             aardrijkskunde = new Leergebied { LeergebiedNaam = "aardrijkskunde", LeergebiedId = 2 };
             kleuters = new Doelgroep { DoelgroepNaam = "kleuters", DoelgroepId = 11 };
@@ -55,6 +55,9 @@ namespace Projecten2.NET.Tests.Controllers
                 Prijs = 195,
                 Uitleenbaar = true
             };
+            kleuters.addMateriaal(wereldbol);
+            lagerOnderwijs.addMateriaal(wereldbol);
+            lagerOnderwijs.addMateriaal(dobbelsteen);
             materialen.Add(wereldbol);
             materialen.Add(dobbelsteen);
 
