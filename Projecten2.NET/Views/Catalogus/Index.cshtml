@@ -78,7 +78,7 @@
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>
             <td class="text-right">
-                @($"{item.Prijs:€00.00}")
+                @($"{item.Prijs:€0.00}")
             <td>
                 @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {nummer = item.ArtikelNummer}))
                 {
