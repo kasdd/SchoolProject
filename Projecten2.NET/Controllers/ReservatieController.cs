@@ -37,14 +37,14 @@ namespace Projecten2.NET.Controllers
                     return View(vm);
                 
         }
-        [HttpPost]
-        public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
+        //[HttpPost]
+        ////public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
+        ////{
+        ////    if (ModelState.IsValid)
+        ////    {
                 
-            }
-            return View();
-        }
+        ////    }
+        ////    return View();
+        ////}
     }
 }
