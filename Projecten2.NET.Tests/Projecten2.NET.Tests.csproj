@@ -121,8 +121,8 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\CatalogusControllerTest.cs" />
     <Compile Include="Controllers\DummyContext.cs" />
+    <Compile Include="Controllers\VerlanglijstControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -1,22 +1,19 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Projecten2.NET.Controllers;
-using Projecten2.NET.Models.Domain;
-using Projecten2.NET.Models.Domain.IRepositories;
 using Moq;
+using Projecten2.NET.Models.Domain;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Projecten2.NET.Tests.Controllers
 {
-   [TestClass]
-    public class CatalogusControllerTest
+    [TestClass]
+    public class VerlanglijstControllerTest
     {
-        private CatalogusController catalogusController;
+        private VerlanglijstController verlanglijstController;
         private Mock<IMateriaalRepository> mockMateriaalRepository;
-        private Mock<IDoelgroepRepository> mockDoelgroepRepository;
-        private Mock<ILeergebiedRepository> mockLeergebiedRepository;
         private Mock<IGebruikerRepository> mockGebruikerRepository;
         private readonly DummyContext dummyContext = new DummyContext();
 
@@ -24,17 +21,12 @@ namespace Projecten2.NET.Tests.Controllers
         public void MyTestInitializer()
         {
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
-            mockDoelgroepRepository = new Mock<IDoelgroepRepository>();
-            mockLeergebiedRepository = new Mock<ILeergebiedRepository>();
             mockGebruikerRepository = new Mock<IGebruikerRepository>();
             mockMateriaalRepository.Setup(p => p.FindAll()).Returns(dummyContext.AllMaterialen);
             mockMateriaalRepository.Setup(p => p.FindByArtikelNr("101")).Returns(dummyContext.FindByArtikelNrMaterialen("101"));
             mockMateriaalRepository.Setup(p => p.FindByArtikelNr("102")).Returns(dummyContext.FindByArtikelNrMaterialen("102"));
-            mockDoelgroepRepository.Setup(p => p.FindAll()).Returns(dummyContext.AllDoelgroepen);
-            mockDoelgroepRepository.Setup(p => p.FindById(11)).Returns(dummyContext.FindByIdDoelgroep(11));
-            mockDoelgroepRepository.Setup(p => p.FindById(12)).Returns(dummyContext.FindByIdDoelgroep(12));
-            catalogusController = new CatalogusController(mockMateriaalRepository.Object, mockDoelgroepRepository.Object, mockLeergebiedRepository.Object, mockGebruikerRepository.Object);
-       }
+            verlanglijstController = new VerlanglijstController(mockMateriaalRepository.Object, mockGebruikerRepository.Object);
+        }
 
         #region == Index ==
 
