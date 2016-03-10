@@ -20,12 +20,12 @@ namespace Projecten2.NET.Controllers
         public ActionResult Index(Gebruiker gebruiker)
         {
 
-            DateTime startdatum = new DateTime();
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            /*   DateTime startdatum = new DateTime();
+               if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+               {
+                   if (DateTime.Now.TimeOfDay.Hours < 17 ) //Convert.ToDateTime("05:00:00 PM")
             {
-                if (DateTime.Now.TimeOfDay.Hours < 17 /*Convert.ToDateTime("05:00:00 PM")*/)
-                {
-                    startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
+                startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Projecten2.NET.Controllers
             {
                 startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
             }
-
+*/
             if (gebruiker != null)
             {
                 if (gebruiker.Verlanglijst.Materialen.Count == 0)
@@ -48,7 +48,7 @@ namespace Projecten2.NET.Controllers
                     return View("LegeLijst");
                 }
             }
-            ViewBag.Startdatum = startdatum;
+ //           ViewBag.Startdatum = startdatum;
             ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
             return View(gebruiker.Verlanglijst.Materialen);
 
