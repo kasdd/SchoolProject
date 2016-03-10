@@ -12,7 +12,6 @@
 
 <table class="table">
     <tr>
-        <th class="text-right">Aantal</th>
         <th>
             @Html.DisplayNameFor(model => model.Foto)
         </th>
@@ -40,7 +39,6 @@
     {
 
         <tr>
-            <td class="text-right">1</td>
             <td>
                 <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
             </td>
@@ -61,47 +59,32 @@
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>
             <td>
-                @using (Html.BeginForm("Plus", "Reservatie", new { nummer = item.ArtikelNummer }))
-                {
-                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
-                }
-                @using (Html.BeginForm("Min", "Reservatie", new { nummer = item.ArtikelNummer }))
-                {
-                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button>
-                }
+
                 @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
                 {
                     <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>
                 }
             </td>
-            <td>&nbsp;</td>
             <td>
-                    <input type="text" class="date" placeholder="Selecteer datum" />
-            </td>
-            <td>
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("AddReservatie", "Reservatie", new { nummer = item.ArtikelNummer }))
                 {
-                    @Html.TextBoxFor(m => m.BeginDat, new {
-                   @type = "date",
-                   @Value = Model.BeginDat.ToString("d")
-               })
-                    <button id = "button" type = "submit" > Reserveer </ button >
-                  }
-              </td>
-            <td>&nbsp;</td>
+                    <button id="button" type="submit" class="btn btn-groen">Reserveer</button>
+                }
+            </td>
         </tr>
     }
+
 </table>
-<script type="text/javascript">
-    var date = $.date.dateFormat("dd-mm-yy")
-    $(function () {
-        $('.date').not('.hasDatePicker').datepicker({
-            dateFormat: 'dd-mm-yy',
-            showOn: 'button'
-        }).next('button').button({
-            icons: {
-                primary: 'ui-icon-calendar'
-            }, text:false
+@*<script type="text/javascript">
+        <input type="text" class="date" placeholder="Selecteer datum" />
+        $(function () {
+            $('.date').not('.hasDatePicker').datepicker({
+                dateFormat: 'dd-mm-yy',
+                showOn: 'button'
+            }).next('button').button({
+                icons: {
+                    primary: 'ui-icon-calendar'
+                }, text: false
+            });
         });
-    });
-</script>
+    </script>*@

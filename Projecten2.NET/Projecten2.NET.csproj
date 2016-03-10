@@ -335,6 +335,7 @@
     <Content Include="Views\Reservatie\LegeLijst.cshtml" />
     <Content Include="Views\Reservatie\Index.cshtml" />
     <Content Include="Views\Verlanglijst\Index.cshtml" />
+    <Content Include="Views\Reservatie\Nieuw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
