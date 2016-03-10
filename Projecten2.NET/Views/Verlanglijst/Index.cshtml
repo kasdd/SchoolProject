@@ -66,7 +66,7 @@
                 }
             </td>
             <td>
-                @using (Html.BeginForm("AddReservatie", "Reservatie", new { nummer = item.ArtikelNummer }))
+                @using (Html.BeginForm("Nieuw", "Reservatie", new { nummer = item.ArtikelNummer }))
                 {
                     <button id="button" type="submit" class="btn btn-groen">Reserveer</button>
                 }

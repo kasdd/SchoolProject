@@ -30,31 +30,21 @@ namespace Projecten2.NET.Controllers
             }            
             return View(gebruiker.Reservaties);
         }
-        public ActionResult AddReservatie(Gebruiker gebruiker, string nummer)
+        public ActionResult Nieuw(Gebruiker gebruiker, string nummer)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
                     Materiaal materiaal = materiaalRepository.FindByArtikelNr(nummer);
                     NieuweReservatieViewModel vm = new NieuweReservatieViewModel(materiaal);
                     return View(vm);
-                }
-                catch(Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
-            }
-            return RedirectToAction("Index", "Verlanglijst");
+                
         }
-
-        /*public ActionResult AddReservatie(Gebruiker gebruiker, NieuweReservatieViewModel model)
+        [HttpPost]
+        public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
         {
             if (ModelState.IsValid)
             {
                 
             }
             return View();
-        }*/
+        }
     }
 }

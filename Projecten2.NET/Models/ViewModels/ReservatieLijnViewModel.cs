@@ -34,5 +34,10 @@ namespace Projecten2.NET.Models.ViewModels
             this.materiaal = materiaal;
         }
 
+        public NieuweReservatieViewModel() : this(new Materiaal())
+        {
+            
+        }
+
     }
 }
