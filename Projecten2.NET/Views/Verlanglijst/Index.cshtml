@@ -8,7 +8,6 @@
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 
 <h2>Uw Verlanglijst</h2>
-<h2>@TempData["info"]</h2>
 
 <table class="table">
     <tr>
@@ -59,20 +58,16 @@
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>
             <td>
+                @Html.ActionLink("Reserveer", "Nieuw", "Reservatie", new {nummer = item.ArtikelNummer}, new {@class = "btn btn-groen"})
+            </td>
+            <td>
 
                 @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { nummer = item.ArtikelNummer }))
                 {
                     <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>
                 }
             </td>
-            <td>
-                @using (Html.BeginForm("Nieuw", "Reservatie", new { nummer = item.ArtikelNummer }))
-                {
-                    <button id="button" type="submit" class="btn btn-groen">Reserveer</button>
-                }
-            </td>
         </tr>
     }
 
 </table>
-
