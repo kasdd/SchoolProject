@@ -30,10 +30,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BeginDatum, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.beginDatum, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BeginDatum, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BeginDatum, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.beginDatum, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.beginDatum, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -48,3 +48,17 @@
 <div>
     @Html.ActionLink("Back to verlanglijst", "Index")
 </div>
+
+@*<script type="text/javascript">
+        <input type="text" class="date" placeholder="Selecteer datum" />
+        $(function () {
+            $('.date').not('.hasDatePicker').datepicker({
+                dateFormat: 'dd-mm-yy',
+                showOn: 'button'
+            }).next('button').button({
+                icons: {
+                    primary: 'ui-icon-calendar'
+                }, text: false
+            });
+        });
+    </script>*@

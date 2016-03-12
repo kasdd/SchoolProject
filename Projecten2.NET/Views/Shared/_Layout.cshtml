@@ -31,20 +31,33 @@
         </div>  
     </div>
 <div class="container body-content">
+    @if (TempData["info"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-warning">@TempData["message"]</div>
+    }
     @RenderBody()
 
-    <footer class="footer">
-        
-        <div class="">
 
-            &copy; @DateTime.Now.Year - Faculteit Mens en Welzijn - Lerarenopleiding HoGent 
+
+</div>
+
+    <footer class="footer">
+
+        <div class="">
+            <div class="">
+                <p >&copy; @DateTime.Now.Year - Faculteit Mens en Welzijn - Lerarenopleiding HoGent </p>
+            </div>
+
+           
         </div>
 
     </footer>
 
-</div>
-
-    @Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

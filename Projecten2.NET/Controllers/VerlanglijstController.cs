@@ -19,36 +19,10 @@ namespace Projecten2.NET.Controllers
 
         public ActionResult Index(Gebruiker gebruiker)
         {
-
-            /*   DateTime startdatum = new DateTime();
-               if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
-               {
-                   if (DateTime.Now.TimeOfDay.Hours < 17 ) //Convert.ToDateTime("05:00:00 PM")
+            if (gebruiker?.Verlanglijst.Materialen.Count == 0)
             {
-                startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
-                }
-                else
-                {
-                    startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-                }
+                return View("LegeLijst");
             }
-            else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
-            {
-                startdatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
-            }
-            else
-            {
-                startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-            }
-*/
-            if (gebruiker != null)
-            {
-                if (gebruiker.Verlanglijst.Materialen.Count == 0)
-                {
-                    return View("LegeLijst");
-                }
-            }
- //           ViewBag.Startdatum = startdatum;
             ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
             return View(gebruiker.Verlanglijst.Materialen);
 
@@ -58,16 +32,16 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                    Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
+                Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
                 if (gebruiker.BezitVerlanglijstMateriaal(m))
-                        TempData["info"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
-                    else
-                    {
-                        gebruiker.AddMateriaalToVerlanglijst(m);
-                        gebruikersRepository.SaveChanges();
-                        if (gebruiker.BezitVerlanglijstMateriaal(m))
-                            TempData["info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
-                    }
+                    TempData["error"] = "Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
+                else
+                {
+                    gebruiker.AddMateriaalToVerlanglijst(m);
+                    gebruikersRepository.SaveChanges();
+                    if (gebruiker.BezitVerlanglijstMateriaal(m))
+                        TempData["info"] = "Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                }
             }
             return RedirectToAction("Index", "Catalogus");
         }
@@ -78,16 +52,16 @@ namespace Projecten2.NET.Controllers
             {
                 //try
                 //{
-                    Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-                    gebruiker.RemoveMateriaalFromVerlanglijst(m);
-                    gebruikersRepository.SaveChanges();
-                    if (!gebruiker.BezitVerlanglijstMateriaal(m))
-                        TempData["info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-               /*}
-               // catch (Exception e)
-                { 
-                    throw new Exception(e.Message);
-                }*/
+                Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
+                gebruiker.RemoveMateriaalFromVerlanglijst(m);
+                gebruikersRepository.SaveChanges();
+                if (!gebruiker.BezitVerlanglijstMateriaal(m))
+                    TempData["info"] = "Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                /*}
+                // catch (Exception e)
+                 { 
+                     throw new Exception(e.Message);
+                 }*/
             }
             return RedirectToAction("Index", "Verlanglijst");
 
