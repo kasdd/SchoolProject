@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Projecten2.NET.Controllers;
 using Moq;
@@ -31,7 +31,7 @@ using System.Linq;
 //        #region == Index ==
 
 //        [TestMethod]
-//        public void IndexRetourneertAlleMaterialen()
+//        public void IndexRetourneertVerlanglijst()
 //        {
 //            ViewResult result = catalogusController.Index("") as ViewResult;
 //            List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
