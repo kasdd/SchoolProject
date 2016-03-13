@@ -122,15 +122,28 @@ namespace Projecten2.NET.Models.DAL
                     LeergebiedNaam = "Biologie"
                 };
 
+                /* Toevoegen van materialen voor zoekfunctie */
+                /* kleuter */
                 doelgroep1.addMateriaal(dobbelsteen);
                 doelgroep1.addMateriaal(loco);
+                doelgroep1.addMateriaal(spinners);
+                doelgroep1.addMateriaal(splitsbomen);
+
                 doelgroep2.addMateriaal(dobbelsteen);
                 doelgroep2.addMateriaal(loco);
-                doelgroep2.addMateriaal(euromex);
-                doelgroep2.addMateriaal(ceti);
-                doelgroep3.addMateriaal(loco);
+                doelgroep2.addMateriaal(draaischijf);
+
                 doelgroep3.addMateriaal(ceti);
                 doelgroep3.addMateriaal(euromex);
+                doelgroep3.addMateriaal(dissectiebak);
+
+                
+                leergebied3.addMateriaal(dissectiebak);
+                leergebied3.addMateriaal(euromex);
+                leergebied3.addMateriaal(ceti);
+                leergebied3.addMateriaal(draaischijf);
+
+
 
                 var materialen = new List<Materiaal>()
                 {
@@ -159,7 +172,7 @@ namespace Projecten2.NET.Models.DAL
                 materialen.ForEach(m => context.Materialen.Add(m));
                 doelgroepen.ForEach(d => context.Doelgroepen.Add(d));
                 leergebieden.ForEach(l => context.Leergebieden.Add(l));
-                //puzzelkoffer.addDoelgroep(doelgroep1);
+                
                 context.SaveChanges();  
 
             }
