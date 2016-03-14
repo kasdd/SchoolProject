@@ -83,9 +83,9 @@ namespace Projecten2.NET.Tests.Controllers
             }
         }
 
-        public Materiaal FindByArtikelNrMaterialen(String nummer)
+        public Materiaal FindByArtikelNaamMaterialen(String naam)
         {
-            return materialen.FirstOrDefault(m => m.ArtikelNummer == nummer);
+            return materialen.FirstOrDefault(m => m.Artikelnaam == naam);
         }
 
         public Doelgroep FindByIdDoelgroep(int nummer)

@@ -23,8 +23,8 @@ namespace Projecten2.NET.Tests.Controllers
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockGebruikerRepository = new Mock<IGebruikerRepository>();
             mockMateriaalRepository.Setup(p => p.FindAll()).Returns(dummyContext.AllMaterialen);
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNr("101")).Returns(dummyContext.FindByArtikelNrMaterialen("101"));
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNr("102")).Returns(dummyContext.FindByArtikelNrMaterialen("102"));
+            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Blanco draaischijf")).Returns(dummyContext.FindByArtikelNaamMaterialen("Blanco draaischijf"));
+            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Splitsbomen")).Returns(dummyContext.FindByArtikelNaamMaterialen("Splitsbomen"));
             verlanglijstController = new VerlanglijstController(mockMateriaalRepository.Object, mockGebruikerRepository.Object);
         }
 

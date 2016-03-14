@@ -30,9 +30,9 @@ namespace Projecten2.NET.Controllers
             }            
             return View(gebruiker.Reservaties);
         }
-        public ActionResult Nieuw(Gebruiker gebruiker, string nummer)
+        public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
-                    Materiaal materiaal = materiaalRepository.FindByArtikelNr(nummer);
+                    Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
                     NieuweReservatieViewModel vm = new NieuweReservatieViewModel(materiaal);
                     return View(vm);
                 

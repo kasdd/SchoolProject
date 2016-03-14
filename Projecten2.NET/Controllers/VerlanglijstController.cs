@@ -28,11 +28,11 @@ namespace Projecten2.NET.Controllers
 
         }
 
-        public ActionResult AddToVerlanglijst(string nummer, Gebruiker gebruiker)
+        public ActionResult AddToVerlanglijst(string naam, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
-                Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
+                Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
                 if (gebruiker.BezitVerlanglijstMateriaal(m))
                     TempData["error"] = $"Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                 else
@@ -46,13 +46,13 @@ namespace Projecten2.NET.Controllers
             return RedirectToAction("Index", "Catalogus");
         }
 
-        public ActionResult RemoveFromVerlanglijst(string nummer, Gebruiker gebruiker)
+        public ActionResult RemoveFromVerlanglijst(string naam, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
                 //try
                 //{
-                Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
+                Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
                 gebruiker.RemoveMateriaalFromVerlanglijst(m);
                 gebruikersRepository.SaveChanges();
                 if (!gebruiker.BezitVerlanglijstMateriaal(m))

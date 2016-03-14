@@ -21,7 +21,7 @@ namespace Projecten2.NET.Models.ViewModels
         public Materiaal materiaal { get; set; }
         [Required(ErrorMessage = "{0} is verplicht")]
         [Display(Name = "Aantal")]
-        [Range(1, int.MaxValue, ErrorMessage = "U moet minimim 1 materiaal aanklikken")]
+        [Range(1, int.MaxValue, ErrorMessage = "U moet minimum 1 materiaal aanklikken")]
         public int aantal { get; set; }
         [Required(ErrorMessage = "Gelieve uw startdatum in te voeren")]
         [DataType(DataType.Date)]

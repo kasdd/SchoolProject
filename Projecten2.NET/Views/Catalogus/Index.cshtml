@@ -75,7 +75,7 @@
             <td class="text-right">
                 @($"{item.Prijs:€0.00}")
             <td>
-                @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {nummer = item.ArtikelNummer}))
+                @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {naam = item.Artikelnaam}))
                 {
                     <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
                 }
