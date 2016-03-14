@@ -21,11 +21,24 @@
                 @Html.ActionLink("Didactische leermiddelen", "Index", "Catalogus", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Catalogus", "Index", "Catalogus")</li>
-                    <li>@Html.ActionLink("Uw verlanglijst", "Index", "Verlanglijst")</li>
-                    <li>@Html.ActionLink("Uw reservaties", "Index", "Reservatie") </li>
-                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        @if (User.IsInRole("Student"))
+                        {
+
+                            <li>@Html.ActionLink("Catalogus", "Index", "Catalogus")</li>
+                            <li>@Html.ActionLink("Uw verlanglijst", "Index", "Verlanglijst")</li>
+                            <li>@Html.ActionLink("Uw reservaties", "Index", "Reservatie") </li>
+                        }
+                        else if (User.IsInRole("Personeel"))
+                        {
+
+                            <li>@Html.ActionLink("Catalogus", "Index", "Catalogus")</li>
+                            <li>@Html.ActionLink("Uw verlanglijst", "Index", "Verlanglijst")</li>
+                        }
+                    </ul>
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>  
