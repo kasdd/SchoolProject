@@ -40,6 +40,8 @@ namespace Projecten2.NET.Controllers
         [HttpPost]
         public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
         {
+
+            //
             if (ModelState.IsValid)
             {
 
