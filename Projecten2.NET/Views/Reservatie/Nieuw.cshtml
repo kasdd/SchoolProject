@@ -41,10 +41,10 @@
         <input type="button" class="btn btn-groen" value="Meer informatie" id="meer" />
         <div id="hidden">
             <div class="form-group">
-                @Html.LabelFor(model => model.materiaal.ArtikelNummer, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.materiaal.Artikelnaam, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.materiaal.ArtikelNummer, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.materiaal.ArtikelNummer, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.materiaal.Artikelnaam, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.materiaal.Artikelnaam, "", new { @class = "text-danger" })
                 </div>
             </div>
 
