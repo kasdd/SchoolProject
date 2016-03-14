@@ -25,10 +25,9 @@ namespace Projecten2.NET.Models.ViewModels
         public int aantal { get; set; }
         [Required(ErrorMessage = "Gelieve uw startdatum in te voeren")]
         [DataType(DataType.Date)]
-        [Display(Name = "Startdatum van reservatie")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Startdatum")]
+        [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
-
         public int beschikbaar { get; set; }
 
         public NieuweReservatieViewModel(Materiaal materiaal)
@@ -42,10 +41,37 @@ namespace Projecten2.NET.Models.ViewModels
             
         }
 
+        public string ReturnDateForDisplay
+        {
+            get
+            {
+                return this.beginDatum.ToString("d");
+            }
+        }
+
         public DateTime GeefCorrecteDatumTerug()
         {
+            beginDatum = new DateTime();
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            {
+                if (DateTime.Now.TimeOfDay.Hours < 17 /*Convert.ToDateTime("05:00:00 PM")*/)
+                {
+                    beginDatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
+                }
+                else
+                {
+                    beginDatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+                }
+            }
+            else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
+            {
+                beginDatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
+            }
+            else
+            {
+                beginDatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+            }
 
-            beginDatum = DateTime.Today;
             return beginDatum;
         }
 
@@ -62,26 +88,11 @@ namespace Projecten2.NET.Models.ViewModels
             return beschikbaar;
         }
 
-    //    DateTime startdatum = new DateTime();
-    //        if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
-    //        {
-    //            if (DateTime.Now.TimeOfDay.Hours< 17 /*Convert.ToDateTime("05:00:00 PM")*/)
-    //            {
-    //                startdatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
-    //}
-    //            else
-    //            {
-    //                startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-    //            }
-    //        }
-    //        else if (DateTime.Now.DayOfWeek<DayOfWeek.Friday)
-    //        {
-    //            startdatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
-    //        }
-    //        else
-    //        {
-    //            startdatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
-    //        }
+        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
+        {
+            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek) % 7;
+           return vandaag.AddDays(daysToAdd);
+        }
 
-    }
+}
 }

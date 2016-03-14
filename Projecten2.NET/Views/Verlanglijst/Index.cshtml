@@ -4,9 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
-
 <h2>Uw Verlanglijst</h2>
 
 <table class="table">
@@ -49,7 +46,7 @@
             </td>
 
             <td class="text-right">
-                @($"{item.Prijs:00.00€}")
+                @($"{item.Prijs:0.00€}")
             <td class="text-right">
                 @Html.DisplayFor(modelItem => item.Aantal)
             </td>

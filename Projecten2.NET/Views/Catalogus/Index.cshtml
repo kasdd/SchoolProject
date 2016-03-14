@@ -9,12 +9,6 @@
 
 <h2>Catalogus</h2>
 
-@if (TempData["info"] != null)
-{
-    <div class="alert alert-success">@TempData["info"]</div>
-}
-<hr/>
-
 <div class="searchbar">
     <p>
         @using (Html.BeginForm("Index", "Catalogus",
