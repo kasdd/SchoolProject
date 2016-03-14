@@ -7,7 +7,11 @@ $(document).ready(function () {
             dateFormat: 'dd/mm/yy',
             beforeShowDay: DisableAllButMonday,
             minDate: dateToday,
-            showOn: 'button'
+            showOn: 'button',
+            onSelect: function(dateText) {
+                display("Datum: " + dateText + " " + this.value);
+                $(this).change();
+            }
         }).next('button').button({
             icons: {
                 primary: 'ui-icon-calendar'
@@ -60,4 +64,5 @@ $(document).ready(function () {
         initStatus: 'Kies een datum', isRTL: false
     };
     $.datepicker.setDefaults($.datepicker.regional['nl']);
+
 });

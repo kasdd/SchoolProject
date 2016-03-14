@@ -1,10 +1,9 @@
 ﻿using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using Projecten2.NET.Models.Domain.IRepositories;
 
 namespace Projecten2.NET.Controllers
 {
@@ -14,11 +13,13 @@ namespace Projecten2.NET.Controllers
 
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
+        private IReservatieRepository reservatieRepository;
 
-        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
+        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository, IReservatieRepository reservatieRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
+            this.reservatieRepository = reservatieRepository;
         }
 
         // GET: Reservatie
@@ -32,10 +33,11 @@ namespace Projecten2.NET.Controllers
         }
         public ActionResult Nieuw(Gebruiker gebruiker, string nummer)
         {
-                    Materiaal materiaal = materiaalRepository.FindByArtikelNr(nummer);
-                    NieuweReservatieViewModel vm = new NieuweReservatieViewModel(materiaal);
-                    return View(vm);
-                
+          
+                Materiaal materiaal = materiaalRepository.FindByArtikelNr(nummer);
+                NieuweReservatieViewModel vm = new NieuweReservatieViewModel(materiaal);
+                return View(vm);
+                              
         }
         [HttpPost]
         public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.Common.EntitySql;
+using System.Web.Mvc;
 
 namespace Projecten2.NET.Models.ViewModels
 {
@@ -17,7 +18,7 @@ namespace Projecten2.NET.Models.ViewModels
 
     public class NieuweReservatieViewModel
     {
-        
+
         public Materiaal materiaal { get; set; }
         [Required(ErrorMessage = "{0} is verplicht")]
         [Display(Name = "Aantal")]
@@ -29,25 +30,22 @@ namespace Projecten2.NET.Models.ViewModels
         [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
         public int beschikbaar { get; set; }
-
+        
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
             this.beginDatum = GeefCorrecteDatumTerug();
             this.materiaal = materiaal;
+            this.beschikbaar = AantalBeschikbaar(beginDatum);
+            this.aantal = materiaal.Aantal;
         }
 
         public NieuweReservatieViewModel() : this(new Materiaal())
         {
-            
+
         }
 
-        public string ReturnDateForDisplay
-        {
-            get
-            {
-                return this.beginDatum.ToString("d");
-            }
-        }
+
+        public string ReturnDateForDisplay => this.beginDatum.ToString("d");
 
         public DateTime GeefCorrecteDatumTerug()
         {
@@ -75,6 +73,12 @@ namespace Projecten2.NET.Models.ViewModels
             return beginDatum;
         }
 
+        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
+        {
+            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
+            return vandaag.AddDays(daysToAdd);
+        }
+
         public int AantalBeschikbaar(DateTime datum)
         {
             beschikbaar = aantal;
@@ -88,11 +92,5 @@ namespace Projecten2.NET.Models.ViewModels
             return beschikbaar;
         }
 
-        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
-        {
-            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek) % 7;
-           return vandaag.AddDays(daysToAdd);
-        }
-
-}
+    }
 }

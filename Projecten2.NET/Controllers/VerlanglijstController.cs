@@ -50,18 +50,18 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-                gebruiker.RemoveMateriaalFromVerlanglijst(m);
-                gebruikersRepository.SaveChanges();
-                if (!gebruiker.BezitVerlanglijstMateriaal(m))
-                    TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-                /*}
-                // catch (Exception e)
-                 { 
-                     throw new Exception(e.Message);
-                 }*/
+                try
+                {
+                    Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
+                    gebruiker.RemoveMateriaalFromVerlanglijst(m);
+                    gebruikersRepository.SaveChanges();
+                    if (!gebruiker.BezitVerlanglijstMateriaal(m))
+                        TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             return RedirectToAction("Index", "Verlanglijst");
 

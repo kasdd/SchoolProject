@@ -198,9 +198,11 @@
     <Compile Include="Models\DAL\DoelgroepRepository.cs" />
     <Compile Include="Models\DAL\LeergebiedRepository.cs" />
     <Compile Include="Models\DAL\Mapper\ReservatieLijnMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservatieRepository.cs" />
     <Compile Include="Models\Domain\Doelgroep.cs" />
     <Compile Include="Models\Domain\IRepositories\IDoelgroepRepository.cs" />
     <Compile Include="Models\Domain\IRepositories\ILeergebiedRepository.cs" />
+    <Compile Include="Models\Domain\IRepositories\IReservatieRepository.cs" />
     <Compile Include="Models\Domain\Leergebied.cs" />
     <Compile Include="Models\DAL\CatalogusContext.cs" />
     <Compile Include="Models\DAL\CatalogusInitializer.cs" />
