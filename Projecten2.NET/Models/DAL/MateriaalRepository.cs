@@ -17,9 +17,9 @@ namespace Projecten2.NET.Models.DAL
             this.context = context;
             materialen = context.Materialen;
         }
-        public Materiaal FindByArtikelNr(String nummer)
+        public Materiaal FindByArtikelNaam(String naam)
         {
-            return materialen.FirstOrDefault(m => m.ArtikelNummer == nummer);
+            return materialen.FirstOrDefault(m => m.Artikelnaam == naam);
         }
         public IQueryable<Materiaal> FindAll()
         {

@@ -9,12 +9,16 @@ namespace Projecten2.NET
     {
         public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
+        
         public String ArtikelNummer { get; set; }
+    
         public string Artikelnaam { get; set; }
         public string Omschrijving { get; set; }
+        public string Firma { get; set; }
         public double Prijs { get; set; }
         public string Foto { get; set; }
         public String Plaats { get; set; }
+    
         public int Aantal { get; set; }
         public virtual ICollection<ReservatieLijn> Reservatielijnen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
@@ -45,5 +49,11 @@ namespace Projecten2.NET
         {
             return Doelgroepen.Any(doelgroep => doelgroep.DoelgroepNaam.ToLower().Contains(naam.ToLower()));
         }
+
+        //public void addDoelgroep(Doelgroep doelgroep)
+        //{
+        //    Doelgroepen.Add(doelgroep);
+
+        //}
     }
 }

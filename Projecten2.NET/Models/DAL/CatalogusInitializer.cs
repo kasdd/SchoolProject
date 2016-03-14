@@ -18,6 +18,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Dobbelsteen-schatkist-162 delig",
                     Foto = "dobbelsteen.jpg",
                     Omschrijving = "Koffertje met verschillende soorten dobbelstenen: blanco, met cijfers, ...",
+                    Firma = "Baert" ,
                     Prijs = 30,
                     Plaats = "GLEDE 1.011",
                     Aantal = 1
@@ -28,6 +29,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Spinners klas assortiment",
                     Foto = "spinners.jpg",
                     Omschrijving = "Magnetische spinners in de vorm van een pijl, een vinger en een potlood.",
+                    Firma = "Baert",
                     Prijs = 19.2,
                     Plaats = "GLEDE 1.012",
                     Aantal = 3,
@@ -39,6 +41,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Blanco draaischijf",
                     Foto = "draaischijf.jpg",
                     Omschrijving = "Met verschillende blanco schijven in hard papier.",
+                    Firma = "Baert",
                     Prijs = 31.45,
                     Plaats = "GLEDE 1.011",
                     Aantal = 1,
@@ -50,6 +53,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Splitsbomen",
                     Foto = "splitsbomen.jpg",
                     Omschrijving = "Aan de hand van rode bolletjes kunnen getallen tot 10, in de stam van de boom gesplitst worden in 2 getallen(kaartjes) of in 2 x aantal bolleties(boom).",
+                    Firma = "Baert",
                     Prijs = 2.9,
                     Plaats = "GLEDE 1.011"
                 };
@@ -59,6 +63,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Mini-loco-spelbord",
                     Foto = "loco.jpg",
                     Omschrijving = "Spelbord: klapt open met een rode, becijferde kant en een doorzichtige kant + 12 blokjes met de getallen van l tot en met 12.",
+                    Firma = "Baert",
                     Prijs = 15.9,
                     Plaats = "GLEDE 1.011"
                 };
@@ -68,6 +73,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Microscoop Ceti",
                     Foto = "ceti.jpg",
                     Omschrijving = "Microscoop Ceti.",
+                    Firma = "Ceti",
                     Prijs = 42.35,
                     Plaats = "biolabo kast 1 &2",
                     Aantal = 4,
@@ -78,6 +84,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Microscoop Euromex",
                     Foto = "euromex.jpg",
                     Omschrijving = "Microscoop Euromex.",
+                    Firma = "Euromex",
                     Prijs = 29.99,
                     Plaats = "biolabo kast 1 &2",
                     Aantal = 12,
@@ -88,6 +95,7 @@ namespace Projecten2.NET.Models.DAL
                     Artikelnaam = "Dissectiebakken",
                     Foto = "dissectiebak.jpg",
                     Omschrijving = "Dissectiebakken.",
+                    Firma = "VWR",
                     Prijs = 9.99,
                     Plaats = "biolabo kast 5",
                     Aantal = 5,
@@ -137,7 +145,10 @@ namespace Projecten2.NET.Models.DAL
                 doelgroep3.addMateriaal(euromex);
                 doelgroep3.addMateriaal(dissectiebak);
 
-                
+                leergebied1.addMateriaal(spinners);
+
+                leergebied2.addMateriaal(draaischijf);
+
                 leergebied3.addMateriaal(dissectiebak);
                 leergebied3.addMateriaal(euromex);
                 leergebied3.addMateriaal(ceti);

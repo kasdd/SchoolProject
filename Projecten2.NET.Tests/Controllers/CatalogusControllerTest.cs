@@ -28,8 +28,8 @@ namespace Projecten2.NET.Tests.Controllers
             mockLeergebiedRepository = new Mock<ILeergebiedRepository>();
             mockGebruikerRepository = new Mock<IGebruikerRepository>();
             mockMateriaalRepository.Setup(p => p.FindAll()).Returns(dummyContext.AllMaterialen);
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNr("101")).Returns(dummyContext.FindByArtikelNrMaterialen("101"));
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNr("102")).Returns(dummyContext.FindByArtikelNrMaterialen("102"));
+            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Blanco draaischijf")).Returns(dummyContext.FindByArtikelNaamMaterialen("Blanco draaischijf"));
+            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Splitsbomen")).Returns(dummyContext.FindByArtikelNaamMaterialen("Splitsbomen"));
             mockDoelgroepRepository.Setup(p => p.FindAll()).Returns(dummyContext.AllDoelgroepen);
             mockDoelgroepRepository.Setup(p => p.FindById(11)).Returns(dummyContext.FindByIdDoelgroep(11));
             mockDoelgroepRepository.Setup(p => p.FindById(12)).Returns(dummyContext.FindByIdDoelgroep(12));

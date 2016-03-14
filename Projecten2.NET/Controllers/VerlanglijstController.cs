@@ -28,40 +28,54 @@ namespace Projecten2.NET.Controllers
 
         }
 
-        public ActionResult AddToVerlanglijst(string nummer, Gebruiker gebruiker)
+        [HttpPost]
+        public ActionResult AddToVerlanglijst(string naam, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
-                Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-                if (gebruiker.BezitVerlanglijstMateriaal(m))
-                    TempData["error"] = $"Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
-                else
                 {
-                    gebruiker.AddMateriaalToVerlanglijst(m);
-                    gebruikersRepository.SaveChanges();
-                    if (gebruiker.BezitVerlanglijstMateriaal(m))
-                        TempData["info"] = $"Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                    Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
+                    try
+                    {
+                        if (gebruiker.BezitVerlanglijstMateriaal(m))
+                            TempData["error"] = $"Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
+                        else
+                        {
+                            gebruiker.AddMateriaalToVerlanglijst(m);
+                            gebruikersRepository.SaveChanges();
+                            if (gebruiker.BezitVerlanglijstMateriaal(m))
+                                TempData["info"] = $"Materiaal " + m.Artikelnaam + " is aan uw verlanglijst toegevoegd!";
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        TempData["error"] = $"Materiaal kan niet toegevoegd worden aan uw verlanglijst";
+                    }
                 }
+
             }
             return RedirectToAction("Index", "Catalogus");
         }
 
-        public ActionResult RemoveFromVerlanglijst(string nummer, Gebruiker gebruiker)
+
+        [HttpPost]
+        public ActionResult RemoveFromVerlanglijst(string naam, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    Materiaal m = materiaalRepository.FindByArtikelNr(nummer);
-                    gebruiker.RemoveMateriaalFromVerlanglijst(m);
-                    gebruikersRepository.SaveChanges();
-                    if (!gebruiker.BezitVerlanglijstMateriaal(m))
-                        TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
+                //try
+                //{
+                Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
+                gebruiker.RemoveMateriaalFromVerlanglijst(m);
+                gebruikersRepository.SaveChanges();
+                if (!gebruiker.BezitVerlanglijstMateriaal(m))
+                    TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                /*}
+                // catch (Exception e)
+                 { 
+                     throw new Exception(e.Message);
+                 }*/
             }
             return RedirectToAction("Index", "Verlanglijst");
 
