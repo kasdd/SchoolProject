@@ -15,7 +15,7 @@ namespace Projecten2.NET.Models.DAL
         public DbSet<Leergebied> Leergebieden { get; set; }
         public DbSet<Gebruiker> Gebruikers { get; set; }
         public DbSet<Materiaal> Materialen { get; set; }
-        public DbSet<ReservatieLijn> Reservaties { get; set; } 
+        public DbSet<Reservatie> Reservaties { get; set; } 
             
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 

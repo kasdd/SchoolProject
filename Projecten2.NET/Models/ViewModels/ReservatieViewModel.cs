@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Projecten2.NET.Models.ViewModels
 {
-    public class ReservatieLijnViewModel
+    public class ReservatieViewModel
     {
         public int MateriaalId { get; set; }
         public int ReservatieId { get; set; }
@@ -30,7 +30,7 @@ namespace Projecten2.NET.Models.ViewModels
         [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
         public int beschikbaar { get; set; }
-        
+
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
             this.beginDatum = GeefCorrecteDatumTerug();
@@ -82,7 +82,7 @@ namespace Projecten2.NET.Models.ViewModels
         public int AantalBeschikbaar(DateTime datum)
         {
             beschikbaar = aantal;
-            foreach (ReservatieLijn lijn in materiaal.Reservatielijnen)
+            foreach (Reservatie lijn in materiaal.Reservatielijnen)
             {
                 if (lijn.BeginDat != null && beginDatum == lijn.BeginDat.Value)
                 {

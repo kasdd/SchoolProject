@@ -9,9 +9,7 @@ namespace Projecten2.NET
     {
         public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
-        
         public String ArtikelNummer { get; set; }
-    
         public string Artikelnaam { get; set; }
         public string Omschrijving { get; set; }
         public string Firma { get; set; }
@@ -20,13 +18,13 @@ namespace Projecten2.NET
         public String Plaats { get; set; }
     
         public int Aantal { get; set; }
-        public virtual ICollection<ReservatieLijn> Reservatielijnen { get; set; }
+        public virtual ICollection<Reservatie> Reservatielijnen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
         public virtual ICollection<Leergebied> Leergebieden { get; set; }
 
         public Materiaal()
         {
-            Reservatielijnen = new List<ReservatieLijn>();
+            Reservatielijnen = new List<Reservatie>();
             Doelgroepen = new List<Doelgroep>();
             Leergebieden = new List<Leergebied>();
             Uitleenbaar = true;

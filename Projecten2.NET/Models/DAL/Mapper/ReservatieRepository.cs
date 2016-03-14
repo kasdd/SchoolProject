@@ -10,14 +10,14 @@ namespace Projecten2.NET.Models.DAL.Mapper
     public class ReservatieRepository : IReservatieRepository
     {
         private CatalogusContext context;
-        private DbSet<ReservatieLijn> reservaties;
+        private DbSet<Reservatie> reservaties;
 
         public ReservatieRepository(CatalogusContext context)
         {
             this.context = context;
             reservaties = context.Reservaties;
         }
-        public IQueryable<ReservatieLijn> getbyDate(DateTime datum)
+        public IQueryable<Reservatie> getbyDate(DateTime datum)
         {
             return reservaties.Where(r => r.BeginDat == datum);
         }

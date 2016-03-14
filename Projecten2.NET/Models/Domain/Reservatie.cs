@@ -6,18 +6,21 @@ namespace Projecten2.NET
 {
     public class Reservatie
     {
-        public int ReservatieId { get; private set; }
-        public virtual Gebruiker Gebruiker { get; set; }
-        public virtual ICollection<Materiaal> Materialen { get; set; }
-        public virtual List<ReservatieLijn> ReservatieLijnen { get; set; }
-        public IEnumerable<ReservatieLijn> ReservatieLijnenAsEnumerable { get { return ReservatieLijnen.AsEnumerable(); } }
+        public int ReservatieId { get; set; }
+        public Materiaal Materiaal { get; set; }
+        public DateTime? BeginDat { get; private set; }
+        public DateTime? EndDate { get; set; }
+        public int Aantal { get; set; }
 
-        public Reservatie()
+        public Reservatie(Materiaal materiaal, DateTime begin, int aantal) :this()
         {
-           Materialen = new List<Materiaal>();
-           ReservatieLijnen = new List<ReservatieLijn>();
+            this.BeginDat = begin;
+            this.EndDate = StelEinddatumIn(begin);
+            this.Materiaal = materiaal;
+            this.Aantal = aantal;
         }
-        public Reservatie(Gebruiker gebruiker, List<Materiaal> materialen, DateTime begin, DateTime eind)
+
+        private Reservatie()
         {
             
         }
@@ -35,24 +38,9 @@ namespace Projecten2.NET
             return ReservatieId;
         }
 
-        public void AddReservatieLijn(Materiaal materiaal, int quantity)
+        private DateTime? StelEinddatumIn(DateTime begin)
         {
-            ReservatieLijn reservatielijn = ReservatieLijnen.SingleOrDefault(r => r.MateriaalId.Equals(materiaal.MateriaalId));
-            if (reservatielijn == null)
-                ReservatieLijnen.Add(new ReservatieLijn { MateriaalId = materiaal.MateriaalId, Aantal = quantity });
-            else reservatielijn.Aantal += quantity;
-        }
-
-        public void RemoveReservatieLijn(Materiaal materiaal)
-        {
-            ReservatieLijn reservatielijn = GetReservatieLijn(materiaal.MateriaalId);
-            if (reservatielijn != null)
-                ReservatieLijnen.Remove(reservatielijn);
-        }
-
-        public ReservatieLijn GetReservatieLijn(int materiaalID)
-        {
-            return ReservatieLijnen.SingleOrDefault(r => r.MateriaalId == materiaalID);
+            return EndDate = begin.AddDays(5);
         }
     }
 }

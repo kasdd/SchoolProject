@@ -26,7 +26,7 @@ namespace Projecten2.NET.Models.ViewModels
 
         [DisplayName("Beschikbaar")]
         public int Aantal { get; set; }
-        public virtual ICollection<ReservatieLijn> Reservatielijnen { get; set; }
+        public virtual ICollection<Reservatie> Reservatielijnen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
         public virtual ICollection<Leergebied> Leergebieden { get; set; }
 

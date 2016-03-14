@@ -8,6 +8,6 @@ namespace Projecten2.NET.Models.Domain.IRepositories
 {
     public interface IReservatieRepository
     {
-        IQueryable<ReservatieLijn> getbyDate(DateTime datum);
+        IQueryable<Reservatie> getbyDate(DateTime datum);
     }
 }

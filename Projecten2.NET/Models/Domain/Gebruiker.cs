@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.ComponentModel;
 
 namespace Projecten2.NET
 {
@@ -34,17 +30,20 @@ namespace Projecten2.NET
 
         public void RemoveMateriaalFromVerlanglijst(Materiaal m)
         {
-            if(m!=null)
-            Verlanglijst.RemoveMateriaal(m);
+            if (m != null)
+                Verlanglijst.RemoveMateriaal(m);
             else
             {
                 throw new Exception("Materiaal kan nu niet van lijst worden verwijderd");
             }
         }
 
-        internal void AddMateriaalToReservatie(Materiaal materiaal)
+        internal void AddMateriaalToReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            throw new NotImplementedException();
+            if (materiaal != null)
+                Reservaties.Add(new Reservatie(materiaal, beginDatum, aantal));
+            else
+                throw new Exception("Reservate kan nu niet worden aangemaakt");
         }
 
         public Boolean BezitVerlanglijstMateriaal(Materiaal m)
