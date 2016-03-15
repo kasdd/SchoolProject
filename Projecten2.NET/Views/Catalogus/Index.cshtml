@@ -81,6 +81,13 @@
                         <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
                     }
                 }
+                @if (item.InVerlanglijst == true)
+                {
+                    using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
+                    {
+                        <button id="button" type="submit" class="btn btn-groen donkergroen"><span class="glyphicon-minus glyphicon"></span></button>
+                    }
+                }
             </td>
         </tr>
     }

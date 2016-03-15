@@ -81,6 +81,11 @@ textarea {
      background-color: #004d3e;
  }
 
+ /* kleuren */
+ .donkergroen
+ {
+     background-color: #004d3e;
+ }
  
 /* catalogus additions */
 
@@ -115,6 +120,14 @@ ul#catalogus-list li a:hover {
 {
     margin-bottom: 3em;
 }
+
+/*tempdata*/
+
+.margin 
+{
+    margin-top: 2em;
+} 
+
 
 /* footer */
 
