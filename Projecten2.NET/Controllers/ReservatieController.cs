@@ -41,7 +41,8 @@ namespace Projecten2.NET.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    gebruiker.AddMateriaalToReservatie(model.materiaal, model.aantal, model.beginDatum);
+                    Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
+                    gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
                     gebruikersRepository.SaveChanges();
                     TempData["info"] = $" {model.materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
                     return RedirectToAction("Index", "Verlanglijst");
@@ -53,6 +54,28 @@ namespace Projecten2.NET.Controllers
             }
 
             return RedirectToAction("Index", "Verlanglijst");
+        }
+
+        [HttpPost]
+        public ActionResult RemoveFromReservatie(int reservatieId, Gebruiker gebruiker)
+        {
+            if (ModelState.IsValid)
+            {
+                //try
+                //{
+                Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
+                gebruiker.RemoveReservatieFromReservaties(r);
+                gebruikersRepository.SaveChanges();
+                if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
+                    TempData["info"] = $"De reservatie is verwijderd!";
+                /*}
+                // catch (Exception e)
+                 { 
+                     throw new Exception(e.Message);
+                 }*/
+            }
+            return RedirectToAction("Index", "Reservatie");
+
         }
     }
 }

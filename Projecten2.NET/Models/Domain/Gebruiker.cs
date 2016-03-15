@@ -46,9 +46,29 @@ namespace Projecten2.NET
                 throw new Exception("Reservate kan nu niet worden aangemaakt");
         }
 
+        public void RemoveReservatieFromReservaties(Reservatie r)
+        {
+            if (r != null)
+                Reservaties.Remove(r);
+            else
+            {
+                throw new Exception("Reservatie kan nu niet worden verwijderd");
+            }
+        }
+
         public Boolean BezitVerlanglijstMateriaal(Materiaal m)
         {
             return Verlanglijst.BezitVerlanglijstMateriaal(m);
+        }
+
+        public Reservatie findReservatieByReservatieId (int reservatieId)
+        {
+            foreach (Reservatie r in Reservaties)
+            {
+                if (r.ReservatieId == reservatieId)
+                    return r;
+            }
+            return null;
         }
     }
 }
