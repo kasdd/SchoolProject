@@ -44,9 +44,6 @@ namespace Projecten2.NET.Models.ViewModels
 
         }
 
-
-        public string ReturnDateForDisplay => this.beginDatum.ToString("d");
-
         public DateTime GeefCorrecteDatumTerug()
         {
             beginDatum = new DateTime();

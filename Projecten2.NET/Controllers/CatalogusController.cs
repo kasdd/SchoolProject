@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.Domain.IRepositories;
+using Projecten2.NET.Models.ViewModels;
 
 namespace Projecten2.NET.Controllers
 {
@@ -23,15 +24,13 @@ namespace Projecten2.NET.Controllers
             this.gebruikerRepository = gebruikerRepository;
         }
         // GET: Catalogus
-        public ActionResult Index(string searchString, int doelgroepId=0, int leergebiedId=0)
+        public ActionResult Index(Gebruiker gebruiker, string searchString, int doelgroepId=0, int leergebiedId=0)
         {
             IEnumerable<Materiaal> materialen;
             Doelgroep doelgroep;
             Leergebied leergbied;
-
             if (doelgroepId != 0)
             {
-
                 doelgroep = doelgroepRepository.FindById(doelgroepId);
                 materialen = doelgroep.Materialen.OrderBy(m => m.Artikelnaam);
                 if (!String.IsNullOrEmpty(searchString))
@@ -44,8 +43,7 @@ namespace Projecten2.NET.Controllers
                 ViewBag.DoelgroepId = doelgroepId;
                 ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
                 ViewBag.LeergebiedId = leergebiedId;
-
-                return View(materialen);
+                return View(materialen.Select(m=>new CatalogusViewModel(gebruiker, m)));
             }
             if (leergebiedId != 0)
             {
@@ -61,8 +59,7 @@ namespace Projecten2.NET.Controllers
                 ViewBag.DoelgroepId = doelgroepId;
                 ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
                 ViewBag.LeergebiedId = leergebiedId;
-
-                return View(materialen);
+                return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
 
             }
             if (!string.IsNullOrEmpty(searchString))
@@ -83,8 +80,7 @@ namespace Projecten2.NET.Controllers
             ViewBag.DoelgroepId = doelgroepId;
             ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
             ViewBag.LeergebiedId = leergebiedId;
-
-            return View(materialen);
+            return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
         }
 
         private SelectList getDoelgroepSelectList(int selectedValue = 0)

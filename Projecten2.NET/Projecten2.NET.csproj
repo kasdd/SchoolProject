@@ -224,6 +224,7 @@
     <Compile Include="Models\Domain\Verlanglijst.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DAL\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\CatalogusViewModel.cs" />
     <Compile Include="Models\ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ReservatieViewModel.cs" />

@@ -10,8 +10,8 @@ using System.Linq;
 
 namespace Projecten2.NET.Tests.Controllers
 {
-   [TestClass]
-    public class CatalogusControllerTest
+   //[TestClass]
+   /* public class CatalogusControllerTest
     {
         private CatalogusController catalogusController;
         private Mock<IMateriaalRepository> mockMateriaalRepository;
@@ -64,6 +64,5 @@ namespace Projecten2.NET.Tests.Controllers
             Assert.AreEqual(0, materialen.Count);
         }
 
-        #endregion
-    }
+    }*/
 }

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model IEnumerable < Projecten2.NET.Materiaal>
+@model IEnumerable<Projecten2.NET.Models.ViewModels.CatalogusViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -53,7 +53,6 @@
     <tbody>
     @foreach (var item in Model)
     {
-
         <tr>
             <td>
                 <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
@@ -75,20 +74,15 @@
             <td class="text-right">
                 @($"{item.Prijs:€0.00}")
             <td>
-                @using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {naam = item.Artikelnaam}))
+                @if (item.InVerlanglijst == false)
                 {
-                    <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                    using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
+                    {
+                        <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                    }
                 }
             </td>
         </tr>
     }
     </tbody>
 </table>
-
-<script type="text/javascript">
-    $(function () {
-        $('#button').click(function () {
-            $('#button').toggleClass("btn btn-default");
-        });
-    });
-</script>

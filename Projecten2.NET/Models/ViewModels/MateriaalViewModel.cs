@@ -7,23 +7,20 @@ using System.Web;
 
 namespace Projecten2.NET.Models.ViewModels
 {
+
     public class MateriaalViewModel
     {
-
         public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
-
         [DisplayName("Artikel nummer")]
         public String ArtikelNummer { get; set; }
-
         [DisplayName("Artikel")]
         public string Artikelnaam { get; set; }
- 
         public string Omschrijving { get; set; }
         public double Prijs { get; set; }
         public string Foto { get; set; }
         public String Plaats { get; set; }
-
+        public Boolean InVerlanglijst { get; set; }
         [DisplayName("Beschikbaar")]
         public int Aantal { get; set; }
         public virtual ICollection<Reservatie> Reservatielijnen { get; set; }
@@ -47,7 +44,7 @@ namespace Projecten2.NET.Models.ViewModels
             Plaats = m.Plaats;
             Aantal = m.Aantal;
             Uitleenbaar = m.Uitleenbaar;
-          
+
         }
 
     }
