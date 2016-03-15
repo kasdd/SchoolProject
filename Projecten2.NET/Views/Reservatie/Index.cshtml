@@ -87,8 +87,9 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    <a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
+                    @*<a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
                     <a href='@Url.Action("Min", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button></a>
+                    *@
                     @using (Html.BeginForm("RemoveFromReservatie", "Reservatie", new { reservatieId = item.ReservatieId }))
                     {
                         @*<a href='@Url.Action("Remove", "Reservatie")'>*@<button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>@*</a>*@
