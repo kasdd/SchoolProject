@@ -1,20 +1,16 @@
 ﻿@model IEnumerable<Projecten2.NET.Reservatie>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Uw reservaties";
 }
 
-<h2>Index</h2>
+<h2>Uw reservaties</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
-    <tr>
-        <th></th>
-    </tr>
-
-    <table class="table">
+ 
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Materiaal.Foto)
@@ -85,7 +81,6 @@
                 
             </tr>
         }
-
-        }
+    
 
     </table>
