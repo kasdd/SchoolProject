@@ -44,11 +44,17 @@
                 @Html.DisplayNameFor(model => model.Materiaal.Prijs)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Materiaal.Aantal)
+                @Html.DisplayNameFor(model => model.Aantal)
             </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.Materiaal.Plaats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeginDat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th></th>
         </tr>
@@ -66,15 +72,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Materiaal.Omschrijving)
                 </td>
-
                 <td class="text-right">
                     @($"{item.Materiaal.Prijs:0.00€}")
                 <td class="text-right">
-                    @Html.DisplayFor(modelItem => item.Materiaal.Aantal)
+                    @Html.DisplayFor(modelItem => item.Aantal)
                 </td>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.Materiaal.Plaats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeginDat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
                     <a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
