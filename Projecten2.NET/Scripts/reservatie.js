@@ -8,7 +8,7 @@ $(document).ready(function () {
             beforeShowDay: DisableAllButMonday,
             minDate: dateToday,
             showOn: 'button',
-            onSelect: function(dateText) {
+            onSelect: function (dateText) {
                 display("Datum: " + dateText + " " + this.value);
                 $(this).change();
             }
@@ -22,7 +22,7 @@ $(document).ready(function () {
     function DisableAllButMonday(date) {
 
         var day = date.getDay();
-        // If day == 1 then it is MOnday
+        // If day == 1 then it is Monday
         if (day == 1) {
             return [true];
         } else {
