@@ -18,7 +18,6 @@ namespace Projecten2.NET.Models.ViewModels
 
     public class NieuweReservatieViewModel
     {
-
         public Materiaal materiaal { get; set; }
         [Required(ErrorMessage = "{0} is verplicht")]
         [Display(Name = "Aantal")]
@@ -27,7 +26,7 @@ namespace Projecten2.NET.Models.ViewModels
         [Required(ErrorMessage = "Gelieve uw startdatum in te voeren")]
         [DataType(DataType.Date)]
         [Display(Name = "Startdatum")]
-        [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
         public int beschikbaar { get; set; }
 
@@ -35,8 +34,8 @@ namespace Projecten2.NET.Models.ViewModels
         {
             this.beginDatum = GeefCorrecteDatumTerug();
             this.materiaal = materiaal;
-            this.beschikbaar = AantalBeschikbaar(beginDatum);
             this.aantal = materiaal.Aantal;
+            this.beschikbaar = AantalBeschikbaar(beginDatum);
         }
 
         public NieuweReservatieViewModel() : this(new Materiaal())

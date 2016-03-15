@@ -14,20 +14,6 @@
         <th></th>
     </tr>
 
-
-@*@foreach (var item in Model) {
-    foreach (var lijn in item.R)
-    {
-        <tr>
-            <td>
-                <a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
-                <a href='@Url.Action("Min", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button></a>
-                <a href='@Url.Action("Remove", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button></a>
-            </td>
-        </tr>
-    }*@
-
-
     <table class="table">
         <tr>
             <th>

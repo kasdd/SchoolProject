@@ -21,7 +21,7 @@ namespace Projecten2.NET.Models.DAL
                     Firma = "Baert" ,
                     Prijs = 30,
                     Plaats = "GLEDE 1.011",
-                    Aantal = 1
+                    Aantal = 20
                 };
                 Materiaal spinners = new Materiaal()
                 {
@@ -32,7 +32,7 @@ namespace Projecten2.NET.Models.DAL
                     Firma = "Baert",
                     Prijs = 19.2,
                     Plaats = "GLEDE 1.012",
-                    Aantal = 3,
+                    Aantal = 30,
                     Uitleenbaar = true
                 };
                 Materiaal draaischijf = new Materiaal()
@@ -44,7 +44,7 @@ namespace Projecten2.NET.Models.DAL
                     Firma = "Baert",
                     Prijs = 31.45,
                     Plaats = "GLEDE 1.011",
-                    Aantal = 1,
+                    Aantal = 10,
                     Uitleenbaar = true
                 };
                 Materiaal splitsbomen = new Materiaal()
@@ -55,6 +55,7 @@ namespace Projecten2.NET.Models.DAL
                     Omschrijving = "Aan de hand van rode bolletjes kunnen getallen tot 10, in de stam van de boom gesplitst worden in 2 getallen(kaartjes) of in 2 x aantal bolleties(boom).",
                     Firma = "Baert",
                     Prijs = 2.9,
+                    Aantal = 15,
                     Plaats = "GLEDE 1.011"
                 };
                 Materiaal loco = new Materiaal()
@@ -65,6 +66,7 @@ namespace Projecten2.NET.Models.DAL
                     Omschrijving = "Spelbord: klapt open met een rode, becijferde kant en een doorzichtige kant + 12 blokjes met de getallen van l tot en met 12.",
                     Firma = "Baert",
                     Prijs = 15.9,
+                    Aantal = 25,
                     Plaats = "GLEDE 1.011"
                 };
                 Materiaal ceti = new Materiaal()
