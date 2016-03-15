@@ -53,16 +53,19 @@ namespace Projecten2.NET.Models
 
             //roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
 
-           // InitializeIdentity();
             //InitializeIdentityAndRoles();
-            base.Seed(context);
+            //base.Seed(context);
         }
 
-        private void InitializeIdentityAndRoles()
+        /*private void InitializeIdentityAndRoles()
         {
-            CreateUserAndRoles("personeel@hogent.be", "P@ssword1", "personeel");
-            CreateUserAndRoles("student@hogent.be", "P@ssword1", "student");
-        }
+            for (int i = 1; i <= 3; i++)
+            {
+                CreateUserAndRoles("personeel"+i+"@hogent.be", "Paswoord"+i, "personeel");
+                CreateUserAndRoles("student" + i + "@hogent.be", "P@ssword1"+ i, "student");
+            }
+
+        }*/
 
        private void CreateUserAndRoles(string name, string password, string roleName)
         {
