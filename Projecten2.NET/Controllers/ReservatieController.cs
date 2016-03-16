@@ -1,6 +1,7 @@
 ﻿using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.ViewModels;
 using System;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace Projecten2.NET.Controllers
@@ -45,6 +46,15 @@ namespace Projecten2.NET.Controllers
                     gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
                     gebruikersRepository.SaveChanges();
                     TempData["info"] = $" {model.materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                    //MailMessage message = new MailMessage();
+                    //message.From = new MailAddress("HoGent.DidactischeLeermiddelen@gmail.com");
+
+                    //message.To.Add(new MailAddress(gebruiker.Email));
+                    //message.Subject = "This is my subject";
+                    //message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent";
+
+                    //SmtpClient client = new SmtpClient();
+                    //client.Send(message);
                     return RedirectToAction("Index", "Verlanglijst");
                 }
             }
