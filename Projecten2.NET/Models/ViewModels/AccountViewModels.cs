@@ -49,7 +49,7 @@ namespace Projecten2.NET.Models
     public class LoginViewModel
     { 
         [Display(Name = "E-mailadres")]
-        [EmailAddress]
+        //[EmailAddress]
         public string Email { get; set; }
 
        // [Required(ErrorMessage = "*")]

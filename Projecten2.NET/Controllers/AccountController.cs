@@ -100,44 +100,6 @@ namespace Projecten2.NET.Controllers
                 return View(model);
             }
 
-            if (model.Email == "personeel@hogent.be" && model.Password == "personeel123")
-            {
-                Gebruiker g = new Gebruiker()
-                {
-                    Type = Type.PERSONEEL,
-                    Email = "personeel@hogent.be",
-                    Foto = "foto1",
-                    Naam = "NaamLid",
-                    Voornaam = "VoornaamLid"
-                };
-                if (_gebruikersRepository.FindByEmail(g.Email) == null)
-                {
-                    await CreateUserAndRoles(g, model.Password);
-                    _gebruikersRepository.AddGebruiker(g);
-                    _gebruikersRepository.SaveChanges();
-                }
-               
-                var result =
-                    await
-                        SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
-                            shouldLockout: false);
-
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, change to shouldLockout: true
-                switch (result)
-                {
-                    case SignInStatus.Success:
-                        return RedirectToLocal(returnUrl);
-                    case SignInStatus.LockedOut:
-                        return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
-                    case SignInStatus.Failure:
-                    default:
-                        ModelState.AddModelError("", "Invalid login attempt.");
-                        return View(model);
-                }
-            }
             using (WebClient n = new WebClient())
             {
                 try
@@ -159,7 +121,7 @@ namespace Projecten2.NET.Controllers
                             _gebruikersRepository.AddGebruiker(g);
                             _gebruikersRepository.SaveChanges();
                         }
-                        var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                        var result = await SignInManager.PasswordSignInAsync(g.Email, model.Password, model.RememberMe, shouldLockout: false);
 
                         // This doesn't count login failures towards account lockout
                         // To enable password failures to trigger account lockout, change to shouldLockout: true
