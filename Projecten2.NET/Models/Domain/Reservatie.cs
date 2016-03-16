@@ -8,13 +8,13 @@ namespace Projecten2.NET
     {
         public int ReservatieId { get; set; }
         public Materiaal Materiaal { get; set; }
-        public DateTime? BeginDat { get; private set; }
+        public DateTime? BeginDate { get; private set; }
         public DateTime? EndDate { get; set; }
         public int Aantal { get; set; }
 
         public Reservatie(Materiaal materiaal, DateTime begin, int aantal) :this()
         {
-            this.BeginDat = begin;
+            this.BeginDate = begin;
             this.EndDate = StelEinddatumIn(begin);
             this.Materiaal = materiaal;
             this.Aantal = aantal;

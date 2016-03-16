@@ -80,7 +80,7 @@ namespace Projecten2.NET.Models.ViewModels
             beschikbaar = aantal;
             foreach (Reservatie lijn in materiaal.Reservatielijnen)
             {
-                if (lijn.BeginDat != null && beginDatum == lijn.BeginDat.Value)
+                if (lijn.BeginDate != null && beginDatum == lijn.BeginDate.Value)
                 {
                     beschikbaar--;
                 }

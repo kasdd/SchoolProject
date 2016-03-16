@@ -2,7 +2,6 @@
 using Projecten2.NET.Models.DAL;
 using Projecten2.NET.Models.Domain;
 using System;
-using Microsoft.Ajax.Utilities;
 
 namespace Projecten2.NET.Controllers
 {
@@ -119,7 +118,10 @@ namespace Projecten2.NET.Controllers
         [ChildActionOnly]
         public ActionResult Overzicht(Gebruiker gebruiker)
         {
-            ViewData["Teller"] = gebruiker.Verlanglijst.Materialen.Count;
+            if (gebruiker != null && gebruiker.Verlanglijst.Materialen.Count != 0)
+            {
+                ViewData["Teller"] = gebruiker.Verlanglijst.Materialen.Count;
+            }
             return PartialView("Overzicht");
         }
     }
