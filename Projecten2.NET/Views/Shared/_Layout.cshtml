@@ -28,7 +28,8 @@
                         {
 
                             <li>@Html.ActionLink("Catalogus", "Index", "Catalogus")</li>
-                            <li>@{ Html.RenderAction("Overzicht", "Verlanglijst"); }</li>
+                            <li>@Html.ActionLink("Uw verlanglijst", "Index", "Verlanglijst")</li>
+                            //<li>@{ Html.RenderAction("Overzicht", "Verlanglijst"); }</li>
                             <li>@Html.ActionLink("Uw reservaties", "Index", "Reservatie") </li>
                         }
                         else if (User.IsInRole("Personeel"))

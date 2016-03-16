@@ -6,6 +6,7 @@
 
 <link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<script src="~/Scripts/knockout.js"></script>
 <script src="~/Scripts/reservatie.js"></script>
 
 <h2>Maak een nieuwe reservatie voor @Model.materiaal.Artikelnaam</h2>
@@ -18,17 +19,13 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div>
-            <b>Aantal beschikbaar : @Model.beschikbaar</b>
+        <div class="form-group">
+            Aantal beschikbaar : <span data-bind="text : aantalBeschikbaar"></span>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.beginDatum, htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(model => model.beginDatum, new { @class = "date", data_format = "dd/mm/yy"})
-
-            @*@Html.ActionLink(@Model.AantalBeschikbaar(new {datum = DateTime.Today})){ 
-            }*@
-            @*<input id="sumbit" name="sumbit" type="submit" value="Beschikbaar?" class="btn btn-groen"/>*@
 
         </div>
 
@@ -66,5 +63,3 @@
 <div>
     @Html.ActionLink("Terug naar verlanglijst", "Index")
 </div>
-
-

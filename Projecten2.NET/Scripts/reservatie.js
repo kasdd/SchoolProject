@@ -1,25 +1,30 @@
 ﻿var dateToday = new Date();
 
 $(document).ready(function () {
-        
+    function changeBeschikbaar(date) {
+        $.getInt32("/Reservatie/GetBeschikbaar", date, function(aantal) {
+            var aantalBeschikbaar = aantal;
+            ko.applyBindings(aantalBeschikbaar);
+        });
+    }
+
     $(document).ready(function () {
         $('.date').not('.hasDatePicker').datepicker({
             dateFormat: 'dd/mm/yy',
-            beforeShowDay: DisableAllButMonday,
+            beforeShowDay: disableAllButMonday,
             minDate: dateToday,
             showOn: 'button',
             onSelect: function (dateText) {
-                display("Datum: " + dateText + " " + this.value);
                 $(this).change();
+                changeBeschikbaar(this.value);
             }
         }).next('button').button({
             icons: {
                 primary: 'ui-icon-calendar'
             }, text: false
         });
-    });
-
-    function DisableAllButMonday(date) {
+    });;
+    function disableAllButMonday(date) {
 
         var day = date.getDay();
         // If day == 1 then it is Monday

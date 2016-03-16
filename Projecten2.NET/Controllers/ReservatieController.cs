@@ -12,6 +12,7 @@ namespace Projecten2.NET.Controllers
 
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
+        private NieuweReservatieViewModel vm;
 
         public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
@@ -28,10 +29,16 @@ namespace Projecten2.NET.Controllers
             }
             return View(gebruiker.Reservaties);
         }
+
+        public int GetBeschikbaar(DateTime dateTime)
+        {
+           return vm.AantalBeschikbaar(dateTime);
+        }
+
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            NieuweReservatieViewModel vm = new NieuweReservatieViewModel(materiaal);
+            vm = new NieuweReservatieViewModel(materiaal);
             return View(vm);
 
         }
