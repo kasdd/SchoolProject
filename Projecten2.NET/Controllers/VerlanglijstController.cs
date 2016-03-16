@@ -77,8 +77,8 @@ namespace Projecten2.NET.Controllers
                      throw new Exception(e.Message);
                  }*/
             }
-            return RedirectToAction("Index", "Verlanglijst");
-
+           return RedirectToAction("Index", "Verlanglijst");
+           
         }
 
         //hulpklasses
