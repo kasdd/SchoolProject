@@ -77,7 +77,29 @@ namespace Projecten2.NET.Controllers
                     throw new Exception(e.Message);
                 }
             }
-            return RedirectToAction("Index", "Verlanglijst");
+           return RedirectToAction("Index", "Verlanglijst");
+           
+        }
+
+        [HttpPost]
+        public ActionResult RemoveFromVerlanglijstInCato(string naam, Gebruiker gebruiker)
+        {
+            if (ModelState.IsValid)
+            {
+                //try
+                //{
+                Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
+                gebruiker.RemoveMateriaalFromVerlanglijst(m);
+                gebruikersRepository.SaveChanges();
+                if (!gebruiker.BezitVerlanglijstMateriaal(m))
+                    TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                /*}
+                // catch (Exception e)
+                 { 
+                     throw new Exception(e.Message);
+                 }*/
+            }
+            return RedirectToAction("Index", "Catalogus");
 
         }
 
@@ -91,6 +113,13 @@ namespace Projecten2.NET.Controllers
         private int getAantal(int selectedValue = 1)
         {
             return selectedValue;
+        }
+
+        [ChildActionOnly]
+        public ActionResult Overzicht(Gebruiker gebruiker)
+        {
+            ViewData["Teller"] = gebruiker.Verlanglijst.Materialen.Count;
+            return PartialView("Overzicht");
         }
     }
 }
