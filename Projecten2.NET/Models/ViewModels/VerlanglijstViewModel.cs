@@ -8,7 +8,7 @@ using System.Web;
 namespace Projecten2.NET.Models.ViewModels
 {
 
-    public class MateriaalViewModel
+    public class VerlanglijstViewModel
     {
         public int MateriaalId { get; private set; }
         public Boolean Uitleenbaar { get; set; }
@@ -23,17 +23,16 @@ namespace Projecten2.NET.Models.ViewModels
         public Boolean InVerlanglijst { get; set; }
         [DisplayName("Beschikbaar")]
         public int Aantal { get; set; }
-        public virtual ICollection<Reservatie> Reservatielijnen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
         public virtual ICollection<Leergebied> Leergebieden { get; set; }
 
 
-        public MateriaalViewModel()
+        public VerlanglijstViewModel()
         {
 
         }
 
-        public MateriaalViewModel(Materiaal m)
+        public VerlanglijstViewModel(Materiaal m)
         {
             MateriaalId = m.MateriaalId;
             Artikelnaam = m.Artikelnaam;

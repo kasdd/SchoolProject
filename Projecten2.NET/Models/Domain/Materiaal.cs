@@ -48,10 +48,5 @@ namespace Projecten2.NET
             return Doelgroepen.Any(doelgroep => doelgroep.DoelgroepNaam.ToLower().Contains(naam.ToLower()));
         }
 
-        //public void addDoelgroep(Doelgroep doelgroep)
-        //{
-        //    Doelgroepen.Add(doelgroep);
-
-        //}
     }
 }

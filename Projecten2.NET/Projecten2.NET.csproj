@@ -225,7 +225,7 @@
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DAL\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\CatalogusViewModel.cs" />
-    <Compile Include="Models\ViewModels\MateriaalViewModel.cs" />
+    <Compile Include="Models\ViewModels\VerlanglijstViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ReservatieViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -339,6 +339,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Verlanglijst\Overzicht.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

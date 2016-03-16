@@ -83,7 +83,7 @@
                 }
                 @if (item.InVerlanglijst == true)
                 {
-                    using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
+                    using (Html.BeginForm("RemoveFromVerlanglijstInCato", "Verlanglijst", new { naam = item.Artikelnaam }))
                     {
                         <button id="button" type="submit" class="btn btn-groen donkergroen"><span class="glyphicon-minus glyphicon"></span></button>
                     }
