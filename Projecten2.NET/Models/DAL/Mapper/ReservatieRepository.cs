@@ -19,7 +19,7 @@ namespace Projecten2.NET.Models.DAL.Mapper
         }
         public IQueryable<Reservatie> getbyDate(DateTime datum)
         {
-            return reservaties.Where(r => r.BeginDat == datum);
+            return reservaties.Where(r => r.BeginDate == datum);
         }
     }
 }
