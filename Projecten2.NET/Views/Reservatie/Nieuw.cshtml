@@ -8,7 +8,6 @@
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 <script src="~/Scripts/knockout.js"></script>
 <script src="~/Scripts/reservatie.js"></script>
-
 <h2>Maak een nieuwe reservatie voor @Model.materiaal.Artikelnaam</h2>
 
 @using (Html.BeginForm())
@@ -26,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.beginDatum, htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(model => model.beginDatum, new { @class = "date", data_format = "dd/mm/yy"})
-
+            @Html.ValidationMessageFor(model=>model.beginDatum, "", new {@class="text-danger"})
         </div>
 
         <div class="form-group">
@@ -36,15 +35,13 @@
                 @Html.ValidationMessageFor(model => model.aantal, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
+        
         <input type="button" class="btn btn-groen" value="Meer informatie" id="meer" />
         <div id="hidden">
             <div class="form-group">
                 @Html.LabelFor(model => model.materiaal.Artikelnaam, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.materiaal.Artikelnaam, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.materiaal.Artikelnaam, "", new { @class = "text-danger" })
+                    @Html.DisplayFor(model=>model.materiaal.Artikelnaam, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
 

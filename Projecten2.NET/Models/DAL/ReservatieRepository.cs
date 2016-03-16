@@ -21,5 +21,25 @@ namespace Projecten2.NET.Models.DAL.Mapper
         {
             return reservaties.Where(r => r.BeginDate == datum);
         }
+
+        public IQueryable<Reservatie> FindAll()
+        {
+            return reservaties;
+        }
+
+        public void AddReservatie(Reservatie r)
+        {
+            reservaties.Add(r);
+        }
+
+        public void RemoveReservatie(Reservatie r)
+        {
+            reservaties.Remove(r);
+        }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+        }
     }
 }

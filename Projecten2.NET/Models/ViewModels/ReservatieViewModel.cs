@@ -32,8 +32,8 @@ namespace Projecten2.NET.Models.ViewModels
 
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
-            this.beginDatum = GeefCorrecteDatumTerug();
             this.materiaal = materiaal;
+            this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
             this.beschikbaar = AantalBeschikbaar(beginDatum);
         }
@@ -77,10 +77,11 @@ namespace Projecten2.NET.Models.ViewModels
 
         public int AantalBeschikbaar(DateTime datum)
         {
+
             beschikbaar = aantal;
             foreach (Reservatie lijn in materiaal.Reservatielijnen)
             {
-                if (lijn.BeginDate != null && beginDatum == lijn.BeginDate.Value)
+                if (lijn.BeginDate != null && datum == lijn.BeginDate.Value)
                 {
                     beschikbaar--;
                 }

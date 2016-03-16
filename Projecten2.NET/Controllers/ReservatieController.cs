@@ -1,9 +1,13 @@
 ﻿using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.ViewModels;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
+using Projecten2.NET.Models.Domain.IRepositories;
 
 namespace Projecten2.NET.Controllers
 {
@@ -13,12 +17,14 @@ namespace Projecten2.NET.Controllers
 
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
+        private IReservatieRepository reservatieRepository;
         private NieuweReservatieViewModel vm;
 
-        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
+        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository, IReservatieRepository reservatieRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
+            this.reservatieRepository = reservatieRepository;
         }
 
         // GET: Reservatie
@@ -31,9 +37,9 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
-        public int GetBeschikbaar(DateTime dateTime)
+        public JsonResult GetBeschikbaar(DateTime dateTime)
         {
-           return vm.AantalBeschikbaar(dateTime);
+           return Json(vm.AantalBeschikbaar(dateTime));
         }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
@@ -48,15 +54,23 @@ namespace Projecten2.NET.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
+                    return View(model);
+                }
+                if (!ControleerBeschikbaarheid(model) && !ControleerAantal(model))
+                    {
+                        TempData["error"] = $"Gelieve een correct aantal in te geven";
+                        return View(vm);
+                    }
                     Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
-                    gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                    Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                    reservatieRepository.AddReservatie(r);
                     gebruikersRepository.SaveChanges();
+                    reservatieRepository.SaveChanges();
                     TempData["info"] = $" {model.materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
-
+                    
                     //systeem om mail te versturen
-
                     string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
                     string appSpecificPassword = "Leermiddelen";
 
@@ -74,49 +88,11 @@ namespace Projecten2.NET.Controllers
 
                     client.Send(message);
 
-                    /*
-                    string myGmailAddress = "xxxxx";
-                    string appSpecificPassword = "xxxxx";
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-
-
-                    smtp.EnableSsl = true;
-                    smtp.Port = 587;
-                    smtp.Credentials = new
-                       NetworkCredential(myGmailAddress,
-                       appSpecificPassword);
-
-                    MailMessage message = new MailMessage();
-                    message.Sender = new MailAddress(myGmailAddress,
-                       "Peter Shaw");
-                    message.From = new MailAddress(myGmailAddress,
-                       "Peter Shaw");
-
-                    message.To.Add(new MailAddress("aperson1@example.com",
-                       "Recipient Number 1"));
-                    message.To.Add(new MailAddress("aperson2@example.com",
-                       "Recipient Number 2"));
-                    message.CC.Add(new MailAddress("accaddress@example.com",
-                       "A CC Person"));
-                    message.Bcc.Add(new MailAddress("abccperson@example.com",
-                       "A BCC Person"));
-
-                    message.Subject = "My HTML Formatted Email";
-                    message.Body = "<h1>HTML Formatted EMail</h1>
-                       < p > DO you like this < strong > EMail </ strong >
-                          with HTML formatting contained in its body.</ p > ";
-
-message.IsBodyHtml = true;
-                    smtp.Send(message);
-
-                */
-
                     return RedirectToAction("Index", "Verlanglijst");
-                }
+                
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
                 TempData["error"] = $"{ model.materiaal.Artikelnaam}kan nu niet worden gereserveerd";
             }
 
@@ -143,6 +119,20 @@ message.IsBodyHtml = true;
             }
             return RedirectToAction("Index", "Reservatie");
 
+        }
+
+        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
+        {
+            Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
+            int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
+
+            return model.aantal <= i;
+        }
+
+        private Boolean ControleerAantal(NieuweReservatieViewModel model)
+        {
+            Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
+            return m.Aantal >= model.aantal;
         }
     }
 }
