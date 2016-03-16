@@ -118,7 +118,7 @@ namespace Projecten2.NET.Controllers
         [ChildActionOnly]
         public ActionResult Overzicht(Gebruiker gebruiker)
         {
-            if (gebruiker.Verlanglijst.Materialen.Count!=0)
+            if (gebruiker != null && gebruiker.Verlanglijst.Materialen.Count != 0)
             {
                 ViewData["Teller"] = gebruiker.Verlanglijst.Materialen.Count;
             }
