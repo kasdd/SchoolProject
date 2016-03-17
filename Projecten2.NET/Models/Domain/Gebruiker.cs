@@ -42,7 +42,7 @@ namespace Projecten2.NET
         public Reservatie AddMateriaalToReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
             Reservatie r;
-            if (materiaal != null && beginDatum > DateTime.Today)
+            if (materiaal != null && beginDatum > DateTime.Today)// datum vanaf eerste mogelijke begindatum
             {
                 r = new Reservatie(materiaal, beginDatum, aantal);
                 Reservaties.Add(r);

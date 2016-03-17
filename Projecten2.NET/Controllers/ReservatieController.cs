@@ -50,25 +50,26 @@ namespace Projecten2.NET.Controllers
 
         }
         [HttpPost]
-        public ActionResult Nieuw(Gebruiker gebruiker, ReservatieViewModel model)
+        public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(Vm);
+                    return View(model);
                 }
-                if (!ControleerBeschikbaarheid())
+                    
+                if (!ControleerBeschikbaarheid(model))
                 {
                     TempData["error"] = $"Gelieve een correct aantal in te geven";
-                    return View(Vm);
+                    return View(model);
                 }
-                Materiaal m = materiaalRepository.FindByArtikelNaam(Vm.Materiaal.Artikelnaam);
-                Reservatie r = gebruiker.AddMateriaalToReservatie(m, Vm.aantal, Vm.beginDatum);
-                reservatieRepository.AddReservatie(r);
+                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
+                Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                reservatieRepository.AddReservatie(r);  //Mag dit weg?
                 gebruikersRepository.SaveChanges();
-                reservatieRepository.SaveChanges();
-                TempData["info"] = $" {Vm.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                reservatieRepository.SaveChanges(); //Mag dit weg?
+                TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
                 //systeem om mail te versturen
                 string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
@@ -84,7 +85,7 @@ namespace Projecten2.NET.Controllers
                 message.Sender = new MailAddress(myGmailAddress);
                 message.To.Add(new MailAddress(gebruiker.Email));
                 message.Subject = "Reservatie van " + m.Artikelnaam;
-                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent";
+                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent"; //Tijd over : beter uitwerken begin/uitdatum van reservatie.
 
                 client.Send(message);
 
@@ -104,29 +105,33 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
+                try
+                {
+                    Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
                 gebruiker.RemoveReservatieFromReservaties(r);
                 gebruikersRepository.SaveChanges();
                 if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
                     TempData["info"] = $"De reservatie is verwijderd!";
-                /*}
-                // catch (Exception e)
-                 { 
-                     throw new Exception(e.Message);
-                 }*/
+                }
+                catch (Exception e)
+                {
+                    TempData["error"] = $"De reservatie kan nu niet worden verwijderd";
+                }
             }
             return RedirectToAction("Index", "Reservatie");
 
         }
 
-        private Boolean ControleerBeschikbaarheid()
+        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
         {
-            Materiaal m = materiaalRepository.FindByArtikelNaam(Vm.Materiaal.Artikelnaam);
-            int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == Vm.beginDatum);
-
-            return Vm.aantal <= i;
+            Materiaal materiaal = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
+            var i = materiaal.Aantal;
+            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            {
+                if (reservatie.BeginDate == model.beginDatum)
+                i -= reservatie.Aantal;
+            }
+            return model.aantal<=i;
         }
     }
 }

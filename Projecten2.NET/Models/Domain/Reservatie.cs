@@ -40,7 +40,7 @@ namespace Projecten2.NET
 
         private DateTime? StelEinddatumIn(DateTime begin)
         {
-            return EndDate = begin.AddDays(5);
+            return EndDate = begin.AddDays(4);
         }
     }
 }

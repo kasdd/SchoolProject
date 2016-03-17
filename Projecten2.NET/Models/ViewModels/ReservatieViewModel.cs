@@ -39,6 +39,11 @@ namespace Projecten2.NET.Models.ViewModels
             this.Beschikbaar = AantalBeschikbaar(beginDatum);
         }
 
+        public NieuweReservatieViewModel()
+        {
+            
+        }
+
         public DateTime GeefCorrecteDatumTerug()
         {
             beginDatum = new DateTime();
