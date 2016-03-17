@@ -18,6 +18,7 @@ namespace Projecten2.NET.Models.ViewModels
 
     public class NieuweReservatieViewModel
     {
+         
         public Materiaal Materiaal { get; set; }
         [Required(ErrorMessage = "{0} is verplicht")]
         [Display(Name = "Aantal")]
