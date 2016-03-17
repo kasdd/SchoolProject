@@ -50,25 +50,25 @@ namespace Projecten2.NET.Controllers
 
         }
         [HttpPost]
-        public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
+        public ActionResult Nieuw(Gebruiker gebruiker)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(model);
+                    return View(vm);
                 }
-                if (!ControleerBeschikbaarheid(model))
+                if (!ControleerBeschikbaarheid(vm))
                 {
                     TempData["error"] = $"Gelieve een correct aantal in te geven";
-                    return View(model);
+                    return View(vm);
                 }
-                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
-                Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                Materiaal m = materiaalRepository.FindByArtikelNaam(vm.Artikelnaam);
+                Reservatie r = gebruiker.AddMateriaalToReservatie(m, vm.aantal, vm.beginDatum);
                 reservatieRepository.AddReservatie(r);
                 gebruikersRepository.SaveChanges();
                 reservatieRepository.SaveChanges();
-                TempData["info"] = $" {model.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                TempData["info"] = $" {vm.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
                 //systeem om mail te versturen
                 string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
@@ -93,7 +93,7 @@ namespace Projecten2.NET.Controllers
             }
             catch (Exception e)
             {
-                TempData["error"] = $"{ model.Artikelnaam}kan nu niet worden gereserveerd";
+                TempData["error"] = $"{ vm.Artikelnaam}kan nu niet worden gereserveerd";
             }
 
             return RedirectToAction("Index", "Verlanglijst");

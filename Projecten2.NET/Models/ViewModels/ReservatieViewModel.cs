@@ -40,11 +40,6 @@ namespace Projecten2.NET.Models.ViewModels
             this.Artikelnaam = materiaal.Artikelnaam;
         }
 
-        public NieuweReservatieViewModel()
-        {
-
-        }
-
         public DateTime GeefCorrecteDatumTerug()
         {
             beginDatum = new DateTime();
