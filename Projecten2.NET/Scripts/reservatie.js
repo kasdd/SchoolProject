@@ -1,12 +1,14 @@
 ﻿var dateToday = new Date();
 
 $(document).ready(function () {
-    function changeBeschikbaar(date) {
-        $.getInt32("/Reservatie/GetBeschikbaar", date, function(aantal) {
-            var aantalBeschikbaar = aantal;
-            ko.applyBindings(aantalBeschikbaar);
-        });
-    }
+    //function changeBeschikbaar(date) {
+    //    console.log(date)
+    //    $.get("/Reservatie/GetBeschikbaar", { 'dateTime': date }, function (aantal) {
+    //        con
+    //        var aantalBeschikbaar = aantal;
+    //        ko.applyBindings(aantalBeschikbaar);
+    //    })
+    //};
 
     $(document).ready(function () {
         $('.date').not('.hasDatePicker').datepicker({
@@ -16,7 +18,7 @@ $(document).ready(function () {
             showOn: 'button',
             onSelect: function (dateText) {
                 $(this).change();
-                changeBeschikbaar(this.value);
+                //changeBeschikbaar(this.value);
             }
         }).next('button').button({
             icons: {

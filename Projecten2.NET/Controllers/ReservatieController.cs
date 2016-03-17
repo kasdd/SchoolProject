@@ -1,9 +1,13 @@
 ﻿using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.ViewModels;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
+using Projecten2.NET.Models.Domain.IRepositories;
 
 namespace Projecten2.NET.Controllers
 {
@@ -13,12 +17,14 @@ namespace Projecten2.NET.Controllers
 
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
+        private IReservatieRepository reservatieRepository;
         private NieuweReservatieViewModel vm;
 
-        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
+        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository, IReservatieRepository reservatieRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
+            this.reservatieRepository = reservatieRepository;
         }
 
         // GET: Reservatie
@@ -31,9 +37,9 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
-        public int GetBeschikbaar(DateTime dateTime)
+        public JsonResult GetBeschikbaar(DateTime dateTime)
         {
-           return vm.AantalBeschikbaar(dateTime);
+           return Json(vm.AantalBeschikbaar(dateTime));
         }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
@@ -48,15 +54,23 @@ namespace Projecten2.NET.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
+                    return View(model);
+                }
+                if (!ControleerBeschikbaarheid(model) && !ControleerAantal(model))
+                    {
+                        TempData["error"] = $"Gelieve een correct aantal in te geven";
+                        return View(vm);
+                    }
                     Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
-                    gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                    Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                    reservatieRepository.AddReservatie(r);
                     gebruikersRepository.SaveChanges();
+                    reservatieRepository.SaveChanges();
                     TempData["info"] = $" {model.materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
-
+                    
                     //systeem om mail te versturen
-
                     string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
                     string appSpecificPassword = "Leermiddelen";
 
@@ -75,7 +89,7 @@ namespace Projecten2.NET.Controllers
                     client.Send(message);
 
                     return RedirectToAction("Index", "Verlanglijst");
-                }
+                
             }
             catch (Exception e)
             {
@@ -105,6 +119,20 @@ namespace Projecten2.NET.Controllers
             }
             return RedirectToAction("Index", "Reservatie");
 
+        }
+
+        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
+        {
+            Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
+            int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
+
+            return model.aantal <= i;
+        }
+
+        private Boolean ControleerAantal(NieuweReservatieViewModel model)
+        {
+            Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
+            return m.Aantal >= model.aantal;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Projecten2.NET
 {
@@ -38,12 +39,17 @@ namespace Projecten2.NET
             }
         }
 
-        internal void AddMateriaalToReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
+        public Reservatie AddMateriaalToReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            if (materiaal != null)
-                Reservaties.Add(new Reservatie(materiaal, beginDatum, aantal));
+            Reservatie r;
+            if (materiaal != null && beginDatum > DateTime.Today)
+            {
+                r = new Reservatie(materiaal, beginDatum, aantal);
+                Reservaties.Add(r);
+            }
             else
                 throw new Exception("Reservate kan nu niet worden aangemaakt");
+            return r;
         }
 
         public void RemoveReservatieFromReservaties(Reservatie r)
@@ -63,12 +69,7 @@ namespace Projecten2.NET
 
         public Reservatie findReservatieByReservatieId (int reservatieId)
         {
-            foreach (Reservatie r in Reservaties)
-            {
-                if (r.ReservatieId == reservatieId)
-                    return r;
-            }
-            return null;
+            return Reservaties.FirstOrDefault(r => r.ReservatieId == reservatieId);
         }
     }
 }

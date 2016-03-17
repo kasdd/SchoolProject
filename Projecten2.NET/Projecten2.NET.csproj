@@ -197,7 +197,7 @@
     <Compile Include="Controllers\VerlanglijstController.cs" />
     <Compile Include="Models\DAL\DoelgroepRepository.cs" />
     <Compile Include="Models\DAL\LeergebiedRepository.cs" />
-    <Compile Include="Models\DAL\Mapper\ReservatieRepository.cs" />
+    <Compile Include="Models\DAL\ReservatieRepository.cs" />
     <Compile Include="Models\Domain\Doelgroep.cs" />
     <Compile Include="Models\Domain\IRepositories\IDoelgroepRepository.cs" />
     <Compile Include="Models\Domain\IRepositories\ILeergebiedRepository.cs" />

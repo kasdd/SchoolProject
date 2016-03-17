@@ -9,7 +9,6 @@ namespace Projecten2.NET.Models.Domain
     public interface IMateriaalRepository
     {
         Materiaal FindByArtikelNaam(String naam);
-       // Materiaal FindByArtikelNr(String nummer);
         IQueryable<Materiaal> FindAll();
         void SaveChanges();
     }
