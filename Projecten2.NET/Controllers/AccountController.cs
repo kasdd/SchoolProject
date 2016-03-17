@@ -165,16 +165,17 @@ namespace Projecten2.NET.Controllers
             //ApplicationDbContext context = new ApplicationDbContext();
 
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            //var userManager =
-            //    HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var userManager =
+                HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            //var roleManager =
-            //    HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+            var roleManager =
+                HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
 
             //Create user
             ApplicationUser user = new ApplicationUser { UserName = gebruiker.Email, Email = gebruiker.Email, LockoutEnabled = false };
-            IdentityResult result = _userManager.Create(user, password);
+            IdentityResult result = userManager.Create(user, password);
             if (!result.Succeeded)
                 throw new ApplicationException(result.Errors.ToString());
 
@@ -186,15 +187,15 @@ namespace Projecten2.NET.Controllers
                 enumValue = "Personeel";
 
             IdentityRole role = new IdentityRole(enumValue);
-            result = _roleManager.Create(role);
+            result = roleManager.Create(role);
             if (!result.Succeeded)
                 throw new ApplicationException(result.Errors.ToString());
 
             //Associate user with role
-            IList<string> rolesForUser = _userManager.GetRoles(user.Id);
+            IList<string> rolesForUser = userManager.GetRoles(user.Id);
             if (!rolesForUser.Contains(role.Name))
             {
-                result = _userManager.AddToRole(user.Id, enumValue);
+                result = userManager.AddToRole(user.Id, enumValue);
                 if (!result.Succeeded)
                     throw new ApplicationException(result.Errors.ToString());
             }
