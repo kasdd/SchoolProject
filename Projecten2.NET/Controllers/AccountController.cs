@@ -162,14 +162,19 @@ namespace Projecten2.NET.Controllers
         private async Task<IdentityResult> CreateUserAndRoles(Gebruiker gebruiker, string password)
         {
 
-            ApplicationDbContext context = new ApplicationDbContext();
+            //ApplicationDbContext context = new ApplicationDbContext();
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            //var userManager =
+            //    HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            //var roleManager =
+            //    HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
 
             //Create user
             ApplicationUser user = new ApplicationUser { UserName = gebruiker.Email, Email = gebruiker.Email, LockoutEnabled = false };
-            IdentityResult result = userManager.Create(user, password);
+            IdentityResult result = _userManager.Create(user, password);
             if (!result.Succeeded)
                 throw new ApplicationException(result.Errors.ToString());
 
@@ -181,15 +186,15 @@ namespace Projecten2.NET.Controllers
                 enumValue = "Personeel";
 
             IdentityRole role = new IdentityRole(enumValue);
-            result = roleManager.Create(role);
+            result = _roleManager.Create(role);
             if (!result.Succeeded)
                 throw new ApplicationException(result.Errors.ToString());
 
             //Associate user with role
-            IList<string> rolesForUser = userManager.GetRoles(user.Id);
+            IList<string> rolesForUser = _userManager.GetRoles(user.Id);
             if (!rolesForUser.Contains(role.Name))
             {
-                result = userManager.AddToRole(user.Id, enumValue);
+                result = _userManager.AddToRole(user.Id, enumValue);
                 if (!result.Succeeded)
                     throw new ApplicationException(result.Errors.ToString());
             }

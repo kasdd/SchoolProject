@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Projecten2.NET.Infrastructuur;
+using Projecten2.NET.Models;
 using Projecten2.NET.Models.DAL;
 
 namespace Projecten2.NET
@@ -21,6 +22,7 @@ namespace Projecten2.NET
             CatalogusContext db = new CatalogusContext();
             db.Database.Initialize(true);
             ModelBinders.Binders.Add(typeof(Gebruiker), new GebruikerModelBinder());
+            ApplicationDbContext.Create();
         }
     }
 }
