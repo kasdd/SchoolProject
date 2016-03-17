@@ -49,7 +49,6 @@ $(document).ready(function () {
         callback();
     });
     $('#hidden').hide();
-    $('#hidden2').hide();
 
     $.datepicker.regional['nl'] = {
         clearText: 'Effacer', clearStatus: '',

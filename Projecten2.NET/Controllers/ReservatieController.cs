@@ -18,7 +18,7 @@ namespace Projecten2.NET.Controllers
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
         private IReservatieRepository reservatieRepository;
-        private NieuweReservatieViewModel vm;
+        private NieuweReservatieViewModel Vm;
 
         public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository, IReservatieRepository reservatieRepository)
         {
@@ -39,38 +39,38 @@ namespace Projecten2.NET.Controllers
 
         public JsonResult GetBeschikbaar(DateTime dateTime)
         {
-            return Json(vm.AantalBeschikbaar(dateTime));
+            return Json(Vm.AantalBeschikbaar(dateTime));
         }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            vm = new NieuweReservatieViewModel(materiaal);
-            return View(vm);
+            Vm = new NieuweReservatieViewModel(materiaal);
+            return View(Vm);
 
         }
         [HttpPost]
         public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(model);
-                }
-                if (!ControleerBeschikbaarheid(model))
+
+                if (!ControleerBeschikbaarheid(model)) //Moet naar domein verdwijnen
                 {
                     TempData["error"] = $"Gelieve een correct aantal in te geven";
                     return View(model);
                 }
-                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
-                Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
-                reservatieRepository.AddReservatie(r);
+                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
+                Reservatie r = gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum);  //Void van maken
+                reservatieRepository.AddReservatie(r);  //Wordt al gedaan in domein dus hoeft niet! 
                 gebruikersRepository.SaveChanges();
-                reservatieRepository.SaveChanges();
-                TempData["info"] = $" {model.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
-                //systeem om mail te versturen
+                //systeem om mail te versturen  -->NOG IN PRIVATE METHODE ZETTEN (niet te veel tam tam)
                 string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
                 string appSpecificPassword = "Leermiddelen";
 
@@ -84,7 +84,7 @@ namespace Projecten2.NET.Controllers
                 message.Sender = new MailAddress(myGmailAddress);
                 message.To.Add(new MailAddress(gebruiker.Email));
                 message.Subject = "Reservatie van " + m.Artikelnaam;
-                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent";
+                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent"; //Tijd over : beter uitwerken begin/uitdatum van reservatie.
 
                 client.Send(message);
 
@@ -93,7 +93,7 @@ namespace Projecten2.NET.Controllers
             }
             catch (Exception e)
             {
-                TempData["error"] = $"{ model.Artikelnaam}kan nu niet worden gereserveerd";
+                TempData["error"] = $"{ Vm.Materiaal.Artikelnaam}kan nu niet worden gereserveerd";
             }
 
             return RedirectToAction("Index", "Verlanglijst");
@@ -104,28 +104,31 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
-                gebruiker.RemoveReservatieFromReservaties(r);
-                gebruikersRepository.SaveChanges();
-                if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
-                    TempData["info"] = $"De reservatie is verwijderd!";
-                /*}
-                // catch (Exception e)
-                 { 
-                     throw new Exception(e.Message);
-                 }*/
+                try
+                {
+                    Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
+                    gebruiker.RemoveReservatieFromReservaties(r);
+                    gebruikersRepository.SaveChanges();
+                    if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
+                        TempData["info"] = $"De reservatie is verwijderd!";
+                }
+                catch (Exception e)
+                {
+                    TempData["error"] = $"De reservatie kan nu niet worden verwijderd";
+                }
             }
             return RedirectToAction("Index", "Reservatie");
-
         }
 
-        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
+        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model) //In domein zetten
         {
-            Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
-            int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
-
+            Materiaal materiaal = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
+            var i = materiaal.Aantal;
+            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            {
+                if (reservatie.BeginDate == model.beginDatum)
+                    i -= reservatie.Aantal;
+            }
             return model.aantal <= i;
         }
     }

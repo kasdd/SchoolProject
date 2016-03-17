@@ -30,13 +30,6 @@ namespace Projecten2.NET.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
         public int Beschikbaar { get; set; }
-        public string Artikelnaam { get; set; }
-        public string ArtikelNummer { get; set; }
-        public string Omschrijving { get; set; }
-        public string Firma { get; set; }
-        public double Prijs { get; set; }
-        public string Foto { get; set; }
-        public string Plaats { get; set; }
 
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
@@ -44,16 +37,11 @@ namespace Projecten2.NET.Models.ViewModels
             this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
             this.Beschikbaar = AantalBeschikbaar(beginDatum);
-            this.Artikelnaam = materiaal.Artikelnaam;
-            this.ArtikelNummer = materiaal.ArtikelNummer;
-            this.Firma = materiaal.Firma;
-            this.Foto = materiaal.Foto;
-            this.Plaats = materiaal.Plaats;
         }
 
         public NieuweReservatieViewModel()
         {
-
+            
         }
 
         public DateTime GeefCorrecteDatumTerug()
