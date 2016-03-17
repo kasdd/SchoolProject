@@ -291,6 +291,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Domain\Domein.cd" />
+    <None Include="Properties\PublishProfiles\Didactischeleermaterialengroep18 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Leermaterialen.pubxml" />
     <None Include="Properties\PublishProfiles\ProjectNETgroep18 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

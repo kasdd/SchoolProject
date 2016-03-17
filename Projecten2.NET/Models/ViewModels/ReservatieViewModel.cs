@@ -28,16 +28,26 @@ namespace Projecten2.NET.Models.ViewModels
         [Display(Name = "Startdatum")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
-        public int beschikbaar { get; set; }
-        public String Artikelnaam { get; set; }
+        public int Beschikbaar { get; set; }
+        public string Artikelnaam { get; set; }
+        public string ArtikelNummer { get; set; }
+        public string Omschrijving { get; set; }
+        public string Firma { get; set; }
+        public double Prijs { get; set; }
+        public string Foto { get; set; }
+        public string Plaats { get; set; }
 
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
-            this.beschikbaar = AantalBeschikbaar(beginDatum);
+            this.Beschikbaar = AantalBeschikbaar(beginDatum);
             this.Artikelnaam = materiaal.Artikelnaam;
+            this.ArtikelNummer = materiaal.ArtikelNummer;
+            this.Firma = materiaal.Firma;
+            this.Foto = materiaal.Foto;
+            this.Plaats = materiaal.Plaats;
         }
 
         public NieuweReservatieViewModel()
@@ -80,15 +90,15 @@ namespace Projecten2.NET.Models.ViewModels
         public int AantalBeschikbaar(DateTime datum)
         {
 
-            beschikbaar = aantal;
+            Beschikbaar = aantal;
             foreach (Reservatie lijn in Materiaal.Reservatielijnen)
             {
                 if (lijn.BeginDate != null && datum == lijn.BeginDate.Value)
                 {
-                    beschikbaar--;
+                    Beschikbaar--;
                 }
             }
-            return beschikbaar;
+            return Beschikbaar;
         }
 
     }
