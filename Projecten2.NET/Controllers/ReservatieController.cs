@@ -37,11 +37,6 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
-        public JsonResult GetBeschikbaar(DateTime dateTime)
-        {
-            return Json(vm.AantalBeschikbaar(dateTime));
-        }
-
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
@@ -58,12 +53,14 @@ namespace Projecten2.NET.Controllers
                 {
                     return View(model);
                 }
+                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
+                model.Materiaal = m;
+                
                 if (!ControleerBeschikbaarheid(model))
                 {
                     TempData["error"] = $"Gelieve een correct aantal in te geven";
                     return View(model);
                 }
-                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
                 Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
                 reservatieRepository.AddReservatie(r);
                 gebruikersRepository.SaveChanges();
@@ -124,9 +121,21 @@ namespace Projecten2.NET.Controllers
         private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
         {
             Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
-            int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
-
+            //        int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
+            int i = 0;
+            foreach (Reservatie reservatie in m.Reservatielijnen)
+            {
+                if (reservatie.BeginDate == model.beginDatum)
+                {
+                    i += reservatie.Aantal;
+                }
+            }
             return model.aantal <= i;
+        }
+
+        public JsonResult GetBeschikbaar(DateTime dateTime)
+        {
+            return Json(vm.AantalBeschikbaar(dateTime));
         }
     }
 }
