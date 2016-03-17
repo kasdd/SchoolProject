@@ -74,49 +74,11 @@ namespace Projecten2.NET.Controllers
 
                     client.Send(message);
 
-                    /*
-                    string myGmailAddress = "xxxxx";
-                    string appSpecificPassword = "xxxxx";
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-
-
-                    smtp.EnableSsl = true;
-                    smtp.Port = 587;
-                    smtp.Credentials = new
-                       NetworkCredential(myGmailAddress,
-                       appSpecificPassword);
-
-                    MailMessage message = new MailMessage();
-                    message.Sender = new MailAddress(myGmailAddress,
-                       "Peter Shaw");
-                    message.From = new MailAddress(myGmailAddress,
-                       "Peter Shaw");
-
-                    message.To.Add(new MailAddress("aperson1@example.com",
-                       "Recipient Number 1"));
-                    message.To.Add(new MailAddress("aperson2@example.com",
-                       "Recipient Number 2"));
-                    message.CC.Add(new MailAddress("accaddress@example.com",
-                       "A CC Person"));
-                    message.Bcc.Add(new MailAddress("abccperson@example.com",
-                       "A BCC Person"));
-
-                    message.Subject = "My HTML Formatted Email";
-                    message.Body = "<h1>HTML Formatted EMail</h1>
-                       < p > DO you like this < strong > EMail </ strong >
-                          with HTML formatting contained in its body.</ p > ";
-
-message.IsBodyHtml = true;
-                    smtp.Send(message);
-
-                */
-
                     return RedirectToAction("Index", "Verlanglijst");
                 }
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
                 TempData["error"] = $"{ model.materiaal.Artikelnaam}kan nu niet worden gereserveerd";
             }
 
