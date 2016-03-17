@@ -19,9 +19,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
+        @*<div class="form-group">
             Aantal beschikbaar : <span data-bind="text : aantalBeschikbaar"></span>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.beginDatum, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -39,7 +39,7 @@
 
         <input type="button" class="btn btn-groen" value="Meer informatie" id="meer"/>
 
-        <div id="hidden">
+        <div id="hidden2">
             <div class="form-group">
                 @Html.LabelFor(model => model.Materiaal.Artikelnaam, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
@@ -50,19 +50,64 @@
             <input type="button" class="btn btn-groen" value="Minder informatie" id="minder"/>
         </div>
 
-        <div id="hidden2">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Artikelnaam, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Artikelnaam, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-        </div>
+        <div id="hidden">
+
+            <table class="table table-hover table-responsive margin">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Foto)
+                    </th>
+                    
+                    <th>
+                        @Html.LabelFor(model => model.Artikelnaam, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.Omschrijving, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.Plaats, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.Firma, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.ArtikelNummer, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </th>
+
+                    <th></th>
+                </tr>
+                <tbody>
+                <tr>
+                <td>
+                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(model => model.Foto)" a>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Artikelnaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Omschrijving)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Plaats)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Firma)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ArtikelNummer)
+                </td>
+                </tbody>
+            </table>
+            <input type="button" class="btn btn-groen" value="Minder informatie" id="minder" />
+                            
+</div>
+       
 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Plaats reservatie" class="btn btn-default" />
+                <input type="submit" value="Plaats reservatie" class="btn btn-groen" />
             </div>
         </div>
     </div>
