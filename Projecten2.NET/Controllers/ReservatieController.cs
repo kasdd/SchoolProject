@@ -39,7 +39,7 @@ namespace Projecten2.NET.Controllers
 
         public JsonResult GetBeschikbaar(DateTime dateTime)
         {
-           return Json(vm.AantalBeschikbaar(dateTime));
+            return Json(vm.AantalBeschikbaar(dateTime));
         }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
@@ -58,42 +58,42 @@ namespace Projecten2.NET.Controllers
                 {
                     return View(model);
                 }
-                if (!ControleerBeschikbaarheid(model) && !ControleerAantal(model))
-                    {
-                        TempData["error"] = $"Gelieve een correct aantal in te geven";
-                        return View(vm);
-                    }
-                    Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
-                    Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
-                    reservatieRepository.AddReservatie(r);
-                    gebruikersRepository.SaveChanges();
-                    reservatieRepository.SaveChanges();
-                    TempData["info"] = $" {model.materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
-                    
-                    //systeem om mail te versturen
-                    string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
-                    string appSpecificPassword = "Leermiddelen";
+                if (!ControleerBeschikbaarheid(model))
+                {
+                    TempData["error"] = $"Gelieve een correct aantal in te geven";
+                    return View(model);
+                }
+                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
+                Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
+                reservatieRepository.AddReservatie(r);
+                gebruikersRepository.SaveChanges();
+                reservatieRepository.SaveChanges();
+                TempData["info"] = $" {model.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
-                    SmtpClient client = new SmtpClient("smtp.gmail.com");
-                    client.EnableSsl = true;
-                    client.Port = 587;
-                    client.Credentials = new NetworkCredential(myGmailAddress, appSpecificPassword);
+                //systeem om mail te versturen
+                string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
+                string appSpecificPassword = "Leermiddelen";
 
-                    MailMessage message = new MailMessage();
-                    message.From = new MailAddress(myGmailAddress);
-                    message.Sender = new MailAddress(myGmailAddress);
-                    message.To.Add(new MailAddress(gebruiker.Email));
-                    message.Subject = "Reservatie van " + m.Artikelnaam;
-                    message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent";
+                SmtpClient client = new SmtpClient("smtp.gmail.com");
+                client.EnableSsl = true;
+                client.Port = 587;
+                client.Credentials = new NetworkCredential(myGmailAddress, appSpecificPassword);
 
-                    client.Send(message);
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(myGmailAddress);
+                message.Sender = new MailAddress(myGmailAddress);
+                message.To.Add(new MailAddress(gebruiker.Email));
+                message.Subject = "Reservatie van " + m.Artikelnaam;
+                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent";
 
-                    return RedirectToAction("Index", "Verlanglijst");
-                
+                client.Send(message);
+
+                return RedirectToAction("Index", "Verlanglijst");
+
             }
             catch (Exception e)
             {
-                TempData["error"] = $"{ model.materiaal.Artikelnaam}kan nu niet worden gereserveerd";
+                TempData["error"] = $"{ model.Artikelnaam}kan nu niet worden gereserveerd";
             }
 
             return RedirectToAction("Index", "Verlanglijst");
@@ -123,16 +123,10 @@ namespace Projecten2.NET.Controllers
 
         private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
         {
-            Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
+            Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
             int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
 
             return model.aantal <= i;
-        }
-
-        private Boolean ControleerAantal(NieuweReservatieViewModel model)
-        {
-            Materiaal m = materiaalRepository.FindByArtikelNaam(model.materiaal.Artikelnaam);
-            return m.Aantal >= model.aantal;
         }
     }
 }

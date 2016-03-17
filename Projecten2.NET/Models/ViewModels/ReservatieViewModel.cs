@@ -18,7 +18,7 @@ namespace Projecten2.NET.Models.ViewModels
 
     public class NieuweReservatieViewModel
     {
-        public Materiaal materiaal { get; set; }
+        public Materiaal Materiaal { get; set; }
         [Required(ErrorMessage = "{0} is verplicht")]
         [Display(Name = "Aantal")]
         [Range(1, int.MaxValue, ErrorMessage = "U moet minimum 1 materiaal aanklikken")]
@@ -29,16 +29,18 @@ namespace Projecten2.NET.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
         public int beschikbaar { get; set; }
+        public String Artikelnaam { get; set; }
 
         public NieuweReservatieViewModel(Materiaal materiaal)
         {
-            this.materiaal = materiaal;
+            this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
             this.beschikbaar = AantalBeschikbaar(beginDatum);
+            this.Artikelnaam = materiaal.Artikelnaam;
         }
 
-        public NieuweReservatieViewModel() : this(new Materiaal())
+        public NieuweReservatieViewModel()
         {
 
         }
@@ -79,7 +81,7 @@ namespace Projecten2.NET.Models.ViewModels
         {
 
             beschikbaar = aantal;
-            foreach (Reservatie lijn in materiaal.Reservatielijnen)
+            foreach (Reservatie lijn in Materiaal.Reservatielijnen)
             {
                 if (lijn.BeginDate != null && datum == lijn.BeginDate.Value)
                 {

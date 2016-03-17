@@ -1,14 +1,13 @@
 ﻿var dateToday = new Date();
 
 $(document).ready(function () {
-    //function changeBeschikbaar(date) {
-    //    console.log(date)
-    //    $.get("/Reservatie/GetBeschikbaar", { 'dateTime': date }, function (aantal) {
-    //        con
-    //        var aantalBeschikbaar = aantal;
-    //        ko.applyBindings(aantalBeschikbaar);
-    //    })
-    //};
+    function changeBeschikbaar(date) {
+        console.log(date)
+        $.get("/Reservatie/GetBeschikbaar", { 'dateTime': date }, function (aantal) {
+            var aantalBeschikbaar = aantal;
+            ko.applyBindings(aantalBeschikbaar);
+        })
+    };
 
     $(document).ready(function () {
         $('.date').not('.hasDatePicker').datepicker({
@@ -18,11 +17,11 @@ $(document).ready(function () {
             showOn: 'button',
             onSelect: function (dateText) {
                 $(this).change();
-                //changeBeschikbaar(this.value);
+                changeBeschikbaar(this.value);
             }
         }).next('button').button({
             icons: {
-                primary: 'ui-icon-calendar'
+                primary: "ui-icon-calendar"
             }, text: false
         });
     });;
@@ -50,6 +49,7 @@ $(document).ready(function () {
         callback();
     });
     $('#hidden').hide();
+    $('#hidden2').hide();
 
     $.datepicker.regional['nl'] = {
         clearText: 'Effacer', clearStatus: '',
