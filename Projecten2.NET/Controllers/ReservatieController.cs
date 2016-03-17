@@ -52,26 +52,25 @@ namespace Projecten2.NET.Controllers
         [HttpPost]
         public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(model);
-                }
-                    
-                if (!ControleerBeschikbaarheid(model))
+
+                if (!ControleerBeschikbaarheid(model)) //Moet naar domein verdwijnen
                 {
                     TempData["error"] = $"Gelieve een correct aantal in te geven";
                     return View(model);
                 }
                 Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
-                Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
-                reservatieRepository.AddReservatie(r);  //Mag dit weg?
+                Reservatie r = gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum);  //Void van maken
+                reservatieRepository.AddReservatie(r);  //Wordt al gedaan in domein dus hoeft niet! 
                 gebruikersRepository.SaveChanges();
-                reservatieRepository.SaveChanges(); //Mag dit weg?
                 TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
-                //systeem om mail te versturen
+                //systeem om mail te versturen  -->NOG IN PRIVATE METHODE ZETTEN (niet te veel tam tam)
                 string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
                 string appSpecificPassword = "Leermiddelen";
 
@@ -108,10 +107,10 @@ namespace Projecten2.NET.Controllers
                 try
                 {
                     Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
-                gebruiker.RemoveReservatieFromReservaties(r);
-                gebruikersRepository.SaveChanges();
-                if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
-                    TempData["info"] = $"De reservatie is verwijderd!";
+                    gebruiker.RemoveReservatieFromReservaties(r);
+                    gebruikersRepository.SaveChanges();
+                    if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
+                        TempData["info"] = $"De reservatie is verwijderd!";
                 }
                 catch (Exception e)
                 {
@@ -119,19 +118,18 @@ namespace Projecten2.NET.Controllers
                 }
             }
             return RedirectToAction("Index", "Reservatie");
-
         }
 
-        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
+        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model) //In domein zetten
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
             var i = materiaal.Aantal;
             foreach (Reservatie reservatie in materiaal.Reservatielijnen)
             {
                 if (reservatie.BeginDate == model.beginDatum)
-                i -= reservatie.Aantal;
+                    i -= reservatie.Aantal;
             }
-            return model.aantal<=i;
+            return model.aantal <= i;
         }
     }
 }

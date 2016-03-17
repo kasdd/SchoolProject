@@ -39,7 +39,7 @@ namespace Projecten2.NET
             }
         }
 
-        public Reservatie AddMateriaalToReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
+        public Reservatie ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum) 
         {
             Reservatie r;
             if (materiaal != null && beginDatum > DateTime.Today)// datum vanaf eerste mogelijke begindatum
