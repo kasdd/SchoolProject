@@ -34,10 +34,11 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
-        //public JsonResult GetBeschikbaar(DateTime dateTime)
-        //{
-        //    return Json(Vm.AantalBeschikbaar(dateTime));
-        //}
+        public JsonResult GetBeschikbaar(Gebruiker gebruiker, DateTime dateTime, string naam)
+        {
+            Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
+            return Json(gebruiker.GetBeschikbaar(materiaal, dateTime));
+        }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {

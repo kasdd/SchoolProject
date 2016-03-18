@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Projecten2.NET.Materiaal>
+﻿@model IEnumerable<Projecten2.NET.Models.ViewModels.VerlanglijstViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -58,8 +58,7 @@
                 @Html.ActionLink("Reserveer", "Nieuw", "Reservatie", new {naam = item.Artikelnaam}, new {@class = "btn btn-groen"})
             </td>
             <td>
-
-                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new {naam = item.Artikelnaam}))
                 {
                     <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>
                 }

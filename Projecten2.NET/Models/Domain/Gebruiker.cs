@@ -44,7 +44,7 @@ namespace Projecten2.NET
             if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
                 beginDatum > GeefCorrecteDatumTerug())
             {
-                if (!bezitReedsReservatie(materiaal, aantal))
+                if (!BezitReedsReservatie(materiaal, aantal))
                 {
                     Reservatie r = new Reservatie(materiaal, beginDatum, aantal);
                     Reservaties.Add(r);
@@ -118,18 +118,27 @@ namespace Projecten2.NET
             return vandaag.AddDays(daysToAdd);
         }
 
-        private Boolean bezitReedsReservatie(Materiaal materiaal, int aantal)
+        private Boolean BezitReedsReservatie(Materiaal materiaal, int aantal)
         {
             foreach (Reservatie reservatie in Reservaties.Where(reservatie => reservatie.Materiaal.Artikelnaam == materiaal.Artikelnaam))
             {
                 reservatie.Aantal += aantal;
                 foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.Materiaal.Artikelnaam == reservatie.Materiaal.Artikelnaam))
-                {
                     r.Aantal += aantal;
-                }
                 return true;
             }
             return false;
+        }
+
+        public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime)
+        {
+            int beschikbaar = materiaal.Aantal;
+            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            {
+                if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
+                    beschikbaar--;
+            }
+            return beschikbaar;
         }
     }
 }
