@@ -1,8 +1,10 @@
 ﻿var dateToday = new Date();
+var naam = '@Html.raw(Json.encode(Model.Materiaal.Artikelnaam))';
 
 $(document).ready(function () {
-    function changeBeschikbaar(date) {
+    function changeBeschikbaar(date, naam) {
         console.log(date)
+        console.log(naam)
         $.get("/Reservatie/GetBeschikbaar", { 'dateTime': date }, function (aantal) {
             var aantalBeschikbaar = aantal;
             ko.applyBindings(aantalBeschikbaar);
@@ -17,7 +19,7 @@ $(document).ready(function () {
             showOn: 'button',
             onSelect: function (dateText) {
                 $(this).change();
-                changeBeschikbaar(this.value);
+                changeBeschikbaar(this.value, naam);
             }
         }).next('button').button({
             icons: {
