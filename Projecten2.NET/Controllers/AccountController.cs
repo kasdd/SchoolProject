@@ -162,10 +162,16 @@ namespace Projecten2.NET.Controllers
         private async Task<IdentityResult> CreateUserAndRoles(Gebruiker gebruiker, string password)
         {
 
-            ApplicationDbContext context = new ApplicationDbContext();
+            //ApplicationDbContext context = new ApplicationDbContext();
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            var userManager =
+                HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            var roleManager =
+                HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
 
             //Create user
             ApplicationUser user = new ApplicationUser { UserName = gebruiker.Email, Email = gebruiker.Email, LockoutEnabled = false };

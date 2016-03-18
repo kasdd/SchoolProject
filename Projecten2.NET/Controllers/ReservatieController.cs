@@ -17,14 +17,11 @@ namespace Projecten2.NET.Controllers
 
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
-        private IReservatieRepository reservatieRepository;
-        private NieuweReservatieViewModel vm;
 
-        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository, IReservatieRepository reservatieRepository)
+        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
-            this.reservatieRepository = reservatieRepository;
         }
 
         // GET: Reservatie
@@ -37,37 +34,33 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
+        //public JsonResult GetBeschikbaar(DateTime dateTime)
+        //{
+        //    return Json(Vm.AantalBeschikbaar(dateTime));
+        //}
+
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            vm = new NieuweReservatieViewModel(materiaal);
-            return View(vm);
+            NieuweReservatieViewModel model = new NieuweReservatieViewModel(materiaal);
+            return View(model);
 
         }
         [HttpPost]
         public ActionResult Nieuw(Gebruiker gebruiker, NieuweReservatieViewModel model)
         {
-            try
-            {
                 if (!ModelState.IsValid)
                 {
                     return View(model);
                 }
-                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
-                model.Materiaal = m;
-                
-                if (!ControleerBeschikbaarheid(model))
+            try
                 {
-                    TempData["error"] = $"Gelieve een correct aantal in te geven";
-                    return View(model);
-                }
-                Reservatie r = gebruiker.AddMateriaalToReservatie(m, model.aantal, model.beginDatum);
-                reservatieRepository.AddReservatie(r);
+                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
+                gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum); 
                 gebruikersRepository.SaveChanges();
-                reservatieRepository.SaveChanges();
-                TempData["info"] = $" {model.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
-                //systeem om mail te versturen
+                //systeem om mail te versturen  -->NOG IN PRIVATE METHODE ZETTEN (niet te veel tam tam)
                 string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
                 string appSpecificPassword = "Leermiddelen";
 
@@ -81,16 +74,15 @@ namespace Projecten2.NET.Controllers
                 message.Sender = new MailAddress(myGmailAddress);
                 message.To.Add(new MailAddress(gebruiker.Email));
                 message.Subject = "Reservatie van " + m.Artikelnaam;
-                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent";
+                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent"; //Tijd over : beter uitwerken begin/uitdatum van reservatie.
 
                 client.Send(message);
 
                 return RedirectToAction("Index", "Verlanglijst");
-
             }
             catch (Exception e)
             {
-                TempData["error"] = $"{ model.Artikelnaam}kan nu niet worden gereserveerd";
+                TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden gereserveerd";
             }
 
             return RedirectToAction("Index", "Verlanglijst");
@@ -101,36 +93,20 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
+                try
+                {
+                    Reservatie r = gebruiker.FindReservatieByReservatieId(reservatieId);
                 gebruiker.RemoveReservatieFromReservaties(r);
                 gebruikersRepository.SaveChanges();
-                if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
+                    if (gebruiker.FindReservatieByReservatieId(reservatieId) == null)
                     TempData["info"] = $"De reservatie is verwijderd!";
-                /*}
-                // catch (Exception e)
+                }
+                catch (Exception e)
                  { 
-                     throw new Exception(e.Message);
-                 }*/
-            }
-            return RedirectToAction("Index", "Reservatie");
-
-        }
-
-        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model)
-        {
-            Materiaal m = materiaalRepository.FindByArtikelNaam(model.Artikelnaam);
-            //        int i = m.Reservatielijnen.Count(reservatie => reservatie.BeginDate == model.beginDatum);
-            int i = 0;
-            foreach (Reservatie reservatie in m.Reservatielijnen)
-            {
-                if (reservatie.BeginDate == model.beginDatum)
-                {
-                    i += reservatie.Aantal;
+                    TempData["error"] = $"De reservatie kan nu niet worden verwijderd";
                 }
             }
-            return model.aantal <= i;
+            return RedirectToAction("Index", "Reservatie");
         }
 
         //public JsonResult GetBeschikbaar(DateTime dateTime)

@@ -8,18 +8,21 @@ namespace Projecten2.NET.Tests.Controllers
     public class DummyContext
     {
 
-        private Gebruiker student;
-        private Gebruiker lector;
+        public Gebruiker student1;
+        public Gebruiker student2;
+        public Gebruiker student3;
+        public Gebruiker personeel1;
+        public Gebruiker personeel2;
 
-        private Leergebied nederlands;
-        private Leergebied aardrijkskunde;
-        private Doelgroep kleuters;
-        private Doelgroep lagerOnderwijs;
+        public Leergebied nederlands;
+        public Leergebied aardrijkskunde;
+        public Doelgroep kleuters;
+        public Doelgroep lagerOnderwijs;
 
-        private Materiaal wereldbol;
-        private Materiaal dobbelsteen;
+        public Materiaal wereldbol;
+        public Materiaal dobbelsteen;
 
-        private IList<Materiaal> materialen;
+        public IList<Materiaal> materialen;
 
         public DummyContext()
         {
@@ -31,7 +34,7 @@ namespace Projecten2.NET.Tests.Controllers
             lagerOnderwijs = new Doelgroep { DoelgroepNaam = "lagerOnderwijs", DoelgroepId = 12 };
             wereldbol = new Materiaal
             {
-                Aantal = 3,
+                Aantal = 13,
                 Artikelnaam = "wereldbol",
                 ArtikelNummer = "101",
                 Doelgroepen = new List<Doelgroep> { lagerOnderwijs, kleuters },
@@ -44,7 +47,7 @@ namespace Projecten2.NET.Tests.Controllers
             };
             dobbelsteen = new Materiaal
             {
-                Aantal = 1,
+                Aantal = 10,
                 Artikelnaam = "dobbelsteen",
                 ArtikelNummer = "102",
                 Doelgroepen = new List<Doelgroep> { lagerOnderwijs },
@@ -61,6 +64,44 @@ namespace Projecten2.NET.Tests.Controllers
             materialen.Add(wereldbol);
             materialen.Add(dobbelsteen);
 
+            student1 = new Gebruiker()
+            {
+                Email = "student1@student.hogent.be",
+                Naam = "Student1",
+                Voornaam = "Student1",
+                Type = Type.STUDENT
+            };
+            student2 = new Gebruiker()
+            {
+                Email = "student2@student.hogent.be",
+                Naam = "Student2",
+                Voornaam = "Student2",
+                Type = Type.STUDENT
+            };
+            student3 = new Gebruiker()
+            {
+                Email = "student2@student.hogent.be",
+                Naam = "Student2",
+                Voornaam = "Student2",
+                Type = Type.STUDENT
+            };
+
+            personeel1 = new Gebruiker()
+            {
+                Email = "personeel1@personeel.hogent.be",
+                Naam = "Personeel1",
+                Voornaam = "Personeel1",
+                Type = Type.PERSONEEL
+            };
+            personeel2 = new Gebruiker()
+            {
+                Email = "personeel2@personeel.hogent.be",
+                Naam = "personeel2",
+                Voornaam = "personeel2",
+                Type = Type.PERSONEEL
+            };
+
+            student1.AddMateriaalToVerlanglijst(wereldbol);
 
         }
         public IQueryable<Materiaal> AllMaterialen
