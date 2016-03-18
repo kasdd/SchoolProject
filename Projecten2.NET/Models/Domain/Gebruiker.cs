@@ -70,7 +70,7 @@ namespace Projecten2.NET
             return Verlanglijst.BezitVerlanglijstMateriaal(m);
         }
 
-        public Reservatie findReservatieByReservatieId(int reservatieId)
+        public Reservatie FindReservatieByReservatieId(int reservatieId)
         {
             return Reservaties.FirstOrDefault(r => r.ReservatieId == reservatieId);
         }

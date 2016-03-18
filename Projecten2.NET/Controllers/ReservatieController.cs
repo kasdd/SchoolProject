@@ -17,14 +17,11 @@ namespace Projecten2.NET.Controllers
 
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
-        private IReservatieRepository reservatieRepository;
-        private NieuweReservatieViewModel Vm;
 
-        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository, IReservatieRepository reservatieRepository)
+        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
-            this.reservatieRepository = reservatieRepository;
         }
 
         // GET: Reservatie
@@ -37,16 +34,16 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
-        public JsonResult GetBeschikbaar(DateTime dateTime)
-        {
-            return Json(Vm.AantalBeschikbaar(dateTime));
-        }
+        //public JsonResult GetBeschikbaar(DateTime dateTime)
+        //{
+        //    return Json(Vm.AantalBeschikbaar(dateTime));
+        //}
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            Vm = new NieuweReservatieViewModel(materiaal);
-            return View(Vm);
+            NieuweReservatieViewModel model = new NieuweReservatieViewModel(materiaal);
+            return View(model);
 
         }
         [HttpPost]
@@ -98,10 +95,10 @@ namespace Projecten2.NET.Controllers
             {
                 try
                 {
-                    Reservatie r = gebruiker.findReservatieByReservatieId(reservatieId);
+                    Reservatie r = gebruiker.FindReservatieByReservatieId(reservatieId);
                     gebruiker.RemoveReservatieFromReservaties(r);
                     gebruikersRepository.SaveChanges();
-                    if (gebruiker.findReservatieByReservatieId(reservatieId) == null)
+                    if (gebruiker.FindReservatieByReservatieId(reservatieId) == null)
                         TempData["info"] = $"De reservatie is verwijderd!";
                 }
                 catch (Exception e)
