@@ -133,9 +133,9 @@ namespace Projecten2.NET.Controllers
             return model.aantal <= i;
         }
 
-        public JsonResult GetBeschikbaar(DateTime dateTime)
-        {
-            return Json(vm.AantalBeschikbaar(dateTime));
-        }
+        //public JsonResult GetBeschikbaar(DateTime dateTime)
+        //{
+        //    return Json(vm.AantalBeschikbaar(dateTime));
+        //}
     }
 }
