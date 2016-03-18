@@ -58,15 +58,8 @@ namespace Projecten2.NET.Controllers
             }
             try
             {
-
-                if (!ControleerBeschikbaarheid(model)) //Moet naar domein verdwijnen
-                {
-                    TempData["error"] = $"Gelieve een correct aantal in te geven";
-                    return View(model);
-                }
                 Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
-                Reservatie r = gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum);  //Void van maken
-                reservatieRepository.AddReservatie(r);  //Wordt al gedaan in domein dus hoeft niet! 
+                gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum); 
                 gebruikersRepository.SaveChanges();
                 TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
 
@@ -89,11 +82,10 @@ namespace Projecten2.NET.Controllers
                 client.Send(message);
 
                 return RedirectToAction("Index", "Verlanglijst");
-
             }
             catch (Exception e)
             {
-                TempData["error"] = $"{ Vm.Materiaal.Artikelnaam}kan nu niet worden gereserveerd";
+                TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden gereserveerd";
             }
 
             return RedirectToAction("Index", "Verlanglijst");
@@ -118,18 +110,6 @@ namespace Projecten2.NET.Controllers
                 }
             }
             return RedirectToAction("Index", "Reservatie");
-        }
-
-        private Boolean ControleerBeschikbaarheid(NieuweReservatieViewModel model) //In domein zetten
-        {
-            Materiaal materiaal = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
-            var i = materiaal.Aantal;
-            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
-            {
-                if (reservatie.BeginDate == model.beginDatum)
-                    i -= reservatie.Aantal;
-            }
-            return model.aantal <= i;
         }
     }
 }
