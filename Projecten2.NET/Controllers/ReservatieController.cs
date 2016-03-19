@@ -82,11 +82,11 @@ namespace Projecten2.NET.Controllers
             {
                 try
                 {
-                    Reservatie r = gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId);
+                    Reservatie r = gebruiker.FindReservatieByVoorbehoudingId(voorbehoudingId);
                 gebruiker.RemoveReservatieFromReservaties(r);
                     //moet reservatieRepository niet gedefnieerd zijn hiervoor?
                 gebruikersRepository.SaveChanges();
-                    if (gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId) == null)
+                    if (gebruiker.FindReservatieByVoorbehoudingId(voorbehoudingId) == null)
                     TempData["info"] = $"De reservatie is verwijderd!";
                 }
                 catch (Exception e)

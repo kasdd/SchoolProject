@@ -82,10 +82,10 @@ namespace Projecten2.NET.Controllers
             {
                 try
                 {
-                    Reservatie r = gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId);
-                    gebruiker.RemoveReservatieFromReservaties(r);
+                    Blokkering b = gebruiker.FindBlokkeringByVoorbehoudingId(voorbehoudingId);
+                    gebruiker.RemoveBlokkeringFromBlokkeringen(b);
                     gebruikersRepository.SaveChanges();
-                    if (gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId) == null)
+                    if (gebruiker.FindBlokkeringByVoorbehoudingId(voorbehoudingId) == null)
                         TempData["info"] = $"De blokkering is verwijderd!";
                 }
                 catch (Exception e)
