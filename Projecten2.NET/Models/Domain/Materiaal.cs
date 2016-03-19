@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projecten2.NET.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,11 +20,13 @@ namespace Projecten2.NET
     
         public int Aantal { get; set; }
         public virtual ICollection<Reservatie> Reservatielijnen { get; set; }
+        public virtual ICollection<Blokkering> Blokkeringen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
         public virtual ICollection<Leergebied> Leergebieden { get; set; }
 
         public Materiaal()
         {
+            Blokkeringen = new List<Blokkering>();
             Reservatielijnen = new List<Reservatie>();
             Doelgroepen = new List<Doelgroep>();
             Leergebieden = new List<Leergebied>();

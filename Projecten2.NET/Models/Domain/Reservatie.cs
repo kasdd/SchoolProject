@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Projecten2.NET.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Projecten2.NET
 {
-    public class Reservatie
+    public class Reservatie : Voorbehouding
     {
         public int ReservatieId { get; set; }
-        public Materiaal Materiaal { get; set; }
-        public DateTime? BeginDate { get; private set; }
-        public DateTime? EndDate { get; set; }
-        public int Aantal { get; set; }
 
-        public Reservatie(Materiaal materiaal, DateTime begin, int aantal) :this()
+        public Reservatie(Materiaal materiaal, DateTime begin, int aantal) : base()
         {
             this.BeginDate = begin;
             this.EndDate = StelEinddatumIn(begin);

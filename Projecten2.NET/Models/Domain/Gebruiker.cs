@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projecten2.NET.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,9 +15,11 @@ namespace Projecten2.NET
         public string Voornaam { get; set; }
         public Type Type { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
+        public virtual ICollection<Blokkering> Blokkeringen { get; set; }
         public virtual Verlanglijst Verlanglijst { get; set; }
         public Gebruiker()
         {
+            Blokkeringen = new List<Blokkering>();
             Reservaties = new List<Reservatie>();
             Verlanglijst = new Verlanglijst();
         }
@@ -41,14 +44,30 @@ namespace Projecten2.NET
 
         public void ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
-                beginDatum > GeefCorrecteDatumTerug())
+            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) /*&&
+                beginDatum > GeefCorrecteDatumTerug()*/)
             {
                 if (!BezitReedsReservatie(materiaal, aantal))
                 {
                     Reservatie r = new Reservatie(materiaal, beginDatum, aantal);
                     Reservaties.Add(r);
                     materiaal.Reservatielijnen.Add(r);
+                }
+            }
+            else
+                throw new Exception("Reservate kan nu niet worden aangemaakt");
+        }
+
+        public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
+        {
+            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) /*&&
+                beginDatum > GeefCorrecteDatumTerug()*/)
+            {
+                if (!BezitReedsReservatie(materiaal, aantal))
+                {
+                    Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
+                    Blokkeringen.Add(b);
+                    materiaal.Blokkeringen.Add(b);
                 }
             }
             else
@@ -78,6 +97,11 @@ namespace Projecten2.NET
         private Boolean ControleerBeschikbaarheid(Materiaal materiaal, DateTime begindatum, int aantal)
         {
             var i = materiaal.Aantal;
+            foreach (Blokkering blokkering in materiaal.Blokkeringen)
+            {
+                if (blokkering.BeginDate == begindatum)
+                    i -= blokkering.Aantal;
+            }
             foreach (Reservatie reservatie in materiaal.Reservatielijnen)
             {
                 if (reservatie.BeginDate == begindatum)

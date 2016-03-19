@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Projecten2.NET.Models.Domain.Blokkering>
+
+@{
+    ViewBag.Title = "Uw blokkeringen";
+}
+
+<h2>Uw Blokkeringen</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+ 
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Materiaal.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Materiaal.Artikelnaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Materiaal.Omschrijving)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Materiaal.Prijs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aantal)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Materiaal.Plaats)
+            </th>
+            <th>
+                @Html.DisplayName("Startdatum blokkering")
+            </th>
+            <th>
+                @Html.DisplayName("Einddatum blokkering")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Materiaal.Foto)" a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Materiaal.Artikelnaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Materiaal.Omschrijving)
+                </td>
+                <td class="text-right">
+                    @($"{item.Materiaal.Prijs:0.00€}")
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.Aantal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Materiaal.Plaats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeginDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @*<a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
+                    <a href='@Url.Action("Min", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button></a>
+                    *@
+                    @using (Html.BeginForm("RemoveFromBlokkering", "Blokkering", new { blokkeringId = item.blokkeringId }))
+                    {
+                        @*<a href='@Url.Action("Remove", "Reservatie")'>*@<button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>@*</a>*@
+                    }
+                </td>
+
+                
+            </tr>
+        }
+    
+
+    </table>
