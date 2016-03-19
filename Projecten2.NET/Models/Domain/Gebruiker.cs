@@ -158,6 +158,9 @@ namespace Projecten2.NET
                 reservatie.Aantal += aantal;
                 foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.Materiaal.Artikelnaam == reservatie.Materiaal.Artikelnaam))
                     r.Aantal += aantal;
+                //Moet het niet iets net als dit hieronder zijn?
+                //foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.BeginDate == reservatie.BeginDate))
+                //    r.Aantal += aantal;
                 return true;
             }
             return false;
