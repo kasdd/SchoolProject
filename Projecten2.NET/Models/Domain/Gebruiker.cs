@@ -45,7 +45,7 @@ namespace Projecten2.NET
         public void ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
             if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
-                beginDatum > GeefCorrecteDatumTerug())
+                beginDatum >= GeefCorrecteDatumTerug())
             {
                 if (!BezitReedsReservatie(materiaal, aantal))
                 {
