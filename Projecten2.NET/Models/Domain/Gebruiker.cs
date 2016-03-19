@@ -44,8 +44,8 @@ namespace Projecten2.NET
 
         public void ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) /*&&
-                beginDatum > GeefCorrecteDatumTerug()*/)
+            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
+                beginDatum > GeefCorrecteDatumTerug())
             {
                 if (!BezitReedsReservatie(materiaal, aantal))
                 {
@@ -71,7 +71,7 @@ namespace Projecten2.NET
                 }
             }
             else
-                throw new Exception("Reservate kan nu niet worden aangemaakt");
+                throw new Exception("Blokkering kan nu niet worden aangemaakt");
         }
 
         public void RemoveReservatieFromReservaties(Reservatie r)
@@ -83,15 +83,24 @@ namespace Projecten2.NET
                 throw new Exception("Reservatie kan nu niet worden verwijderd");
             }
         }
+        public void RemoveBlokkeringFromBlokkeringen(Blokkering b)
+        {
+            if (b != null)
+                Blokkeringen.Remove(b);
+            else
+            {
+                throw new Exception("Blokkeringen kan nu niet worden verwijderd");
+            }
+        }
 
         public Boolean BezitVerlanglijstMateriaal(Materiaal m)
         {
             return Verlanglijst.BezitVerlanglijstMateriaal(m);
         }
 
-        public Reservatie FindReservatieByReservatieId(int reservatieId)
+        public Reservatie FindVoorbehoudingByVoorbehoudingId(int voorbehoudingId)
         {
-            return Reservaties.FirstOrDefault(r => r.ReservatieId == reservatieId);
+            return Reservaties.FirstOrDefault(r => r.EqualVoorbehoudingId(voorbehoudingId));
         }
 
         private Boolean ControleerBeschikbaarheid(Materiaal materiaal, DateTime begindatum, int aantal)

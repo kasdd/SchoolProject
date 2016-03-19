@@ -91,17 +91,17 @@ namespace Projecten2.NET.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveFromReservatie(int reservatieId, Gebruiker gebruiker)
+        public ActionResult RemoveFromReservatie(int voorbehoudingId, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Reservatie r = gebruiker.FindReservatieByReservatieId(reservatieId);
+                    Reservatie r = gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId);
                 gebruiker.RemoveReservatieFromReservaties(r);
                     //moet reservatieRepository niet gedefnieerd zijn hiervoor?
                 gebruikersRepository.SaveChanges();
-                    if (gebruiker.FindReservatieByReservatieId(reservatieId) == null)
+                    if (gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId) == null)
                     TempData["info"] = $"De reservatie is verwijderd!";
                 }
                 catch (Exception e)
