@@ -21,7 +21,8 @@
                     <label>Doelgroep: @Html.DropDownList("DoelgroepId", ViewBag.doelgroep as SelectList, "-- Alle doelgroepen --", new {@class = "form-control"}) </label>
                     <label>Leergebied: @Html.DropDownList("LeergebiedId", ViewBag.leergebied as SelectList, "-- Alle leergebieden --", new { @class = "form-control" })  </label>
                     <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
-                    <input type="submit" class="btn btn-groen" value="Zoek" />
+                    <input type="submit" class="btn btn-groen" value="Zoek"/>
+                    <input type="reset" @*onclick="this.defaultSelected"@*"javascript: location.reload();"*@ class="btn btn-groen" value="Verwijder Filter" />
                 </div>      
             </div>     
         }
