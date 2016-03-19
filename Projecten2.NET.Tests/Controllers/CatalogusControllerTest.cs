@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Projecten2.NET.Controllers;
 using Projecten2.NET.Models.Domain;
@@ -7,6 +8,7 @@ using Moq;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Projecten2.NET.Models.ViewModels;
 
 namespace Projecten2.NET.Tests.Controllers
 {
@@ -18,45 +20,78 @@ namespace Projecten2.NET.Tests.Controllers
         private Mock<IDoelgroepRepository> mockDoelgroepRepository;
         private Mock<ILeergebiedRepository> mockLeergebiedRepository;
         private Mock<IGebruikerRepository> mockGebruikerRepository;
-        public Gebruiker student1;
-
+        private Gebruiker student1;
+        private CatalogusViewModel model;
+        private CatalogusViewModel modelMetFout;
+        private DummyContext context;
         [TestInitialize]
         public void MyTestInitializer()
         {
-            DummyContext context = new DummyContext();
+            context = new DummyContext();
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockDoelgroepRepository = new Mock<IDoelgroepRepository>();
             mockLeergebiedRepository = new Mock<ILeergebiedRepository>();
             mockGebruikerRepository = new Mock<IGebruikerRepository>();
-            mockMateriaalRepository.Setup(p => p.FindAll()).Returns(context.AllMaterialen);
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Blanco draaischijf")).Returns(context.FindByArtikelNaamMaterialen("Blanco draaischijf"));
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Splitsbomen")).Returns(context.FindByArtikelNaamMaterialen("Splitsbomen"));
-            mockDoelgroepRepository.Setup(p => p.FindAll()).Returns(context.AllDoelgroepen);
-            mockDoelgroepRepository.Setup(p => p.FindById(11)).Returns(context.FindByIdDoelgroep(11));
-            mockDoelgroepRepository.Setup(p => p.FindById(12)).Returns(context.FindByIdDoelgroep(12));
-            catalogusController = new CatalogusController(mockMateriaalRepository.Object, mockDoelgroepRepository.Object, mockLeergebiedRepository.Object, mockGebruikerRepository.Object);
             student1 = context.student1;
+            mockMateriaalRepository.Setup(m => m.FindAll()).Returns(context.AllMaterialen);
+            mockDoelgroepRepository.Setup(d => d.FindById(1)).Returns(context.FindByIdDoelgroep(1));
+            mockLeergebiedRepository.Setup(l => l.FindById(1)).Returns(context.FindByIdLeergebied(1));
+            mockDoelgroepRepository.Setup(d => d.FindById(3)).Returns(context.FindByIdDoelgroep(3));
+            catalogusController = new CatalogusController(mockMateriaalRepository.Object, mockDoelgroepRepository.Object, mockLeergebiedRepository.Object, mockGebruikerRepository.Object);
+            
+            
+        }
 
+        [TestMethod]
+        public void IndexRetourneertEenView()
+        {
+            ActionResult result = catalogusController.Index(student1, "");
+            Assert.IsInstanceOfType(result, typeof (ViewResult));
         }
 
         [TestMethod]
         public void IndexRetourneertAlleMaterialen()
         {
             ViewResult result = catalogusController.Index(student1, "") as ViewResult;
-            List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
-            Assert.AreEqual(2, materialen.Count);
-            Assert.AreEqual("dobbelsteen", materialen[0].Artikelnaam);
-            Assert.AreEqual("wereldbol", materialen[1].Artikelnaam);
+            List<CatalogusViewModel> models = (result.Model as IEnumerable<CatalogusViewModel>).ToList();
+            Assert.AreEqual(3, models.Count);
+        }
+
+        [TestMethod]
+        public void IndexRetrouneertCorrectMateriaal()
+        {
+            model = new CatalogusViewModel(student1, context.dobbelsteen);
+            ViewResult result = catalogusController.Index(student1, "") as ViewResult;
+            Assert.AreEqual("dobbelsteen", model.Artikelnaam);
+        }
+
+        [TestMethod]
+        public void IndexRetourneertAlleMaterialenMetDoelgroepId()
+        {
+            ViewResult result = catalogusController.Index(student1, "", 1) as ViewResult;
+            List<CatalogusViewModel> models = (result.Model as IEnumerable<CatalogusViewModel>).ToList();
+            Assert.AreEqual(2, models.Count);
+            Assert.AreEqual("frozen spelbord", models[0].Artikelnaam);
+            Assert.AreEqual("wereldbol", models[1].Artikelnaam);
+        }
+
+        [TestMethod]
+        public void IndexRetourneertAlleMaterialenMetLeergebiedId()
+        {
+            ViewResult result = catalogusController.Index(student1, "", 0, 1) as ViewResult;
+            List<CatalogusViewModel> models = (result.Model as IEnumerable<CatalogusViewModel>).ToList();
+            Assert.AreEqual(1, models.Count);
+            Assert.AreEqual("frozen spelbord", models[0].Artikelnaam);
         }
 
         //[TestMethod]
-        //public void IndexRetourneertAlleMaterialenInKleuters()
+        //public void IndexRetourneertGeldigeString()
         //{
-        //    ViewResult result = catalogusController.Index("", 11, 0) as ViewResult;
-        //    List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
-        //    Assert.AreEqual(1, materialen.Count);
-        //    Assert.AreEqual("wereldbol", materialen[0].Artikelnaam);
+        //    ViewResult result = catalogusController.Index(student1, "mooie") as ViewResult;
+        //    List<CatalogusViewModel> models = (result.Model as IEnumerable<CatalogusViewModel>).ToList();
+        //    Assert.AreEqual(1, models.Count);
         //}
+
         //[TestMethod]
         //public void IndexRetourneertOngeldigeStringMaterialenInKleuters()
         //{

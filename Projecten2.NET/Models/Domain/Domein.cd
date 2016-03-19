@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Projecten2.NET.Reservatie">
-    <Position X="2.5" Y="6.25" Width="1.5" />
+    <Position X="4" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIIAAAAAAAIAgAAAAAIgAAAAAoAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAgAAAAAIAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Materiaal" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Projecten2.NET.Materiaal">
     <Position X="6.5" Y="6.5" Width="1.5" />
@@ -18,7 +15,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAACAAQAAAgAAAAwAAAAAAAAACAIoAAAAAAaACEARA=</HashCode>
+      <HashCode>AAAACAIQAAAgAAAAwAAAAAAAAACAIoAAAAAAaACEARA=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -48,9 +45,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Gebruiker">
-    <Position X="2.5" Y="2.25" Width="1.5" />
+    <Position X="1.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABgACEgAEAAACQAhAABAAAABAAAAQAAQAEAAAA=</HashCode>
+      <HashCode>AAAAAAJiACEkIAAAESQAhAABAAAAAAAAQQQAQAEAAAA=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -70,6 +67,20 @@
     <ShowAsCollectionAssociation>
       <Property Name="Materialen" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Projecten2.NET.Models.Domain.Voorbehouding" Collapsed="true">
+    <Position X="0.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIIAAAAAAAIAgAAAAAAgCAAAAoAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Voorbehouding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projecten2.NET.Models.Domain.Blokkering">
+    <Position X="2.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Blokkering.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;">
     <Position X="14.75" Y="4.5" Width="2.75" />
