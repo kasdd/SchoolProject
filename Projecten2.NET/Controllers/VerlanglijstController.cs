@@ -37,11 +37,10 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                {
-                    Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
                     try
                     {
-                        if (gebruiker.BezitVerlanglijstMateriaal(m))
+                    Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
+                    if (gebruiker.BezitVerlanglijstMateriaal(m))
                             TempData["error"] = $"Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                         else
                         {
@@ -56,8 +55,6 @@ namespace Projecten2.NET.Controllers
                     {
                         TempData["error"] = $"Materiaal kan niet toegevoegd worden aan uw verlanglijst";
                     }
-                }
-
             }
             return RedirectToAction("Index", "Catalogus");
         }
@@ -105,18 +102,6 @@ namespace Projecten2.NET.Controllers
             }
             return RedirectToAction("Index", "Catalogus");
 
-        }
-
-        //hulpklasses
-        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
-        {
-            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
-            return vandaag.AddDays(daysToAdd);
-        }
-
-        private int getAantal(int selectedValue = 1)
-        {
-            return selectedValue;
         }
 
         [ChildActionOnly]

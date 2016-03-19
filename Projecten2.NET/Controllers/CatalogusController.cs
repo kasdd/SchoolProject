@@ -30,7 +30,7 @@ namespace Projecten2.NET.Controllers
             {
                 IEnumerable<Materiaal> materialen;
                 Doelgroep doelgroep;
-                Leergebied leergbied;
+                Leergebied leergebied;
                 if (doelgroepId != 0)
                 {
                     doelgroep = doelgroepRepository.FindById(doelgroepId);
@@ -49,8 +49,8 @@ namespace Projecten2.NET.Controllers
                 }
                 if (leergebiedId != 0)
                 {
-                    leergbied = leergebiedRepository.FindById(leergebiedId);
-                    materialen = leergbied.Materialen.OrderBy(m => m.ArtikelNummer);
+                    leergebied = leergebiedRepository.FindById(leergebiedId);
+                    materialen = leergebied.Materialen.OrderBy(m => m.ArtikelNummer);
                     if (!string.IsNullOrEmpty(searchString))
                     {
                         materialen.Where(s =>
@@ -66,8 +66,7 @@ namespace Projecten2.NET.Controllers
                 }
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    materialen =
-                        materiaalRepository.FindAll()
+                    materialen = materiaalRepository.FindAll()
                             .Where(
                                 s =>
                                     s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||

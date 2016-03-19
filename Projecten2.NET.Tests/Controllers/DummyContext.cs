@@ -29,7 +29,6 @@ namespace Projecten2.NET.Tests.Controllers
         public DummyContext()
         {
             materialen = new List<Materiaal>();
-            //student = new Gebruiker { Name = "Gent", Postalcode = "9000" };
             nederlands = new Leergebied { LeergebiedNaam = "spelenderwijs", LeergebiedId = 1 };
             aardrijkskunde = new Leergebied { LeergebiedNaam = "aardrijkskunde", LeergebiedId = 2 };
             kleuters = new Doelgroep { DoelgroepNaam = "kleuters", DoelgroepId = 1 };
@@ -128,7 +127,7 @@ namespace Projecten2.NET.Tests.Controllers
             }
         }
 
-        public Materiaal FindByArtikelNaamMaterialen(String naam)
+        public Materiaal FindByArtikelNaam(String naam)
         {
             return materialen.FirstOrDefault(m => m.Artikelnaam == naam);
         }
