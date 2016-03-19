@@ -16,11 +16,13 @@ namespace Projecten2.NET.Tests.Controllers
 
         public Leergebied nederlands;
         public Leergebied aardrijkskunde;
+        public Leergebied spelborden;
         public Doelgroep kleuters;
         public Doelgroep lagerOnderwijs;
 
         public Materiaal wereldbol;
         public Materiaal dobbelsteen;
+        public Materiaal frozenSpelbord;
 
         public IList<Materiaal> materialen;
 
@@ -30,8 +32,9 @@ namespace Projecten2.NET.Tests.Controllers
             //student = new Gebruiker { Name = "Gent", Postalcode = "9000" };
             nederlands = new Leergebied { LeergebiedNaam = "spelenderwijs", LeergebiedId = 1 };
             aardrijkskunde = new Leergebied { LeergebiedNaam = "aardrijkskunde", LeergebiedId = 2 };
-            kleuters = new Doelgroep { DoelgroepNaam = "kleuters", DoelgroepId = 11 };
-            lagerOnderwijs = new Doelgroep { DoelgroepNaam = "lagerOnderwijs", DoelgroepId = 12 };
+            kleuters = new Doelgroep { DoelgroepNaam = "kleuters", DoelgroepId = 1 };
+            lagerOnderwijs = new Doelgroep { DoelgroepNaam = "lagerOnderwijs", DoelgroepId = 2 };
+            spelborden = new Leergebied {LeergebiedId = 3, LeergebiedNaam = "spelborden"};
             wereldbol = new Materiaal
             {
                 Aantal = 13,
@@ -40,7 +43,7 @@ namespace Projecten2.NET.Tests.Controllers
                 Doelgroepen = new List<Doelgroep> { lagerOnderwijs, kleuters },
                 Foto = "fotostring",
                 Leergebieden = new List<Leergebied> { aardrijkskunde },
-                Omschrijving = "omschrijving van wereldbol",
+                Omschrijving = "omschrijving van wereldbol, mooie wereldbol",
                 Plaats = "B.2.12",
                 Prijs = 3,
                 Uitleenbaar = true
@@ -53,16 +56,29 @@ namespace Projecten2.NET.Tests.Controllers
                 Doelgroepen = new List<Doelgroep> { lagerOnderwijs },
                 Foto = "fotostring dobbelsteen",
                 Leergebieden = new List<Leergebied> { nederlands },
-                Omschrijving = "omschrijving van dobbelsteen",
+                Omschrijving = "omschrijving van dobbelsteen, lelijke wereldbol",
                 Plaats = "B.1.39",
                 Prijs = 195,
                 Uitleenbaar = true
             };
+
+            frozenSpelbord = new Materiaal()
+            {
+                Artikelnaam = "frozen spelbord",
+                Aantal = 15,
+                ArtikelNummer = "BE523",
+                Doelgroepen = new List<Doelgroep> {kleuters},
+                Leergebieden = new List<Leergebied> { spelborden},
+            };
+
             kleuters.addMateriaal(wereldbol);
+            kleuters.addMateriaal(frozenSpelbord);
             lagerOnderwijs.addMateriaal(wereldbol);
             lagerOnderwijs.addMateriaal(dobbelsteen);
             materialen.Add(wereldbol);
             materialen.Add(dobbelsteen);
+            materialen.Add(frozenSpelbord);
+            spelborden.addMateriaal(frozenSpelbord);
 
             student1 = new Gebruiker()
             {
@@ -112,18 +128,6 @@ namespace Projecten2.NET.Tests.Controllers
             }
         }
 
-        public IQueryable<Doelgroep> AllDoelgroepen
-        {
-            get
-            {
-                return new List<Doelgroep>
-                       {
-                           kleuters,
-                           lagerOnderwijs
-                       }.AsQueryable();
-            }
-        }
-
         public Materiaal FindByArtikelNaamMaterialen(String naam)
         {
             return materialen.FirstOrDefault(m => m.Artikelnaam == naam);
@@ -131,10 +135,20 @@ namespace Projecten2.NET.Tests.Controllers
 
         public Doelgroep FindByIdDoelgroep(int nummer)
         {
-            if (nummer == 11)
+            if (nummer == 1)
                 return kleuters;
-            if (nummer == 12)
+            if (nummer == 2)
                 return lagerOnderwijs;
+            else
+                return null;
+        }
+
+        public Leergebied FindByIdLeergebied(int nummer)
+        {
+            if(nummer==1)
+                return spelborden;
+            if (nummer == 2)
+                return nederlands;
             else
                 return null;
         }

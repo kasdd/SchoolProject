@@ -26,43 +26,45 @@ namespace Projecten2.NET.Controllers
         // GET: Catalogus
         public ActionResult Index(Gebruiker gebruiker, string searchString, int doelgroepId=0, int leergebiedId=0)
         {
-            IEnumerable<Materiaal> materialen;
-            Doelgroep doelgroep;
-            Leergebied leergbied;
-            if (doelgroepId != 0)
+            try
             {
-                doelgroep = doelgroepRepository.FindById(doelgroepId);
-                materialen = doelgroep.Materialen.OrderBy(m => m.Artikelnaam);
-                if (!String.IsNullOrEmpty(searchString))
+                IEnumerable<Materiaal> materialen;
+                Doelgroep doelgroep;
+                Leergebied leergbied;
+                if (doelgroepId != 0)
                 {
-                   materialen.Where(s =>
-                       s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||
-                       s.Omschrijving.ToLower().Contains(searchString.ToLower()));
+                    doelgroep = doelgroepRepository.FindById(doelgroepId);
+                    materialen = doelgroep.Materialen.OrderBy(m => m.Artikelnaam);
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        materialen.Where(s =>
+                            s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||
+                            s.Omschrijving.ToLower().Contains(searchString.ToLower()));
+                    }
+                    ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
+                    ViewBag.DoelgroepId = doelgroepId;
+                    ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
+                    ViewBag.LeergebiedId = leergebiedId;
+                    return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
                 }
-                ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
-                ViewBag.DoelgroepId = doelgroepId;
-                ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
-                ViewBag.LeergebiedId = leergebiedId;
-                return View(materialen.Select(m=>new CatalogusViewModel(gebruiker, m)));
-            }
-            if (leergebiedId != 0)
-            {
-                leergbied = leergebiedRepository.FindById(leergebiedId);
-                materialen = leergbied.Materialen.OrderBy(m => m.ArtikelNummer);
-                if (!string.IsNullOrEmpty(searchString))
+                if (leergebiedId != 0)
                 {
-                    materialen.Where(s =>
-                        s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||
-                        s.Omschrijving.ToLower().Contains(searchString.ToLower()));
-                }
-                ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
-                ViewBag.DoelgroepId = doelgroepId;
-                ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
-                ViewBag.LeergebiedId = leergebiedId;
-                return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
+                    leergbied = leergebiedRepository.FindById(leergebiedId);
+                    materialen = leergbied.Materialen.OrderBy(m => m.ArtikelNummer);
+                    if (!string.IsNullOrEmpty(searchString))
+                    {
+                        materialen.Where(s =>
+                            s.Artikelnaam.ToLower().Contains(searchString.ToLower()) ||
+                            s.Omschrijving.ToLower().Contains(searchString.ToLower()));
+                    }
+                    ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
+                    ViewBag.DoelgroepId = doelgroepId;
+                    ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
+                    ViewBag.LeergebiedId = leergebiedId;
+                    return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
 
-            }
-            if (!string.IsNullOrEmpty(searchString))
+                }
+                if (!string.IsNullOrEmpty(searchString))
                 {
                     materialen =
                         materiaalRepository.FindAll()
@@ -73,14 +75,20 @@ namespace Projecten2.NET.Controllers
                 }
                 else
                 {
-                materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
+                    materialen = materiaalRepository.FindAll().OrderBy(m => m.Artikelnaam).ToList();
+                }
+
+                ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
+                ViewBag.DoelgroepId = doelgroepId;
+                ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
+                ViewBag.LeergebiedId = leergebiedId;
+                return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
             }
-            
-            ViewBag.Doelgroep = getDoelgroepSelectList(doelgroepId);
-            ViewBag.DoelgroepId = doelgroepId;
-            ViewBag.Leergebied = getLeergebiedSelectedList(leergebiedId);
-            ViewBag.LeergebiedId = leergebiedId;
-            return View(materialen.Select(m => new CatalogusViewModel(gebruiker, m)));
+            catch (Exception)
+            {
+                TempData["error"] = $"Er kunnen geen didactische leermiddelen worden opgehaald";
+            }
+            return View();
         }
 
         private SelectList getDoelgroepSelectList(int selectedValue = 0)
