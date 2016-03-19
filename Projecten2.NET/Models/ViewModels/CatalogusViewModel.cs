@@ -14,6 +14,7 @@ namespace Projecten2.NET.Models.ViewModels
         public double Prijs { get; set; }
         public string Foto { get; set; }
         public String Plaats { get; set; }
+        public string Firma { get; set; }
         public bool InVerlanglijst { get; set; }
         public int Aantal { get; set; }
         public CatalogusViewModel(Gebruiker gebruiker, Materiaal materiaal)
@@ -24,6 +25,7 @@ namespace Projecten2.NET.Models.ViewModels
             this.Prijs = materiaal.Prijs;
             this.Foto = materiaal.Foto;
             this.Aantal = materiaal.Aantal;
+            this.Firma = materiaal.Firma;
             InVerlanglijst = ZitInVerlanglijst(gebruiker);
         }
 

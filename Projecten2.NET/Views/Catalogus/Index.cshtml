@@ -6,6 +6,13 @@
 }
 <link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<script src="~/Scripts/collapse.js"></script>
+<script type="text/javascript">
+    $('.collapse').on('show.bs.collapse', function () {
+        $('.collapse.in').collapse('hide');
+    });
+</script>
+
 
 <h2>Catalogus</h2>
 
@@ -43,54 +50,79 @@
         <th>
             @Html.DisplayNameFor(model => model.Aantal)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Plaats)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prijs)
-        </th>
+        
         <th></th>
     </tr>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Artikelnaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Omschrijving)
-            </td>
-            
-            <td class="text-right">
-                @Html.DisplayFor(modelItem => item.Aantal)
-            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Plaats)
-            </td>
-            <td class="text-right">
-                @($"{item.Prijs:€0.00}")
-            <td>
-                @if (item.InVerlanglijst == false)
-                {
-                    using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
+        @{int i = 0;}
+
+        @foreach (var item in Model)
+        {
+
+            <tr data-toggle="collapse" data-target="#materiaal_@i" class="accordion">
+                <td>
+                    <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artikelnaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Omschrijving)
+                </td>
+
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.Aantal)
+                </td>
+
+
+                <td>
+                    @if (item.InVerlanglijst == false)
                     {
-                        <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                        using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {naam = item.Artikelnaam}))
+                        {
+                            <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                        }
                     }
-                }
-                @if (item.InVerlanglijst == true)
-                {
-                    using (Html.BeginForm("RemoveFromVerlanglijstInCato", "Verlanglijst", new { naam = item.Artikelnaam }))
+                    @if (item.InVerlanglijst == true)
                     {
-                        <button id="button" type="submit" class="btn btn-groen donkergroen"><span class="glyphicon-minus glyphicon"></span></button>
+                        using (Html.BeginForm("RemoveFromVerlanglijstInCato", "Verlanglijst", new {naam = item.Artikelnaam}))
+                        {
+                            <button id="button" type="submit" class="btn btn-groen donkergroen"><span class="glyphicon-minus glyphicon"></span></button>
+                        }
                     }
-                }
-            </td>
-        </tr>
-    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="hiddenRow">
+                    <div id="materiaal_@i" class="collapse">
+                        <table class="table table-hover table-responsive">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Prijs)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Plaats)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Firma)
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tbody>
+                            <td>
+                                @($"{item.Prijs:€0.00}")
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Plaats)
+                            </td>
+                            <td >
+                                @Html.DisplayFor(modelItem => item.Firma)
+                            </td>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+           i++;
+         }
     </tbody>
 </table>
