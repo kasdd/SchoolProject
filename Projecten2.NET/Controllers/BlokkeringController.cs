@@ -91,16 +91,16 @@ namespace Projecten2.NET.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveFromBlokkering(int voorbehoudingsId, Gebruiker gebruiker)
+        public ActionResult RemoveFromBlokkering(int blokkeringId, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Reservatie r = gebruiker.FindReservatieByReservatieId(voorbehoudingsId);
+                    Reservatie r = gebruiker.FindReservatieByReservatieId(blokkeringId);
                     gebruiker.RemoveReservatieFromReservaties(r);
                     gebruikersRepository.SaveChanges();
-                    if (gebruiker.FindReservatieByReservatieId(voorbehoudingsId) == null)
+                    if (gebruiker.FindReservatieByReservatieId(blokkeringId) == null)
                         TempData["info"] = $"De blokkering is verwijderd!";
                 }
                 catch (Exception e)
