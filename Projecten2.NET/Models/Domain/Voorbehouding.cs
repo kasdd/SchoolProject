@@ -21,26 +21,21 @@ namespace Projecten2.NET.Models.Domain
             this.Aantal = aantal;
         }
 
+        public bool EqualVoorbehoudingId(int id)
+        {
+            return VoorbehoudingId.Equals(id);
+        }
+
         public Voorbehouding()
         {
-
+        
         }
 
-        public bool Equals(object obj)
-        {
-            if (obj != null && obj is Blokkering)
-                if ((obj as Blokkering).VoorbehoudingId == VoorbehoudingId)
-                    return true;
-            return false;
-        }
+       
+
         protected DateTime? StelEinddatumIn(DateTime begin)
         {
             return EndDate = begin.AddDays(4);
-        }
-
-        public int GetHashCode()
-        {
-            return VoorbehoudingId;
         }
     }
 }

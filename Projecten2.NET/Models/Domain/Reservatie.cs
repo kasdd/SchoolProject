@@ -7,7 +7,6 @@ namespace Projecten2.NET
 {
     public class Reservatie : Voorbehouding
     {
-        public int ReservatieId { get; set; }
 
         public Reservatie(Materiaal materiaal, DateTime begin, int aantal) : base()
         {
@@ -25,19 +24,9 @@ namespace Projecten2.NET
         public bool Equals(object obj)
         {
             if (obj != null && obj is Reservatie)
-                if ((obj as Reservatie).ReservatieId == ReservatieId)
+                if (((obj as Reservatie).Materiaal == Materiaal) && ((obj as Reservatie).BeginDate.Equals(BeginDate)))
                     return true;
             return false;
-        }
-
-        public int GetHashCode()
-        {
-            return ReservatieId;
-        }
-
-        private DateTime? StelEinddatumIn(DateTime begin)
-        {
-            return EndDate = begin.AddDays(4);
         }
     }
 }

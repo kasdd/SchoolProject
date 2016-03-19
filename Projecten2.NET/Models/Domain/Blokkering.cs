@@ -7,9 +7,6 @@ namespace Projecten2.NET.Models.Domain
 {
     public class Blokkering : Voorbehouding
     {
-
-        public int BlokkeringId { get; set; }
-
         public Blokkering(Materiaal materiaal, DateTime begin, int aantal) : base()
         {
             this.BeginDate = begin;
@@ -21,6 +18,14 @@ namespace Projecten2.NET.Models.Domain
         private Blokkering()
         {
 
+        }
+
+        public bool Equals(object obj)
+        {
+            if (obj != null && obj is Blokkering)
+                if (((obj as Blokkering).Materiaal == Materiaal) && ((obj as Blokkering).BeginDate.Equals(BeginDate)))
+                    return true;
+            return false;
         }
     }
 }
