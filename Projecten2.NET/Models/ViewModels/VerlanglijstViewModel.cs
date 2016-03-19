@@ -20,12 +20,8 @@ namespace Projecten2.NET.Models.ViewModels
         public double Prijs { get; set; }
         public string Foto { get; set; }
         public String Plaats { get; set; }
-        public Boolean InVerlanglijst { get; set; }
         [DisplayName("Beschikbaar")]
         public int Aantal { get; set; }
-        public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
-        public virtual ICollection<Leergebied> Leergebieden { get; set; }
-
 
         public VerlanglijstViewModel()
         {

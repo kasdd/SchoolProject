@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Projecten2.NET.Reservatie>
+﻿@model IEnumerable<Projecten2.NET.Models.Domain.Blokkering>
 
 @{
-    ViewBag.Title = "Uw reservaties";
+    ViewBag.Title = "Uw blokkeringen";
 }
 
-<h2>Uw reservaties</h2>
+<h2>Uw Blokkeringen</h2>
 
 @*<p>
     @Html.ActionLink("Create New", "Create")
@@ -33,10 +33,10 @@
                 @Html.DisplayNameFor(model => model.Materiaal.Plaats)
             </th>
             <th>
-                @Html.DisplayName("Startdatum reservatie")
+                @Html.DisplayName("Startdatum blokkering")
             </th>
             <th>
-                @Html.DisplayName("Einddatum reservatie")
+                @Html.DisplayName("Einddatum blokkering")
             </th>
             <th></th>
         </tr>
@@ -72,7 +72,7 @@
                     @*<a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
                     <a href='@Url.Action("Min", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button></a>
                     *@
-                    @using (Html.BeginForm("RemoveFromReservatie", "Reservatie", new { voorbehoudingId = item.VoorbehoudingId }))
+                    @using (Html.BeginForm("RemoveFromBlokkering", "Blokkering", new { voorbehoudingId = item.VoorbehoudingId }))
                     {
                         @*<a href='@Url.Action("Remove", "Reservatie")'>*@<button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>@*</a>*@
                     }

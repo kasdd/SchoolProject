@@ -1,24 +1,25 @@
-﻿using Projecten2.NET.Models.Domain;
-using Projecten2.NET.Models.ViewModels;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Projecten2.NET.Models.Domain;
+using Projecten2.NET.Models.ViewModels;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Projecten2.NET.Models.Domain.IRepositories;
 
+
 namespace Projecten2.NET.Controllers
 {
-    [Authorize(Roles = "Student")]
-    public class ReservatieController : Controller
+    [Authorize(Roles = "Personeel")]
+    public class BlokkeringController : Controller
     {
-
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
 
-        public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
+        public BlokkeringController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.gebruikersRepository = gebruikerRepository;
@@ -27,15 +28,14 @@ namespace Projecten2.NET.Controllers
         // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
-            if (gebruiker.Reservaties.Count == 0)
+            if (gebruiker.Blokkeringen.Count == 0)
             {
                 return View("LegeLijst");
             }
-            return View(gebruiker.Reservaties);
+            return View(gebruiker.Blokkeringen);
         }
 
-        //nog steeds fouten hier
-       /* public JsonResult GetBeschikbaar(Gebruiker gebruiker, DateTime dateTime, string naam)
+      /*  public JsonResult GetBeschikbaar(Gebruiker gebruiker, DateTime dateTime, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
             return Json(gebruiker.GetBeschikbaar(materiaal, dateTime));
@@ -44,23 +44,23 @@ namespace Projecten2.NET.Controllers
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            ReservatieViewModel model = new ReservatieViewModel(materiaal);
+            BlokkeringViewModel model = new BlokkeringViewModel(materiaal);
             return View(model);
 
         }
         [HttpPost]
-        public ActionResult Nieuw(Gebruiker gebruiker, ReservatieViewModel model)
+        public ActionResult Nieuw(Gebruiker gebruiker, BlokkeringViewModel model)
         {
-                if (!ModelState.IsValid)
-                {
-                    return View(model);
-                }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
-                {
+            {
                 Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
-                gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum); 
+                gebruiker.BlokkeerMateriaal(m, model.aantal, model.beginDatum);
                 gebruikersRepository.SaveChanges();
-                TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                TempData["info"] = $" {model.Materiaal.Artikelnaam }is geblokkeerd, er werd een email gestuurd ter informatie";
 
                 //systeem om mail te versturen  -->NOG IN PRIVATE METHODE ZETTEN (niet te veel tam tam)
                 string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
@@ -75,8 +75,8 @@ namespace Projecten2.NET.Controllers
                 message.From = new MailAddress(myGmailAddress);
                 message.Sender = new MailAddress(myGmailAddress);
                 message.To.Add(new MailAddress(gebruiker.Email));
-                message.Subject = "Reservatie van " + m.Artikelnaam;
-                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " gereserveerd. Met vriendelijke Groeten, HoGent"; //Tijd over : beter uitwerken begin/uitdatum van reservatie.
+                message.Subject = "Blokkering van " + m.Artikelnaam;
+                message.Body = "Beste, U heeft " + m.Aantal + " " + m.Artikelnaam + " geblokkeerd. Met vriendelijke Groeten, HoGent"; //Tijd over : beter uitwerken begin/uitdatum van reservatie.
 
                 client.Send(message);
 
@@ -84,32 +84,31 @@ namespace Projecten2.NET.Controllers
             }
             catch (Exception e)
             {
-                TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden gereserveerd";
+                TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden geblokkeerd";
             }
 
             return RedirectToAction("Index", "Verlanglijst");
         }
 
         [HttpPost]
-        public ActionResult RemoveFromReservatie(int voorbehoudingId, Gebruiker gebruiker)
+        public ActionResult RemoveFromBlokkering(int voorbehoudingId, Gebruiker gebruiker)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     Reservatie r = gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId);
-                gebruiker.RemoveReservatieFromReservaties(r);
-                    //moet reservatieRepository niet gedefnieerd zijn hiervoor?
-                gebruikersRepository.SaveChanges();
+                    gebruiker.RemoveReservatieFromReservaties(r);
+                    gebruikersRepository.SaveChanges();
                     if (gebruiker.FindVoorbehoudingByVoorbehoudingId(voorbehoudingId) == null)
-                    TempData["info"] = $"De reservatie is verwijderd!";
+                        TempData["info"] = $"De blokkering is verwijderd!";
                 }
                 catch (Exception e)
-                 { 
-                    TempData["error"] = $"De reservatie kan nu niet worden verwijderd";
+                {
+                    TempData["error"] = $"De blokkering kan nu niet worden verwijderd";
                 }
             }
-            return RedirectToAction("Index", "Reservatie");
+            return RedirectToAction("Index", "Blokkering");
         }
 
         //public JsonResult GetBeschikbaar(DateTime dateTime)

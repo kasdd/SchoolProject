@@ -1,23 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Projecten2.NET.Reservatie">
-    <Position X="2.5" Y="6.25" Width="1.5" />
-    <AssociationLine Name="Gebruiker" Type="Projecten2.NET.Gebruiker">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.369" Y="0.529" />
-      </MemberNameLabel>
-    </AssociationLine>
+    <Position X="4" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAkAAAAAIAAAAAAIAAAAAgAAAAAAQ=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAgAAAAAIAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Gebruiker" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Materialen" />
-      <Property Name="ReservatieLijnen" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Materiaal">
     <Position X="6.5" Y="6.5" Width="1.5" />
@@ -27,7 +15,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAACAAQAAAgAAAAwAAAAAAAAACAIoAAAAAAaAAAARA=</HashCode>
+      <HashCode>AAAACAIQAAAgAAAAwAAAAAAAAACAIoAAAAAAaACEARA=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -39,7 +27,7 @@
   <Class Name="Projecten2.NET.Doelgroep">
     <Position X="11.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAACEAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAACEBAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Doelgroep.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -49,7 +37,7 @@
   <Class Name="Projecten2.NET.Leergebied">
     <Position X="11.75" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAIAEAAAA=</HashCode>
       <FileName>Models\Domain\Leergebied.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -57,9 +45,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Gebruiker">
-    <Position X="2.5" Y="2.25" Width="1.5" />
+    <Position X="1.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgACEAAAAAAAQAhAABAAAAAAAAAQAAQAAAAAA=</HashCode>
+      <HashCode>AAAAAAJiACEkIAAAESQAhAABAAAAAAAAQQQAQAEAAAA=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -73,18 +61,25 @@
   <Class Name="Projecten2.NET.Verlanglijst">
     <Position X="6.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAgAAAAEAAAAAAQAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Verlanglijst.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Materialen" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Projecten2.NET.ReservatieLijn">
-    <Position X="2.25" Y="9.5" Width="1.5" />
+  <Class Name="Projecten2.NET.Models.Domain.Voorbehouding" Collapsed="true">
+    <Position X="0.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAEAAAIAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>Models\Domain\ReservatieLijn.cs</FileName>
+      <HashCode>AAAAAIIAAAAAAAIAgAAAAAAgCAAAAoAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Voorbehouding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projecten2.NET.Models.Domain.Blokkering">
+    <Position X="2.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Blokkering.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;">

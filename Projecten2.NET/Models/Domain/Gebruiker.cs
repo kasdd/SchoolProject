@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projecten2.NET.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,9 +15,11 @@ namespace Projecten2.NET
         public string Voornaam { get; set; }
         public Type Type { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
+        public virtual ICollection<Blokkering> Blokkeringen { get; set; }
         public virtual Verlanglijst Verlanglijst { get; set; }
         public Gebruiker()
         {
+            Blokkeringen = new List<Blokkering>();
             Reservaties = new List<Reservatie>();
             Verlanglijst = new Verlanglijst();
         }
@@ -39,17 +42,36 @@ namespace Projecten2.NET
             }
         }
 
-        public Reservatie ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum) 
+        public void ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            Reservatie r;
-            if (materiaal != null && beginDatum > DateTime.Today)// datum vanaf eerste mogelijke begindatum
+            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
+                beginDatum >= GeefCorrecteDatumTerug())
             {
-                r = new Reservatie(materiaal, beginDatum, aantal);
-                Reservaties.Add(r);
+                if (!BezitReedsReservatie(materiaal, aantal))
+                {
+                    Reservatie r = new Reservatie(materiaal, beginDatum, aantal);
+                    Reservaties.Add(r);
+                    materiaal.Reservatielijnen.Add(r);
+                }
             }
             else
                 throw new Exception("Reservate kan nu niet worden aangemaakt");
-            return r;
+        }
+
+        public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
+        {
+            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
+                beginDatum >= GeefCorrecteDatumTerug())
+            {
+                if (!BezitReedsReservatie(materiaal, aantal))
+                {
+                    Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
+                    Blokkeringen.Add(b);
+                    materiaal.Blokkeringen.Add(b);
+                }
+            }
+            else
+                throw new Exception("Blokkering kan nu niet worden aangemaakt");
         }
 
         public void RemoveReservatieFromReservaties(Reservatie r)
@@ -61,15 +83,99 @@ namespace Projecten2.NET
                 throw new Exception("Reservatie kan nu niet worden verwijderd");
             }
         }
+        public void RemoveBlokkeringFromBlokkeringen(Blokkering b)
+        {
+            if (b != null)
+                Blokkeringen.Remove(b);
+            else
+            {
+                throw new Exception("Blokkeringen kan nu niet worden verwijderd");
+            }
+        }
 
         public Boolean BezitVerlanglijstMateriaal(Materiaal m)
         {
             return Verlanglijst.BezitVerlanglijstMateriaal(m);
         }
 
-        public Reservatie findReservatieByReservatieId (int reservatieId)
+        public Reservatie FindVoorbehoudingByVoorbehoudingId(int voorbehoudingId)
         {
-            return Reservaties.FirstOrDefault(r => r.ReservatieId == reservatieId);
+            return Reservaties.FirstOrDefault(r => r.EqualVoorbehoudingId(voorbehoudingId));
+        }
+
+        private Boolean ControleerBeschikbaarheid(Materiaal materiaal, DateTime begindatum, int aantal)
+        {
+            var i = materiaal.Aantal;
+            foreach (Blokkering blokkering in materiaal.Blokkeringen)
+            {
+                if (blokkering.BeginDate == begindatum)
+                    i -= blokkering.Aantal;
+            }
+            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            {
+                if (reservatie.BeginDate == begindatum)
+                    i -= reservatie.Aantal;
+            }
+            return aantal <= i;
+        }
+
+        private DateTime GeefCorrecteDatumTerug()
+        {
+            DateTime beginDatum = new DateTime();
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            {
+                if (DateTime.Now.TimeOfDay.Hours < 17 /*Convert.ToDateTime("05:00:00 PM")*/)
+                {
+                    beginDatum = GetNextWeekday(DateTime.Today, DayOfWeek.Monday);
+                }
+                else
+                {
+                    beginDatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+                }
+            }
+            else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
+            {
+                beginDatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
+            }
+            else
+            {
+                beginDatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+            }
+
+            return beginDatum;
+        }
+
+        private static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
+        {
+            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
+            return vandaag.AddDays(daysToAdd);
+        }
+
+        private Boolean BezitReedsReservatie(Materiaal materiaal, int aantal)
+        {
+            foreach (Reservatie reservatie in Reservaties.Where(reservatie => reservatie.Materiaal.Artikelnaam == materiaal.Artikelnaam))
+            {
+                reservatie.Aantal += aantal;
+                foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.Materiaal.Artikelnaam == reservatie.Materiaal.Artikelnaam))
+                    r.Aantal += aantal;
+                //hier zit je fout, je telt gewoon aantallen op als er eens is met dezelfde naam.
+                //Moet het niet iets net als dit hieronder zijn? Nog uitbreiden, ik ben aan het kijken.
+                //foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.BeginDate == reservatie.BeginDate))
+                //    r.Aantal += aantal;
+                return true;
+            }
+            return false;
+        }
+
+        public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime)
+        {
+            int beschikbaar = materiaal.Aantal;
+            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            {
+                if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
+                    beschikbaar--;
+            }
+            return beschikbaar;
         }
     }
 }

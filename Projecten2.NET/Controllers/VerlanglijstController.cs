@@ -2,6 +2,9 @@
 using Projecten2.NET.Models.DAL;
 using Projecten2.NET.Models.Domain;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Projecten2.NET.Models.ViewModels;
 
 namespace Projecten2.NET.Controllers
 {
@@ -19,13 +22,14 @@ namespace Projecten2.NET.Controllers
 
         public ActionResult Index(Gebruiker gebruiker)
         {
+            IEnumerable<Materiaal> materialen;
             if (gebruiker?.Verlanglijst.Materialen.Count == 0)
             {
                 return View("LegeLijst");
             }
             ViewBag.Total = gebruiker.Verlanglijst.Materialen.Count;
-            return View(gebruiker.Verlanglijst.Materialen);
-
+            materialen = gebruiker.Verlanglijst.Materialen;
+            return View(materialen.Select(m=>new VerlanglijstViewModel(m)));
         }
 
         [HttpPost]
@@ -33,11 +37,10 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                {
-                    Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
                     try
                     {
-                        if (gebruiker.BezitVerlanglijstMateriaal(m))
+                    Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
+                    if (gebruiker.BezitVerlanglijstMateriaal(m))
                             TempData["error"] = $"Materiaal " + m.Artikelnaam + " zit al in uw verlanglijst!";
                         else
                         {
@@ -52,8 +55,6 @@ namespace Projecten2.NET.Controllers
                     {
                         TempData["error"] = $"Materiaal kan niet toegevoegd worden aan uw verlanglijst";
                     }
-                }
-
             }
             return RedirectToAction("Index", "Catalogus");
         }
@@ -86,33 +87,21 @@ namespace Projecten2.NET.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
-                gebruiker.RemoveMateriaalFromVerlanglijst(m);
-                gebruikersRepository.SaveChanges();
-                if (!gebruiker.BezitVerlanglijstMateriaal(m))
-                    TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
-                /*}
-                // catch (Exception e)
-                 { 
-                     throw new Exception(e.Message);
-                 }*/
+                try
+                {
+                    Materiaal m = materiaalRepository.FindByArtikelNaam(naam);
+                    gebruiker.RemoveMateriaalFromVerlanglijst(m);
+                    gebruikersRepository.SaveChanges();
+                    if (!gebruiker.BezitVerlanglijstMateriaal(m))
+                        TempData["info"] = $"Materiaal " + m.Artikelnaam + " is uit de verlanglijst verwijderd!";
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             return RedirectToAction("Index", "Catalogus");
 
-        }
-
-        //hulpklasses
-        public static DateTime GetNextWeekday(DateTime vandaag, DayOfWeek verwachteDag)
-        {
-            int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
-            return vandaag.AddDays(daysToAdd);
-        }
-
-        private int getAantal(int selectedValue = 1)
-        {
-            return selectedValue;
         }
 
         [ChildActionOnly]

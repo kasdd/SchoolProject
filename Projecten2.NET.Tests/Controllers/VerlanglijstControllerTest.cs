@@ -6,6 +6,7 @@ using Projecten2.NET.Models.Domain;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Projecten2.NET.Models.ViewModels;
 
 namespace Projecten2.NET.Tests.Controllers
 {
@@ -15,46 +16,58 @@ namespace Projecten2.NET.Tests.Controllers
         private VerlanglijstController verlanglijstController;
         private Mock<IMateriaalRepository> mockMateriaalRepository;
         private Mock<IGebruikerRepository> mockGebruikerRepository;
-        private readonly DummyContext dummyContext = new DummyContext();
+        private DummyContext context;
+        private Gebruiker student1;
+        private VerlanglijstViewModel model;
 
         [TestInitialize]
         public void MyTestInitializer()
         {
+            context = new DummyContext();
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockGebruikerRepository = new Mock<IGebruikerRepository>();
-            mockMateriaalRepository.Setup(p => p.FindAll()).Returns(dummyContext.AllMaterialen);
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Blanco draaischijf")).Returns(dummyContext.FindByArtikelNaamMaterialen("Blanco draaischijf"));
-            mockMateriaalRepository.Setup(p => p.FindByArtikelNaam("Splitsbomen")).Returns(dummyContext.FindByArtikelNaamMaterialen("Splitsbomen"));
             verlanglijstController = new VerlanglijstController(mockMateriaalRepository.Object, mockGebruikerRepository.Object);
+            mockMateriaalRepository.Setup(m => m.FindByArtikelNaam("dobbelsteen"))
+                .Returns(context.FindByArtikelNaam("dobbelsteen"));
+            //Heeft al wereldbol in verlanglijst
+            student1 = context.student1;
         }
 
         #region == Index ==
 
         [TestMethod]
-        public void IndexRetourneertVerlanglijst()
+        public void IndexRetourneertEenView()
         {
-            //ViewResult result = VerlanglijstController.Index("") as ViewResult;
-            //List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
-            //Assert.AreEqual(2, materialen.Count);
-            //Assert.AreEqual("dobbelsteen", materialen[0].Artikelnaam);
-            //Assert.AreEqual("wereldbol", materialen[1].Artikelnaam);
+            ActionResult result = verlanglijstController.Index(student1);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
         [TestMethod]
-        public void IndexRetourneertAlleMaterialenInKleuters()
+        public void VerlangLijstRetourneertCorrectMateriaal()
         {
-            //ViewResult result = VerlanglijstController.Index("", 11, 0) as ViewResult;
-            //List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
-            //Assert.AreEqual(1, materialen.Count);
-            //Assert.AreEqual("wereldbol", materialen[0].Artikelnaam);
+            ViewResult result = verlanglijstController.Index(student1) as ViewResult;
+            List<VerlanglijstViewModel> models = (result.Model as IEnumerable<VerlanglijstViewModel>).ToList();
+            Assert.AreEqual("wereldbol", models[0].Artikelnaam);
         }
         [TestMethod]
-        public void IndexRetourneertOngeldigeStringMaterialenInKleuters()
+        public void NieuwePostVoegtMateriaalToe()
         {
-            //ViewResult result = verlanglijstController.Index("qdmfqmsfjkq", 11, 0) as ViewResult;
-            //List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
-            //Assert.AreEqual(0, materialen.Count);
+            int aantal = student1.Verlanglijst.Materialen.Count;
+            verlanglijstController.AddToVerlanglijst("dobbelsteen", student1);
+            Assert.AreEqual(aantal+1, student1.Verlanglijst.Materialen.Count);
+            mockGebruikerRepository.Verify(g=>g.SaveChanges(), Times.Once);
         }
+
+        [TestMethod]
+        public void NieuwePostVoegtMateriaalNietToeBijFout()
+        {
+            int aantal = student1.Verlanglijst.Materialen.Count;
+            verlanglijstController.AddToVerlanglijst(null, student1);
+            Assert.AreEqual(aantal, student1.Verlanglijst.Materialen.Count);
+            mockGebruikerRepository.Verify(g => g.SaveChanges(), Times.Never);
+        }
+
+       
 
         #endregion
     }
