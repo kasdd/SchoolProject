@@ -143,7 +143,8 @@ namespace Projecten2.NET.Controllers
 
                 catch (Exception)
                 {
-                    throw new Exception("Ophalen van data mislukt");
+                    throw;
+                    //throw new Exception("Ophalen van data mislukt");
                 }
             }
         }
