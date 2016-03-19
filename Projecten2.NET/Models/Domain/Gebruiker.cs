@@ -23,7 +23,7 @@ namespace Projecten2.NET
             Reservaties = new List<Reservatie>();
             Verlanglijst = new Verlanglijst();
         }
-
+        
         public void AddMateriaalToVerlanglijst(Materiaal m)
         {
             if (m != null)
