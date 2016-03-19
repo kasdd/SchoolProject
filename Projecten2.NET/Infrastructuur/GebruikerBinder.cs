@@ -6,6 +6,7 @@ namespace Projecten2.NET.Infrastructuur
 {
     public class GebruikerModelBinder : IModelBinder
     {
+
         private const string gebruikerSessionKey = "gebruiker";
         private IGebruikerRepository repo;
         private Gebruiker gebruiker;
