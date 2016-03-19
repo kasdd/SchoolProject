@@ -19,7 +19,7 @@ namespace Projecten2.NET
         public String Plaats { get; set; }
     
         public int Aantal { get; set; }
-        public virtual ICollection<Reservatie> Reservatielijnen { get; set; }
+        public virtual ICollection<Reservatie> Reservaties { get; set; }
         public virtual ICollection<Blokkering> Blokkeringen { get; set; }
         public virtual ICollection<Doelgroep> Doelgroepen { get; set; }
         public virtual ICollection<Leergebied> Leergebieden { get; set; }
@@ -27,7 +27,7 @@ namespace Projecten2.NET
         public Materiaal()
         {
             Blokkeringen = new List<Blokkering>();
-            Reservatielijnen = new List<Reservatie>();
+            Reservaties = new List<Reservatie>();
             Doelgroepen = new List<Doelgroep>();
             Leergebieden = new List<Leergebied>();
             Uitleenbaar = true;

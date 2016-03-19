@@ -51,7 +51,7 @@ namespace Projecten2.NET
                 {
                     Reservatie r = new Reservatie(materiaal, beginDatum, aantal);
                     Reservaties.Add(r);
-                    materiaal.Reservatielijnen.Add(r);
+                    materiaal.Reservaties.Add(r);
                 }
             }
             else
@@ -60,18 +60,55 @@ namespace Projecten2.NET
 
         public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) /*&&
-                beginDatum > GeefCorrecteDatumTerug()*/)
+            if (materiaal != null && /*ControleerBeschikbaarheid(materiaal, beginDatum, aantal) && */
+                beginDatum >= GeefCorrecteDatumTerug())
             {
-                if (!BezitReedsReservatie(materiaal, aantal))
+                int materiaalAantal = materiaal.Aantal;
+                foreach (Blokkering b in materiaal.Blokkeringen)
                 {
+                    if (b.BeginDate == beginDatum)
+                    {
+                        materiaalAantal -= b.Aantal;
+                    }                       
+                }
+                if (materiaalAantal < aantal)
+                {
+                    throw new Exception("Er zijn nog maar " + materiaalAantal + " materialen over om te blokkeren");
+                }
+
+                foreach (Reservatie r in materiaal.Reservaties)
+                {
+                    if (r.BeginDate == beginDatum)
+                    {
+                        materiaalAantal -= r.Aantal;
+                    }
+                }
+
+                if (materiaalAantal >= aantal)
+                {
+                    //testen op dubbele blokkering
+                    // if (!BezitReedsBlokkering(materiaal)
+                    //{
                     Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
                     Blokkeringen.Add(b);
                     materiaal.Blokkeringen.Add(b);
+                    //} else {
+                    //Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
+                    //Blokkeringen.Add(b);
+                    //materiaal.Blokkeringen.Add(b);
+                } else{
+                    
+
                 }
+                //if (!BezitReedsReservatie(materiaal, aantal))
+                //{
+                //    Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
+                //    Blokkeringen.Add(b);
+                //    materiaal.Blokkeringen.Add(b);
+                //} 
             }
             else
-                throw new Exception("Blokkering kan nu niet worden aangemaakt");
+                throw new Exception("U bent te laat om voor desbetreffende week nog dit materiaal te blokkeren.");
         }
 
         public void RemoveReservatieFromReservaties(Reservatie r)
@@ -111,7 +148,7 @@ namespace Projecten2.NET
                 if (blokkering.BeginDate == begindatum)
                     i -= blokkering.Aantal;
             }
-            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            foreach (Reservatie reservatie in materiaal.Reservaties)
             {
                 if (reservatie.BeginDate == begindatum)
                     i -= reservatie.Aantal;
@@ -156,10 +193,11 @@ namespace Projecten2.NET
             foreach (Reservatie reservatie in Reservaties.Where(reservatie => reservatie.Materiaal.Artikelnaam == materiaal.Artikelnaam))
             {
                 reservatie.Aantal += aantal;
-                foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.Materiaal.Artikelnaam == reservatie.Materiaal.Artikelnaam))
+                foreach (Reservatie r in materiaal.Reservaties.Where(r => r.Materiaal.Artikelnaam == reservatie.Materiaal.Artikelnaam))
                     r.Aantal += aantal;
-                //Moet het niet iets net als dit hieronder zijn?
-                //foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.BeginDate == reservatie.BeginDate))
+                //hier zit je fout, je telt gewoon aantallen op als er eens is met dezelfde naam.
+                //Moet het niet iets net als dit hieronder zijn? Nog uitbreiden, ik ben aan het kijken.
+                //foreach (Reservatie r in materiaal.Reservaties.Where(r => r.BeginDate == reservatie.BeginDate))
                 //    r.Aantal += aantal;
                 return true;
             }
@@ -169,7 +207,7 @@ namespace Projecten2.NET
         public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime)
         {
             int beschikbaar = materiaal.Aantal;
-            foreach (Reservatie reservatie in materiaal.Reservatielijnen)
+            foreach (Reservatie reservatie in materiaal.Reservaties)
             {
                 if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
                     beschikbaar--;

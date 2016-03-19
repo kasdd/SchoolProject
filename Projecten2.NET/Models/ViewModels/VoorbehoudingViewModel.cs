@@ -104,7 +104,7 @@ namespace Projecten2.NET.Models.ViewModels
         {
 
             Beschikbaar = aantal;
-            foreach (Reservatie lijn in Materiaal.Reservatielijnen)
+            foreach (Reservatie lijn in Materiaal.Reservaties)
             {
                 if (lijn.BeginDate != null && datum == lijn.BeginDate.Value)
                 {
