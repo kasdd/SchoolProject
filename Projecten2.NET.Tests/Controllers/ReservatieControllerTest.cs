@@ -14,8 +14,8 @@ namespace Projecten2.NET.Tests.Controllers
         private Gebruiker student1;
         private Mock<IGebruikerRepository> mockGebruikersRepository;
         private Mock<IMateriaalRepository> mockMateriaalRepository;
-        private NieuweReservatieViewModel model;
-        private NieuweReservatieViewModel modelMetFout;
+        private VoorbehoudingViewModel model;
+        private VoorbehoudingViewModel modelMetFout;
 
         [TestInitialize]
         public void SetUpContect()
@@ -25,13 +25,13 @@ namespace Projecten2.NET.Tests.Controllers
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             student1 = context.student1;
             controller = new ReservatieController(mockMateriaalRepository.Object, mockGebruikersRepository.Object);
-            model = new NieuweReservatieViewModel(context.wereldbol)
+            model = new VoorbehoudingViewModel(context.wereldbol)
             {
                 aantal = 4,
                 beginDatum = DateTime.Today.AddDays(23)
             };
 
-            modelMetFout = new NieuweReservatieViewModel(context.wereldbol)
+            modelMetFout = new VoorbehoudingViewModel(context.wereldbol)
             {
                 aantal = 12,
                 beginDatum = DateTime.Today

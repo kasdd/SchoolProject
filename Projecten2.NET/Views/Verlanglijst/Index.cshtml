@@ -55,10 +55,17 @@
                 @Html.DisplayFor(modelItem => item.Plaats)
             </td>
             <td>
-                @Html.ActionLink("Reserveer", "Nieuw", "Reservatie", new {naam = item.Artikelnaam}, new {@class = "btn btn-groen"})
+                @if (User.IsInRole("Student"))
+                {
+                    @Html.ActionLink("Reserveer", "Nieuw", "Reservatie", new { naam = item.Artikelnaam }, new { @class = "btn btn-groen" })
+                }
+                else if (User.IsInRole("Personeel"))
+                {
+                    @Html.ActionLink("Blokkeer", "Nieuw", "Blokkering", new { naam = item.Artikelnaam }, new { @class = "btn btn-groen" })
+                }
             </td>
             <td>
-                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new {naam = item.Artikelnaam}))
+                @using (Html.BeginForm("RemoveFromVerlanglijst", "Verlanglijst", new { naam = item.Artikelnaam }))
                 {
                     <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>
                 }

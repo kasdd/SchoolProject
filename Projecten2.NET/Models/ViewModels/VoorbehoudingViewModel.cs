@@ -8,15 +8,39 @@ using System.Web.Mvc;
 
 namespace Projecten2.NET.Models.ViewModels
 {
-    public class ReservatieViewModel
+    public class ReservatieViewModel : VoorbehoudingViewModel
     {
-        public int MateriaalId { get; set; }
-        public int ReservatieId { get; set; }
-        public DateTime BeginDat { get; private set; }
-        public int Aantal { get; set; }
+        public ReservatieViewModel (Materiaal materiaal): base()
+        {
+            this.Materiaal = materiaal;
+            this.beginDatum = GeefCorrecteDatumTerug();
+            this.aantal = materiaal.Aantal;
+            this.Beschikbaar = AantalBeschikbaar(beginDatum);
+        }
+
+        public ReservatieViewModel() : base()
+        {
+
+        }
     }
 
-    public class NieuweReservatieViewModel
+    public class BlokkeringViewModel : VoorbehoudingViewModel
+    {
+        public BlokkeringViewModel(Materiaal materiaal) : base()
+        {
+            this.Materiaal = materiaal;
+            this.beginDatum = GeefCorrecteDatumTerug();
+            this.aantal = materiaal.Aantal;
+            this.Beschikbaar = AantalBeschikbaar(beginDatum);
+        }
+
+        public BlokkeringViewModel() : base()
+        {
+
+        }
+    }
+
+    public class VoorbehoudingViewModel
     {
          
         public Materiaal Materiaal { get; set; }
@@ -31,7 +55,7 @@ namespace Projecten2.NET.Models.ViewModels
         public DateTime beginDatum { get; set; }
         public int Beschikbaar { get; set; }
 
-        public NieuweReservatieViewModel(Materiaal materiaal)
+        public VoorbehoudingViewModel(Materiaal materiaal)
         {
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
@@ -39,7 +63,7 @@ namespace Projecten2.NET.Models.ViewModels
             this.Beschikbaar = AantalBeschikbaar(beginDatum);
         }
 
-        public NieuweReservatieViewModel()
+        public VoorbehoudingViewModel()
         {
             
         }

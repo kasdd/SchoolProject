@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using Projecten2.NET.Models.Domain;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Reflection;
 
@@ -15,8 +16,9 @@ namespace Projecten2.NET.Models.DAL
         public DbSet<Leergebied> Leergebieden { get; set; }
         public DbSet<Gebruiker> Gebruikers { get; set; }
         public DbSet<Materiaal> Materialen { get; set; }
-        public DbSet<Reservatie> Reservaties { get; set; } 
-            
+        public DbSet<Reservatie> Reservaties { get; set; }
+        public DbSet<Blokkering> Blokkeringen { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
