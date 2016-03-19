@@ -199,7 +199,6 @@
     <Compile Include="Models\DAL\BlokkeringRepository.cs" />
     <Compile Include="Models\DAL\DoelgroepRepository.cs" />
     <Compile Include="Models\DAL\LeergebiedRepository.cs" />
-    <Compile Include="Models\DAL\Mapper\BlokkeringMapper.cs" />
     <Compile Include="Models\DAL\ReservatieRepository.cs" />
     <Compile Include="Models\Domain\Blokkering.cs" />
     <Compile Include="Models\Domain\Doelgroep.cs" />
