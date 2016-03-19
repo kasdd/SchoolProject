@@ -60,8 +60,8 @@ namespace Projecten2.NET
 
         public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
-            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) /*&&
-                beginDatum > GeefCorrecteDatumTerug()*/)
+            if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
+                beginDatum >= GeefCorrecteDatumTerug())
             {
                 if (!BezitReedsReservatie(materiaal, aantal))
                 {
@@ -158,7 +158,8 @@ namespace Projecten2.NET
                 reservatie.Aantal += aantal;
                 foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.Materiaal.Artikelnaam == reservatie.Materiaal.Artikelnaam))
                     r.Aantal += aantal;
-                //Moet het niet iets net als dit hieronder zijn?
+                //hier zit je fout, je telt gewoon aantallen op als er eens is met dezelfde naam.
+                //Moet het niet iets net als dit hieronder zijn? Nog uitbreiden, ik ben aan het kijken.
                 //foreach (Reservatie r in materiaal.Reservatielijnen.Where(r => r.BeginDate == reservatie.BeginDate))
                 //    r.Aantal += aantal;
                 return true;
