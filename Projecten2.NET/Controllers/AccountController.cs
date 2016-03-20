@@ -103,7 +103,7 @@ namespace Projecten2.NET.Controllers
             using (WebClient n = new WebClient())
             {
                 try
-                {                   
+                {
                     String hashPW = geefPaswoord(model.Password);
                     var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
                     if (json.Equals("\"[]\""))
@@ -138,12 +138,12 @@ namespace Projecten2.NET.Controllers
                                 return View(model);
                         }
                     }
-            }
+                }
 
                 catch (Exception)
-            {
-                throw new Exception("Ophalen van data mislukt");
-            }
+                {
+                    throw new Exception("Ophalen van data mislukt");
+                }
             }
         }
         private string geefPaswoord(string password)

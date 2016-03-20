@@ -57,8 +57,8 @@ namespace Projecten2.NET.Controllers
             {
                 return View(model);
             }
-            try
-            {
+            //try
+            //{
                 Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
                 gebruiker.BlokkeerMateriaal(m, model.aantal, model.beginDatum, gebruikersRepository);
                 gebruikersRepository.SaveChanges();
@@ -68,12 +68,12 @@ namespace Projecten2.NET.Controllers
                 Blokkeringmailverzenden(gebruiker.Email, m.Artikelnaam, m.Aantal);
 
                 return RedirectToAction("Index", "Verlanglijst");
-            }
-            catch (Exception e)
-            {
-                throw;
-                TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden geblokkeerd";
-            }
+            //}
+            //catch (Exception e)
+            //{
+                
+            //    TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden geblokkeerd";
+            //}
 
             return RedirectToAction("Index", "Verlanglijst");
         }
@@ -123,9 +123,5 @@ namespace Projecten2.NET.Controllers
         {
             return gebruikersRepository.FindById(id);
         }
-        //public JsonResult GetBeschikbaar(DateTime dateTime)
-        //{
-        //    return Json(vm.AantalBeschikbaar(dateTime));
-        //}
     }
 }
