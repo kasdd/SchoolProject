@@ -83,22 +83,5 @@ namespace Projecten2.NET.Tests.Controllers
             Assert.AreEqual(1, models.Count);
             Assert.AreEqual("frozen spelbord", models[0].Artikelnaam);
         }
-
-        //[TestMethod]
-        //public void IndexRetourneertGeldigeString()
-        //{
-        //    ViewResult result = catalogusController.Index(student1, "mooie") as ViewResult;
-        //    List<CatalogusViewModel> models = (result.Model as IEnumerable<CatalogusViewModel>).ToList();
-        //    Assert.AreEqual(1, models.Count);
-        //}
-
-        //[TestMethod]
-        //public void IndexRetourneertOngeldigeStringMaterialenInKleuters()
-        //{
-        //    ViewResult result = catalogusController.Index("qdmfqmsfjkq", 11, 0) as ViewResult;
-        //    List<Materiaal> materialen = (result.Model as IEnumerable<Materiaal>).ToList();
-        //    Assert.AreEqual(0, materialen.Count);
-        //}
-
     }
 }
