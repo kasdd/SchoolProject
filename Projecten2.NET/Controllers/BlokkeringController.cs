@@ -32,7 +32,7 @@ namespace Projecten2.NET.Controllers
             {
                 return View("LegeLijst");
             }
-            return View(gebruiker.Blokkeringen);
+            return View(gebruiker.Blokkeringen.ToList());
         }
 
         public JsonResult GetBeschikbaar(Gebruiker gebruiker, string datum, string naam)
@@ -60,7 +60,7 @@ namespace Projecten2.NET.Controllers
             try
             {
                 Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
-                gebruiker.BlokkeerMateriaal(m, model.aantal, model.beginDatum);
+                gebruiker.BlokkeerMateriaal(m, model.aantal, model.beginDatum, gebruikersRepository);
                 gebruikersRepository.SaveChanges();
                 TempData["info"] = $" {model.Materiaal.Artikelnaam }is geblokkeerd, er werd een email gestuurd ter informatie";
 
@@ -71,6 +71,7 @@ namespace Projecten2.NET.Controllers
             }
             catch (Exception e)
             {
+                throw;
                 TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden geblokkeerd";
             }
 
@@ -118,7 +119,10 @@ namespace Projecten2.NET.Controllers
             client.Send(message);
         }
 
-
+        public Gebruiker GetGebruiker(int id)
+        {
+            return gebruikersRepository.FindById(id);
+        }
         //public JsonResult GetBeschikbaar(DateTime dateTime)
         //{
         //    return Json(vm.AantalBeschikbaar(dateTime));

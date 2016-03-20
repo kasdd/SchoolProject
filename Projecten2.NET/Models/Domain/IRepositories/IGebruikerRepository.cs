@@ -11,7 +11,7 @@ namespace Projecten2.NET.Models.Domain
         Gebruiker FindByEmail(string email);
         IQueryable<Gebruiker> FindAll();
         void SaveChanges();
-        Gebruiker FindByName(string name);
+        Gebruiker FindById(int id);
         void AddGebruiker(Gebruiker gebruiker);
 
     }

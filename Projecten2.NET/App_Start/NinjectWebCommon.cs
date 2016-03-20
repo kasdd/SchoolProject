@@ -71,6 +71,7 @@ namespace Projecten2.NET.App_Start
             kernel.Bind<IDoelgroepRepository>().To<DoelgroepRepository>().InRequestScope();
             kernel.Bind<ILeergebiedRepository>().To<LeergebiedRepository>().InRequestScope();
             kernel.Bind<IReservatieRepository>().To<ReservatieRepository>().InRequestScope();
+            kernel.Bind<IBlokkeringRepository>().To<BlokkeringRepository>().InRequestScope();
             kernel.Bind<CatalogusContext>().ToSelf().InRequestScope();
         }        
     }

@@ -7,13 +7,13 @@ namespace Projecten2.NET.Models.Domain
 {
     public class Blokkering : Voorbehouding
     {
-        public Blokkering(Materiaal materiaal, DateTime begin, int aantal, Gebruiker gebruiker) : base()
+        public Blokkering(Materiaal materiaal, DateTime begin, int aantal, int gebruikerId) : base()
         {
             this.BeginDate = begin;
             this.EndDate = StelEinddatumIn(begin);
             this.Materiaal = materiaal;
             this.Aantal = aantal;
-            this.Gebruiker = gebruiker;
+            this.GebruikerId = gebruikerId;
         }
 
         private Blokkering()

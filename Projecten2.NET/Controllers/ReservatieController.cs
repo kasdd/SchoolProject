@@ -29,13 +29,13 @@ namespace Projecten2.NET.Controllers
         }
 
 
-        public JsonResult GetBeschikbaar(Gebruiker gebruiker, String datum, string naam)
-        {
-            Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            DateTime date = DateTime.Parse(datum);
-            int beschikbaar = gebruiker.GetBeschikbaar(materiaal, date);
-            return Json(beschikbaar, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult GetBeschikbaar(Gebruiker gebruiker, String datum, string naam)
+        //{
+        //    Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
+        //    DateTime date = DateTime.Parse(datum);
+        //    int beschikbaar = gebruiker.GetBeschikbaar(materiaal, date);
+        //    return Json(beschikbaar, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
