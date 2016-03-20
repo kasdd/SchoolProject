@@ -233,7 +233,7 @@ namespace Projecten2.NET
             foreach (Reservatie reservatie in materiaal.Reservaties)
             {
                 if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
-                    beschikbaar--;
+                    beschikbaar = beschikbaar - reservatie.Aantal;
             }
             return beschikbaar;
         }
