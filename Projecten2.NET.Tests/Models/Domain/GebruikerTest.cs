@@ -37,9 +37,9 @@ namespace Projecten2.NET.Tests.Models.Domain
             context.student1.AddMateriaalToVerlanglijst(context.dobbelsteen);
             context.student2.AddMateriaalToVerlanglijst(context.dobbelsteen);
             context.student3.AddMateriaalToVerlanglijst(context.dobbelsteen);
-            context.student1.AddMateriaalToVerlanglijst(context.dobbelsteen);
-            context.student2.AddMateriaalToVerlanglijst(context.dobbelsteen);
-            context.student3.AddMateriaalToVerlanglijst(context.dobbelsteen);
+            Assert.IsTrue(context.student1.Verlanglijst.Materialen.Contains(context.dobbelsteen));
+            Assert.IsTrue(context.student2.Verlanglijst.Materialen.Contains(context.dobbelsteen));
+            Assert.IsTrue(context.student3.Verlanglijst.Materialen.Contains(context.dobbelsteen));
         }
 
         [TestMethod]
@@ -70,6 +70,32 @@ namespace Projecten2.NET.Tests.Models.Domain
                     Assert.Equals(7, r.Aantal);
                 }
             }   
+        }
+
+        [TestMethod]
+        public void VerwijderReservatie()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.student2.AddMateriaalToVerlanglijst(context.dobbelsteen);
+            context.student2.ReserveerMateriaal(context.dobbelsteen, 5, correcteDatum);
+            List<Reservatie> res = (List<Reservatie>)context.student2.Reservaties;
+            context.student1.RemoveReservatieFromReservaties(res[0]);
+            //foreach (NET.Reservatie r in context.student2.Reservaties)
+            //{
+            //    if (r.Materiaal.Artikelnaam.Equals(context.dobbelsteen))
+            //    {
+            //        Assert.Equals(7, r.Aantal);
+            //    }
+            //}
+            Assert.Equals(0, res.Count);
+        }
+
+        [TestMethod]
+        public void VoegBlokkeringToe()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+    //        context.personeel1.(context.dobbelsteen, 5, correcteDatum);
+            Assert.AreEqual(1, context.personeel1.Reservaties.Count);
         }
     }
 }

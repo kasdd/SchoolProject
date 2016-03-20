@@ -119,12 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\BlokkeringControllerTest.cs" />
     <Compile Include="Controllers\CatalogusControllerTest.cs" />
     <Compile Include="Controllers\DummyContext.cs" />
     <Compile Include="Controllers\ReservatieControllerTest.cs" />
     <Compile Include="Controllers\VerlanglijstControllerTest.cs" />
     <Compile Include="Models\Domain\GebruikerTest.cs" />
-    <Compile Include="Models\Domain\Reservatie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
