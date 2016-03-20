@@ -103,8 +103,7 @@ namespace Projecten2.NET.Controllers
             using (WebClient n = new WebClient())
             {
                 try
-                {
-
+                {                   
                     String hashPW = geefPaswoord(model.Password);
                     var json = n.DownloadString("https://studservice.hogent.be/auth/" + model.Email + "/" + hashPW);
                     if (json.Equals("\"[]\""))
@@ -145,7 +144,7 @@ namespace Projecten2.NET.Controllers
             {
                 throw new Exception("Ophalen van data mislukt");
             }
-        }
+            }
         }
         private string geefPaswoord(string password)
         {
@@ -161,11 +160,6 @@ namespace Projecten2.NET.Controllers
 
         private async Task<IdentityResult> CreateUserAndRoles(Gebruiker gebruiker, string password)
         {
-
-            //ApplicationDbContext context = new ApplicationDbContext();
-
-            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
             var userManager =
                 HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -185,9 +179,13 @@ namespace Projecten2.NET.Controllers
                 enumValue = "Student";
             else
                 enumValue = "Personeel";
+            IdentityRole role = roleManager.FindByName(enumValue);
+            if (role == null)
+            {
+                role = new IdentityRole(enumValue);
+                result = roleManager.Create(role);
+            }
 
-            IdentityRole role = new IdentityRole(enumValue);
-            result = roleManager.Create(role);
             if (!result.Succeeded)
                 throw new ApplicationException(result.Errors.ToString());
 

@@ -1,13 +1,9 @@
 ﻿using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.ViewModels;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
-using Projecten2.NET.Models.Domain.IRepositories;
 
 namespace Projecten2.NET.Controllers
 {
@@ -34,12 +30,14 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Reservaties);
         }
 
-        //nog steeds fouten hier
-       /* public JsonResult GetBeschikbaar(Gebruiker gebruiker, DateTime dateTime, string naam)
+
+        public JsonResult GetBeschikbaar(Gebruiker gebruiker, String datum, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            return Json(gebruiker.GetBeschikbaar(materiaal, dateTime));
-        }*/
+            DateTime date = DateTime.Parse(datum);
+            int beschikbaar = gebruiker.GetBeschikbaar(materiaal, date);
+            return Json(beschikbaar, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
