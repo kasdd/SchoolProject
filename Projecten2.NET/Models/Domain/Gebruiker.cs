@@ -235,6 +235,12 @@ namespace Projecten2.NET
                 if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
                     beschikbaar = beschikbaar - reservatie.Aantal;
             }
+
+            foreach (Blokkering blok in materiaal.Blokkeringen)
+            {
+                if (blok.BeginDate != null && dateTime == blok.BeginDate)
+                    beschikbaar = beschikbaar - blok.Aantal;
+            }
             return beschikbaar;
         }
     }

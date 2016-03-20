@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Projecten2.NET.Reservatie">
-    <Position X="4" Y="5.5" Width="1.5" />
+    <Position X="4.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAgAAAAAIAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -15,11 +15,10 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAACAIQAAAgAAAAwAAAAAAAAACAIoAAAAAAaACEARA=</HashCode>
+      <HashCode>AAAACAIQAAAgAAAAgAAAgAAAAACAIoAAAAAAaACEARA=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Reservatielijnen" />
       <Property Name="Doelgroepen" />
       <Property Name="Leergebieden" />
     </ShowAsCollectionAssociation>
@@ -47,7 +46,7 @@
   <Class Name="Projecten2.NET.Gebruiker">
     <Position X="1.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAJiACEkIAAAESQAhAABAAAAAAAAQQQAQAEAAAA=</HashCode>
+      <HashCode>AAIAAAZiACEgIAAAESYAhAABAAAAAAAAQQAAQAEAACA=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -56,6 +55,7 @@
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Reservaties" />
+      <Property Name="Blokkeringen" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Verlanglijst">
@@ -69,16 +69,16 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Projecten2.NET.Models.Domain.Voorbehouding" Collapsed="true">
-    <Position X="0.75" Y="7.25" Width="1.5" />
+    <Position X="3.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIIAAAAAAAIAgAAAAAAgCAAAAoAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIIAAAAAAAIAAAAAAAAgCAAAAgAQAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Voorbehouding.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Projecten2.NET.Models.Domain.Blokkering">
-    <Position X="2.5" Y="8.5" Width="1.5" />
+    <Position X="1.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Blokkering.cs</FileName>
     </TypeIdentifier>
   </Class>
