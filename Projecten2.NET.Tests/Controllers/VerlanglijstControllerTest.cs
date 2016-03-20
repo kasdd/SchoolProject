@@ -29,6 +29,8 @@ namespace Projecten2.NET.Tests.Controllers
             verlanglijstController = new VerlanglijstController(mockMateriaalRepository.Object, mockGebruikerRepository.Object);
             mockMateriaalRepository.Setup(m => m.FindByArtikelNaam("dobbelsteen"))
                 .Returns(context.FindByArtikelNaam("dobbelsteen"));
+            mockMateriaalRepository.Setup(m => m.FindByArtikelNaam("frozen spelbord"))
+                .Returns(context.FindByArtikelNaam("frozen spelbord"));
             //Heeft al wereldbol in verlanglijst
             student1 = context.student1;
         }
@@ -54,9 +56,17 @@ namespace Projecten2.NET.Tests.Controllers
         public void NieuwePostVoegtMateriaalToe()
         {
             int aantal = student1.Verlanglijst.Materialen.Count;
-            verlanglijstController.AddToVerlanglijst("frozenSpelbord", student1);
+            verlanglijstController.AddToVerlanglijst("frozen spelbord", student1);
             Assert.AreEqual(aantal+1, student1.Verlanglijst.Materialen.Count);
             mockGebruikerRepository.Verify(g=>g.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void BestaandePostVoegtMateriaalNietToe()
+        {
+            int aantal = student1.Verlanglijst.Materialen.Count;
+            verlanglijstController.AddToVerlanglijst("dobbelsteen", student1);
+            Assert.AreEqual(aantal , student1.Verlanglijst.Materialen.Count);
         }
 
         [TestMethod]
