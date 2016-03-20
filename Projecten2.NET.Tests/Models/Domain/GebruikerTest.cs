@@ -3,6 +3,8 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Projecten2.NET.Tests.Controllers;
+using Projecten2.NET.Models.Domain;
+using Moq;
 
 namespace Projecten2.NET.Tests.Models.Domain
 {
@@ -10,10 +12,14 @@ namespace Projecten2.NET.Tests.Models.Domain
     [TestClass]
     public class GebruikerTest
     {
-        DummyContext context;
+        private DummyContext context;
+        private Mock<IGebruikerRepository> mockGebruikerRepository;
         public GebruikerTest()
         {
             context = new DummyContext();
+            mockGebruikerRepository = new Mock<IGebruikerRepository>();
+            mockGebruikerRepository.Setup(m => m.FindById(0))
+                .Returns(context.personeel1);
         }
 
         [TestMethod]
@@ -60,8 +66,8 @@ namespace Projecten2.NET.Tests.Models.Domain
         public void VoegReservatieToe()
         {
             DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
-            context.student1.ReserveerMateriaal(context.dobbelsteen, 5, correcteDatum);
-            Assert.AreEqual(1, context.student1.Reservaties.Count);
+            context.student3.ReserveerMateriaal(context.dobbelsteen, 5, correcteDatum);
+            Assert.AreEqual(1, context.student3.Reservaties.Count);
         }
 
         [TestMethod]
@@ -130,12 +136,99 @@ namespace Projecten2.NET.Tests.Models.Domain
             Assert.AreEqual(0, (int) context.student2.Reservaties.Count);
         }
 
-        //[TestMethod]
-        //public void VoegBlokkeringToe()
-        //{
-        //    DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
-        //    context.personeel1.(context.dobbelsteen, 5, correcteDatum);
-        //    Assert.AreEqual(1, context.personeel1.Reservaties.Count);
-        //}
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void VerwijderNullReservatie()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.student2.AddMateriaalToVerlanglijst(context.dobbelsteen);
+            context.student2.ReserveerMateriaal(context.dobbelsteen, 5, correcteDatum);
+            context.student2.RemoveReservatieFromReservaties(null);
+        }
+
+        [TestMethod]
+        public void VoegBlokkeringToe()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 5, correcteDatum, mockGebruikerRepository.Object);
+            Assert.AreEqual(1, context.personeel1.Blokkeringen.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void VoegBlokkeringToeDieNietKan()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 1000, correcteDatum, mockGebruikerRepository.Object);
+            Assert.AreEqual(1, context.personeel1.Blokkeringen.Count);
+        }
+
+        [TestMethod]
+        public void PasBlokkeringAantalAan()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 5, correcteDatum, mockGebruikerRepository.Object);
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 2, correcteDatum, mockGebruikerRepository.Object);
+            foreach (Blokkering b in context.personeel1.Blokkeringen)
+            {
+                if (b.Materiaal.Artikelnaam.Equals(context.dobbelsteen))
+                {
+                    Assert.Equals(7, b.Aantal);
+                }
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void BlokkeerNullMateriaal()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(null, 5, correcteDatum, mockGebruikerRepository.Object);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void BlokkeerVerkeerdeDatum()
+        {
+            DateTime correcteDatum = new DateTime(2013, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 5, correcteDatum, mockGebruikerRepository.Object);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void Blokkeeraantal0()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 0, correcteDatum, mockGebruikerRepository.Object);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void BlokkeeraantalKleinerDan0()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, -3, correcteDatum, mockGebruikerRepository.Object);
+        }
+
+        [TestMethod]
+        public void VerwijderBlokkering()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.AddMateriaalToVerlanglijst(context.dobbelsteen);
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 5, correcteDatum, mockGebruikerRepository.Object);
+            List<Blokkering> res = (List<Blokkering>)context.personeel1.Blokkeringen;
+            context.personeel1.RemoveBlokkeringFromBlokkeringen(res[0]);
+            Assert.AreEqual(0, (int)context.personeel1.Blokkeringen.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void VerwijderNullBlokkering()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.personeel1.AddMateriaalToVerlanglijst(context.dobbelsteen);
+            context.personeel1.BlokkeerMateriaal(context.dobbelsteen, 5, correcteDatum, mockGebruikerRepository.Object);
+            context.personeel1.RemoveBlokkeringFromBlokkeringen(null);
+        }
     }
 }
