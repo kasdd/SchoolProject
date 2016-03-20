@@ -9,8 +9,8 @@ namespace Projecten2.NET.Models.Domain
     {
         public int VoorbehoudingId { get; set; }
         public Materiaal Materiaal { get; set; }
-        public DateTime? BeginDate { get; protected set; }
-        public DateTime? EndDate { get; set; }
+        public DateTime BeginDate { get; protected set; }
+        public DateTime EndDate { get; set; }
         public int Aantal { get; set; }
         public int GebruikerId { get; set; }
 
@@ -33,7 +33,7 @@ namespace Projecten2.NET.Models.Domain
         
         }       
 
-        protected DateTime? StelEinddatumIn(DateTime begin)
+        protected DateTime StelEinddatumIn(DateTime begin)
         {
             return EndDate = begin.AddDays(4);
         }

@@ -1,6 +1,8 @@
 ﻿using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
@@ -21,11 +23,13 @@ namespace Projecten2.NET.Controllers
         // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
+            IEnumerable<Reservatie> reservaties;
             if (gebruiker.Reservaties.Count == 0)
             {
                 return View("LegeLijst");
             }
-            return View(gebruiker.Reservaties);
+            reservaties = gebruiker.Reservaties;
+            return View(reservaties.Select(r=> new ReservatieViewModel(r.Materiaal, gebruiker, r)));
         }
 
 

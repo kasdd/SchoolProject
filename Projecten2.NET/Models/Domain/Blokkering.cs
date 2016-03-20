@@ -14,6 +14,7 @@ namespace Projecten2.NET.Models.Domain
             this.Materiaal = materiaal;
             this.Aantal = aantal;
             this.GebruikerId = gebruikerId;
+            this.VoorbehoudingId = VoorbehoudingId;
         }
 
         private Blokkering()

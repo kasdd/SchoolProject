@@ -1,5 +1,4 @@
-﻿@using Microsoft.Ajax.Utilities
-@model IEnumerable<Projecten2.NET.Models.ViewModels.CatalogusViewModel>
+﻿@model IEnumerable<Projecten2.NET.Models.ViewModels.CatalogusViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,8 +11,6 @@
         $('.collapse.in').collapse('hide');
     });
 </script>
-
-
 <h2>Catalogus</h2>
 
 <div class="searchbar">
@@ -29,7 +26,6 @@
                     <label>Leergebied: @Html.DropDownList("LeergebiedId", ViewBag.leergebied as SelectList, "-- Alle leergebieden --", new { @class = "form-control" })  </label>
                     <label>ArtikelNaam: @Html.TextBox("SearchString", null, new { @class = "form-control" })  </label>
                     <input type="submit" class="btn btn-groen" value="Zoek"/>
-                    <input type="reset" @*onclick="this.defaultSelected"@*"javascript: location.reload();"*@ class="btn btn-groen" value="Verwijder Filter" />
                 </div>      
             </div>     
         }
@@ -60,8 +56,8 @@
         @foreach (var item in Model)
         {
 
-            <tr data-toggle="collapse" data-target="#materiaal_@i" class="accordion">
-                <td>
+            <tr >
+                <td data-toggle="collapse" data-target="#materiaal_@i" class="accordion">
                     <img class="tableImg" src="../../Content/ImagesMinified/@Html.DisplayFor(modelItem => item.Foto)" a>
                 </td>
                 <td>

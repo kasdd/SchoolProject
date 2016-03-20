@@ -26,7 +26,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.beginDatum, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.TextBoxFor(model => model.beginDatum, new { @class = "date", data_format = "dd/mm/yy" })
+            @Html.TextBoxFor(model => model.beginDatum, "{0:dd/MM/yyyy}",  new { @class = "date", data_format = "dd/mm/yy" })
             @Html.ValidationMessageFor(model => model.beginDatum, "", new { @class = "text-danger" })
         </div>
 

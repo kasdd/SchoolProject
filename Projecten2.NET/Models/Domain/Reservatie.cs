@@ -15,6 +15,7 @@ namespace Projecten2.NET
             this.EndDate = StelEinddatumIn(begin);
             this.Materiaal = materiaal;
             this.Aantal = aantal;
+            this.VoorbehoudingId = VoorbehoudingId;
         }
 
         private Reservatie()

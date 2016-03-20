@@ -11,7 +11,18 @@ namespace Projecten2.NET.Models.ViewModels
 {
     public class ReservatieViewModel : VoorbehoudingViewModel
     {
-        public ReservatieViewModel (Materiaal materiaal, Gebruiker gebruiker): base()
+        public ReservatieViewModel (Materiaal materiaal, Gebruiker gebruiker, Reservatie r): base()
+        {
+            this.Materiaal = materiaal;
+            this.beginDatum = GeefCorrecteDatumTerug();
+            this.aantal = materiaal.Aantal;
+            this.Beschikbaar = GetBeschikbaar(materiaal, beginDatum, gebruiker);
+            this.beginDatum = r.BeginDate;
+            this.eindDatum = r.EndDate;
+            this.reservatie = r;
+        }
+
+        public ReservatieViewModel(Materiaal materiaal, Gebruiker gebruiker) : base()
         {
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
@@ -46,6 +57,16 @@ namespace Projecten2.NET.Models.ViewModels
 
     public class BlokkeringViewModel : VoorbehoudingViewModel
     {
+        public BlokkeringViewModel(Materiaal materiaal, Gebruiker gebruiker, Blokkering b) : base()
+        {
+            this.Materiaal = materiaal;
+            this.beginDatum = GeefCorrecteDatumTerug();
+            this.aantal = materiaal.Aantal;
+            this.Beschikbaar = GetBeschikbaar(materiaal, beginDatum, gebruiker);
+            this.beginDatum = b.BeginDate;
+            this.eindDatum = b.EndDate;
+            this.blokkering = b;
+        }
         public BlokkeringViewModel(Materiaal materiaal, Gebruiker gebruiker) : base()
         {
             this.Materiaal = materiaal;
@@ -92,7 +113,14 @@ namespace Projecten2.NET.Models.ViewModels
         [Display(Name = "Startdatum")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime beginDatum { get; set; }
+        [Required(ErrorMessage = "Gelieve uw startdatum in te voeren")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Startdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime eindDatum { get; set; }
         public int Beschikbaar { get; set; }
+        public Blokkering blokkering { get; set; }
+        public Reservatie reservatie { get; set; }
 
         public VoorbehoudingViewModel(Materiaal materiaal)
         {

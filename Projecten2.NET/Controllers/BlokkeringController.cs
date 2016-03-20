@@ -28,11 +28,13 @@ namespace Projecten2.NET.Controllers
         // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
+            IEnumerable<Blokkering> blokkeringen;
             if (gebruiker.Blokkeringen.Count == 0)
             {
                 return View("LegeLijst");
             }
-            return View(gebruiker.Blokkeringen.ToList());
+            blokkeringen = gebruiker.Blokkeringen;
+            return View(blokkeringen.Select(b=> new BlokkeringViewModel(b.Materiaal, gebruiker, b)));
         }
 
         public JsonResult GetBeschikbaar(Gebruiker gebruiker, string datum, string naam)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Projecten2.NET.Reservatie>
+﻿@model IEnumerable<Projecten2.NET.Models.ViewModels.ReservatieViewModel>
 
 @{
     ViewBag.Title = "Uw reservaties";
@@ -6,9 +6,6 @@
 
 <h2>Uw reservaties</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
 <table class="table">
  
         <tr>
@@ -26,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Materiaal.Prijs)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Aantal)
+                @Html.DisplayNameFor(model => model.Materiaal.Aantal)
             </th>
 
             <th>
@@ -57,24 +54,21 @@
                 <td class="text-right">
                     @($"{item.Materiaal.Prijs:0.00€}")
                 <td class="text-right">
-                    @Html.DisplayFor(modelItem => item.Aantal)
+                    @Html.DisplayFor(modelItem => item.Materiaal.Aantal)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Materiaal.Plaats)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BeginDate)
+                    @Html.DisplayFor(modelItem => item.beginDatum, "{0:dd/MM/yyyy}")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @Html.DisplayFor(modelItem => item.eindDatum, "{0:dd/MM/yyyy}")
                 </td>
                 <td>
-                    @*<a href='@Url.Action("Plus", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button></a>
-                    <a href='@Url.Action("Min", "Reservatie")'><button type="submit" class="btn btn-groen"><span class="glyphicon-minus glyphicon"></span></button></a>
-                    *@
-                    @using (Html.BeginForm("RemoveFromReservatie", "Reservatie", new { voorbehoudingId = item.VoorbehoudingId }))
+                    @using (Html.BeginForm("RemoveFromReservatie", "Reservatie", new { voorbehoudingId = item.reservatie.VoorbehoudingId }))
                     {
-                        @*<a href='@Url.Action("Remove", "Reservatie")'>*@<button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>@*</a>*@
+                      <button type="submit" class="btn btn-groen"><span class="glyphicon-remove glyphicon"></span></button>
                     }
                 </td>
 
