@@ -2,6 +2,12 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Projecten2.NET.Controllers;
+using Moq;
+using Projecten2.NET.Models.Domain;
+using Projecten2.NET.Models.ViewModels;
+using System.Web.Mvc;
+using System.Linq;
 
 namespace Projecten2.NET.Tests.Controllers
 {
@@ -11,59 +17,70 @@ namespace Projecten2.NET.Tests.Controllers
     [TestClass]
     public class BlokkeringControllerTest
     {
-        public BlokkeringControllerTest()
+        private BlokkeringController blokkatieController;
+        private Gebruiker personeel1;
+        private Mock<IGebruikerRepository> mockGebruikersRepository;
+        private Mock<IMateriaalRepository> mockMateriaalRepository;
+        private BlokkeringViewModel model;
+        private BlokkeringViewModel modelMetFout;
+
+        [TestInitialize]
+        public void SetUpContect()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            DummyContext context = new DummyContext();
+            mockGebruikersRepository = new Mock<IGebruikerRepository>();
+            mockMateriaalRepository = new Mock<IMateriaalRepository>();
+            personeel1 = context.personeel1;
+            personeel1.BlokkeerMateriaal(context.dobbelsteen, 2, context.date, mockGebruikersRepository.Object);
+            blokkatieController = new BlokkeringController(mockMateriaalRepository.Object, mockGebruikersRepository.Object);
+            model = new BlokkeringViewModel()
+            {
+                Materiaal = context.wereldbol,
+                aantal = 4,
+                beginDatum = DateTime.Today.AddDays(23)
+            };
+
+            modelMetFout = new BlokkeringViewModel()
+            {
+                aantal = 12,
+                beginDatum = DateTime.Today
+            };
+            mockMateriaalRepository.Setup(m => m.FindByArtikelNaam("wereldbol"))
+               .Returns(context.FindByArtikelNaam("wereldbol"));
+
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
+        [TestMethod]
+        public void IndexRetourneertEenView()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            ActionResult result = blokkatieController.Index(personeel1);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void BlokkatieControllerRetourneertCorrectMaterialen()
         {
-            //
-            // TODO: Add test logic here
-            //
+            ViewResult result = blokkatieController.Index(personeel1) as ViewResult;
+            List<BlokkeringViewModel> models = (result.Model as IEnumerable<BlokkeringViewModel>).ToList();
+            Assert.AreEqual("dobbelsteen", models[0].Materiaal.Artikelnaam);
+            Assert.AreEqual(2, models[0].blokkering.Aantal);
+        }
+
+        [TestMethod]
+        public void NieuwePostVoegtBlokkatieToe()
+        {
+            int aantal = personeel1.Blokkeringen.Count;
+            blokkatieController.Nieuw(personeel1, model);
+            mockGebruikersRepository.Verify(g => g.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void NieuwePostVerwijderdBlokkatie()
+        {
+            int aantal = personeel1.Blokkeringen.Count;
+            blokkatieController.RemoveFromBlokkering(0, personeel1);
+            Assert.AreEqual(aantal - 1, personeel1.Blokkeringen.Count);
+            mockGebruikersRepository.Verify(g => g.SaveChanges(), Times.Once);
         }
     }
 }
+

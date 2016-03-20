@@ -23,6 +23,7 @@ namespace Projecten2.NET.Tests.Controllers
         public Materiaal wereldbol;
         public Materiaal dobbelsteen;
         public Materiaal frozenSpelbord;
+        public DateTime date;
 
         public IList<Materiaal> materialen;
 
@@ -126,8 +127,12 @@ namespace Projecten2.NET.Tests.Controllers
                 Faculteit = "FBO"
             };
 
+            date = DateTime.Today.AddDays(14);
+
             student1.AddMateriaalToVerlanglijst(wereldbol);
             student1.AddMateriaalToVerlanglijst(dobbelsteen);
+            student1.ReserveerMateriaal(dobbelsteen, 2, date);
+            
             // student1.ReserveerMateriaal(wereldbol, 3, DateTime.Today.AddDays(4));
             personeel1.AddMateriaalToVerlanglijst(wereldbol);
 

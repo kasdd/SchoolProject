@@ -76,9 +76,7 @@ namespace Projecten2.NET.Tests.Controllers
             verlanglijstController.AddToVerlanglijst(null, student1);
             Assert.AreEqual(aantal, student1.Verlanglijst.Materialen.Count);
             mockGebruikerRepository.Verify(g => g.SaveChanges(), Times.Never);
-        }
-
-       
+        }     
 
         #endregion
     }
