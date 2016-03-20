@@ -10,10 +10,8 @@ namespace Projecten2.NET.Controllers
     [Authorize(Roles = "Student")]
     public class ReservatieController : Controller
     {
-
         private IMateriaalRepository materiaalRepository;
         private IGebruikerRepository gebruikersRepository;
-
         public ReservatieController(IMateriaalRepository materiaalRepository, IGebruikerRepository gebruikerRepository)
         {
             this.materiaalRepository = materiaalRepository;
@@ -114,10 +112,5 @@ namespace Projecten2.NET.Controllers
 
             client.Send(message);
         }
-
-        //public JsonResult GetBeschikbaar(DateTime dateTime)
-        //{
-        //    return Json(vm.AantalBeschikbaar(dateTime));
-        //}
     }
 }

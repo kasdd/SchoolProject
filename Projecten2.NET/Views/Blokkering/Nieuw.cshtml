@@ -112,3 +112,11 @@
 <div>
     @Html.ActionLink("Terug naar verlanglijst", "Index")
 </div>
+
+<script>
+    var naam = @Html.Raw(Json.Encode(Model.Materiaal.Artikelnaam));
+
+    function myFunction() {
+        $('#beschikbaar').text(window.Beschikbaar);
+    }
+</script>
