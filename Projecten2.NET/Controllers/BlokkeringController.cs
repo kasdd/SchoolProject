@@ -35,11 +35,13 @@ namespace Projecten2.NET.Controllers
             return View(gebruiker.Blokkeringen);
         }
 
-      /*  public JsonResult GetBeschikbaar(Gebruiker gebruiker, DateTime dateTime, string naam)
+        public JsonResult GetBeschikbaar(Gebruiker gebruiker, string datum, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            return Json(gebruiker.GetBeschikbaar(materiaal, dateTime));
-        }*/
+            DateTime date = DateTime.Parse(datum);
+            int beschikbaar = gebruiker.GetBeschikbaar(materiaal, date);
+            return Json(beschikbaar, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
