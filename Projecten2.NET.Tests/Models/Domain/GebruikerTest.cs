@@ -50,11 +50,26 @@ namespace Projecten2.NET.Tests.Models.Domain
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void VerwijderEenLeegMateriaalWerptException()
+        {
+            context.student1.RemoveMateriaalFromVerlanglijst(null);
+        }
+
+        [TestMethod]
         public void VoegReservatieToe()
         {
             DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
             context.student1.ReserveerMateriaal(context.dobbelsteen, 5, correcteDatum);
             Assert.AreEqual(1, context.student1.Reservaties.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void VoegReservatieToeDieNietKan()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.student1.ReserveerMateriaal(context.dobbelsteen, 1000, correcteDatum);
         }
 
         [TestMethod]
@@ -73,29 +88,54 @@ namespace Projecten2.NET.Tests.Models.Domain
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void ReserveerNullMateriaal()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.student1.ReserveerMateriaal(null, 5, correcteDatum);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void ReserveerVerkeerdeDatum()
+        {
+            DateTime correcteDatum = new DateTime(2013, 10, 10);  //Moet correct zijn
+            context.student1.ReserveerMateriaal(context.dobbelsteen, 4, correcteDatum);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void Reserveeraantal0()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.student1.ReserveerMateriaal(context.dobbelsteen, 0, correcteDatum);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void ReserveeraantalKleinerDan0()
+        {
+            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+            context.student1.ReserveerMateriaal(context.dobbelsteen, -3, correcteDatum);
+        }
+
+        [TestMethod]
         public void VerwijderReservatie()
         {
             DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
             context.student2.AddMateriaalToVerlanglijst(context.dobbelsteen);
             context.student2.ReserveerMateriaal(context.dobbelsteen, 5, correcteDatum);
             List<Reservatie> res = (List<Reservatie>)context.student2.Reservaties;
-            context.student1.RemoveReservatieFromReservaties(res[0]);
-            //foreach (NET.Reservatie r in context.student2.Reservaties)
-            //{
-            //    if (r.Materiaal.Artikelnaam.Equals(context.dobbelsteen))
-            //    {
-            //        Assert.Equals(7, r.Aantal);
-            //    }
-            //}
-            Assert.Equals(0, res.Count);
+            context.student2.RemoveReservatieFromReservaties(res[0]);
+            Assert.AreEqual(0, (int) context.student2.Reservaties.Count);
         }
 
-        [TestMethod]
-        public void VoegBlokkeringToe()
-        {
-            DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
-    //        context.personeel1.(context.dobbelsteen, 5, correcteDatum);
-            Assert.AreEqual(1, context.personeel1.Reservaties.Count);
-        }
+        //[TestMethod]
+        //public void VoegBlokkeringToe()
+        //{
+        //    DateTime correcteDatum = new DateTime(2016, 10, 10);  //Moet correct zijn
+        //    context.personeel1.(context.dobbelsteen, 5, correcteDatum);
+        //    Assert.AreEqual(1, context.personeel1.Reservaties.Count);
+        //}
     }
 }
