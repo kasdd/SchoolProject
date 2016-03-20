@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Projecten2.NET.Models.DAL;
 using Projecten2.NET.Models.Domain;
 using Projecten2.NET.Models.Domain.IRepositories;
 using Projecten2.NET.Models.ViewModels;
@@ -99,6 +100,11 @@ namespace Projecten2.NET.Controllers
         private SelectList getLeergebiedSelectedList(int selectedValue = 0)
         {
             return new SelectList(leergebiedRepository.FindAll().OrderBy(l=>l.LeergebiedNaam),"LeergebiedId", "LeergebiedNaam", selectedValue);
+        }
+
+        public static implicit operator CatalogusController(CatalogusContext v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

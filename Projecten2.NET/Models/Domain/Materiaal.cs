@@ -16,8 +16,7 @@ namespace Projecten2.NET
         public string Firma { get; set; }
         public double Prijs { get; set; }
         public string Foto { get; set; }
-        public String Plaats { get; set; }
-    
+        public String Plaats { get; set; }    
         public int Aantal { get; set; }
         public virtual ICollection<Reservatie> Reservaties { get; set; }
         public virtual ICollection<Blokkering> Blokkeringen { get; set; }
@@ -30,7 +29,6 @@ namespace Projecten2.NET
             Reservaties = new List<Reservatie>();
             Doelgroepen = new List<Doelgroep>();
             Leergebieden = new List<Leergebied>();
-            Uitleenbaar = true;
         }
 
         public bool Equals(object obj)

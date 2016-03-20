@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
     function changeBeschikbaar(date, naam) {
-        $.get("/Reservatie/GetBeschikbaar", { 'datum': date, 'naam': naam }, function (aantal) {
+        $.get("/Blokkering/GetBeschikbaar", { 'datum': date, 'naam': naam }, function (aantal) {
             $("#beschikbaar").text(function () {
                 return aantal;
             });
@@ -18,7 +18,6 @@ $(document).ready(function () {
             showOn: 'button',
             onSelect: function (dateText) {
                 $(this).change();
-                console.log(this.value)
                 changeBeschikbaar(this.value, naam);
             }
         }).next('button').button({

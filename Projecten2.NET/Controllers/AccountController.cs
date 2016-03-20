@@ -143,8 +143,10 @@ namespace Projecten2.NET.Controllers
                 catch (Exception)
                 {
                     throw new Exception("Ophalen van data mislukt");
+
                 }
             }
+                
         }
         private string geefPaswoord(string password)
         {

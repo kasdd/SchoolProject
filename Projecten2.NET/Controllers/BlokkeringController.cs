@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Projecten2.NET.Models.Domain.IRepositories;
-
+using Projecten2.NET.Models.DAL;
 
 namespace Projecten2.NET.Controllers
 {
@@ -46,7 +46,7 @@ namespace Projecten2.NET.Controllers
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            BlokkeringViewModel model = new BlokkeringViewModel(materiaal);
+            BlokkeringViewModel model = new BlokkeringViewModel(materiaal, gebruiker);
             return View(model);
 
         }
@@ -57,23 +57,22 @@ namespace Projecten2.NET.Controllers
             {
                 return View(model);
             }
-            //try
-            //{
-                Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
-                gebruiker.BlokkeerMateriaal(m, model.aantal, model.beginDatum, gebruikersRepository);
-                gebruikersRepository.SaveChanges();
-                TempData["info"] = $" {model.Materiaal.Artikelnaam }is geblokkeerd, er werd een email gestuurd ter informatie";
-
-                //systeem om mail te versturen (niet te veel tam tam)
-                Blokkeringmailverzenden(gebruiker.Email, m.Artikelnaam, m.Aantal);
+            try
+            {
+                    Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
+                    gebruiker.BlokkeerMateriaal(m, model.aantal, model.beginDatum, gebruikersRepository);
+                    gebruikersRepository.SaveChanges();
+                    TempData["info"] = $" {model.Materiaal.Artikelnaam }is geblokkeerd, er werd een email gestuurd ter informatie";
+                    //systeem om mail te versturen (niet te veel tam tam)
+                    Blokkeringmailverzenden(gebruiker.Email, m.Artikelnaam, m.Aantal);              
 
                 return RedirectToAction("Index", "Verlanglijst");
-            //}
-            //catch (Exception e)
-            //{
-                
-            //    TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden geblokkeerd";
-            //}
+            }
+            catch (Exception e)
+            {
+
+                TempData["error"] = $"Het materiaal {model.Materiaal.Artikelnaam} kan nu niet worden geblokkeerd";
+            }
 
             return RedirectToAction("Index", "Verlanglijst");
         }
@@ -85,11 +84,12 @@ namespace Projecten2.NET.Controllers
             {
                 try
                 {
-                    Blokkering b = gebruiker.FindBlokkeringByVoorbehoudingId(voorbehoudingId);
-                    gebruiker.RemoveBlokkeringFromBlokkeringen(b);
-                    gebruikersRepository.SaveChanges();
-                    if (gebruiker.FindBlokkeringByVoorbehoudingId(voorbehoudingId) == null)
-                        TempData["info"] = $"De blokkering is verwijderd!";
+
+                        Blokkering b = gebruiker.FindBlokkeringByVoorbehoudingId(voorbehoudingId);
+                        gebruiker.RemoveBlokkeringFromBlokkeringen(b);
+                        gebruikersRepository.SaveChanges();
+                        if (gebruiker.FindBlokkeringByVoorbehoudingId(voorbehoudingId) == null)
+                            TempData["info"] = $"De blokkering is verwijderd!";
                 }
                 catch (Exception e)
                 {

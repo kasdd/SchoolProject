@@ -40,7 +40,7 @@ namespace Projecten2.NET.Controllers
         public ActionResult Nieuw(Gebruiker gebruiker, string naam)
         {
             Materiaal materiaal = materiaalRepository.FindByArtikelNaam(naam);
-            ReservatieViewModel model = new ReservatieViewModel(materiaal);
+            ReservatieViewModel model = new ReservatieViewModel(materiaal, gebruiker);
             return View(model);
 
         }
@@ -56,7 +56,7 @@ namespace Projecten2.NET.Controllers
                 Materiaal m = materiaalRepository.FindByArtikelNaam(model.Materiaal.Artikelnaam);
                 gebruiker.ReserveerMateriaal(m, model.aantal, model.beginDatum); 
                 gebruikersRepository.SaveChanges();
-                TempData["info"] = $" {model.Materiaal.Artikelnaam }is gereserveerd, er werd een email gestuurd ter informatie";
+                TempData["info"] = $" {model.Materiaal.Artikelnaam } is gereserveerd, er werd een email gestuurd ter informatie";
 
                 //systeem om mail te versturen (niet te veel tam tam)
                 Reservatiemailverzenden(gebruiker.Email, m.Artikelnaam, m.Aantal);

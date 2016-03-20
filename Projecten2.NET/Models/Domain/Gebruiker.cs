@@ -247,11 +247,14 @@ namespace Projecten2.NET
         public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime)
         {
             int beschikbaar = materiaal.Aantal;
-            foreach (Reservatie reservatie in materiaal.Reservaties)
+            if(this.Type == Type.PERSONEEL)
             {
-                if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
-                    beschikbaar = beschikbaar - reservatie.Aantal;
-            }
+                foreach (Reservatie reservatie in materiaal.Reservaties)
+                {
+                    if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
+                        beschikbaar = beschikbaar - reservatie.Aantal;
+                }
+            }         
 
             foreach (Blokkering blok in materiaal.Blokkeringen)
             {

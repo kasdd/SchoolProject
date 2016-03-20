@@ -5,44 +5,83 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.Common.EntitySql;
 using System.Web.Mvc;
+using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Models.ViewModels
 {
     public class ReservatieViewModel : VoorbehoudingViewModel
     {
-        public ReservatieViewModel (Materiaal materiaal): base()
+        public ReservatieViewModel (Materiaal materiaal, Gebruiker gebruiker): base()
         {
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
-            this.Beschikbaar = AantalBeschikbaar(beginDatum);
+            this.Beschikbaar = GetBeschikbaar(materiaal, beginDatum, gebruiker);
         }
-
         public ReservatieViewModel() : base()
         {
 
+        }
+
+        public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime, Gebruiker gebruiker)
+        {
+            int beschikbaar = materiaal.Aantal;
+            if (gebruiker.Type == Type.PERSONEEL)
+            {
+                foreach (Reservatie reservatie in materiaal.Reservaties)
+                {
+                    if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
+                        beschikbaar = beschikbaar - reservatie.Aantal;
+                }
+            }
+
+            foreach (Blokkering blok in materiaal.Blokkeringen)
+            {
+                if (blok.BeginDate != null && dateTime == blok.BeginDate)
+                    beschikbaar = beschikbaar - blok.Aantal;
+            }
+            return beschikbaar;
         }
     }
 
     public class BlokkeringViewModel : VoorbehoudingViewModel
     {
-        public BlokkeringViewModel(Materiaal materiaal) : base()
+        public BlokkeringViewModel(Materiaal materiaal, Gebruiker gebruiker) : base()
         {
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
-            this.Beschikbaar = AantalBeschikbaar(beginDatum);
+            this.Beschikbaar = GetBeschikbaar(materiaal, beginDatum, gebruiker);
         }
 
         public BlokkeringViewModel() : base()
         {
 
         }
+        public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime, Gebruiker gebruiker)
+        {
+            int beschikbaar = materiaal.Aantal;
+            if (gebruiker.Type == Type.PERSONEEL)
+            {
+                foreach (Reservatie reservatie in materiaal.Reservaties)
+                {
+                    if (reservatie.BeginDate != null && dateTime == reservatie.BeginDate)
+                        beschikbaar = beschikbaar - reservatie.Aantal;
+                }
+            }
+
+            foreach (Blokkering blok in materiaal.Blokkeringen)
+            {
+                if (blok.BeginDate != null && dateTime == blok.BeginDate)
+                    beschikbaar = beschikbaar - blok.Aantal;
+            }
+            return beschikbaar;
+        }
     }
 
     public class VoorbehoudingViewModel
     {
-         
+
         public Materiaal Materiaal { get; set; }
         [Required(ErrorMessage = "{0} is verplicht")]
         [Display(Name = "Aantal")]
@@ -60,12 +99,11 @@ namespace Projecten2.NET.Models.ViewModels
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
             this.aantal = materiaal.Aantal;
-            this.Beschikbaar = AantalBeschikbaar(beginDatum);
         }
 
         public VoorbehoudingViewModel()
         {
-            
+
         }
 
         public DateTime GeefCorrecteDatumTerug()
@@ -99,20 +137,5 @@ namespace Projecten2.NET.Models.ViewModels
             int daysToAdd = ((int)verwachteDag - (int)vandaag.DayOfWeek + 7) % 7;
             return vandaag.AddDays(daysToAdd);
         }
-
-        public int AantalBeschikbaar(DateTime datum)
-        {
-
-            Beschikbaar = aantal;
-            foreach (Reservatie lijn in Materiaal.Reservaties)
-            {
-                if (lijn.BeginDate != null && datum == lijn.BeginDate.Value)
-                {
-                    Beschikbaar--;
-                }
-            }
-            return Beschikbaar;
-        }
-
     }
-}
+    }

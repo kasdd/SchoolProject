@@ -7,7 +7,7 @@
 <link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 <script src="~/Scripts/knockout.js"></script>
-<script src="~/Scripts/reservatie.js"></script>
+<script src="~/Scripts/blokkeren.js"></script>
 
 <h2>Maak een nieuwe blokkering voor @Model.Materiaal.Artikelnaam</h2>
 
@@ -20,7 +20,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.Label("Aantal beschikbaar: ")<span data-bind="text : aantalBeschikbaar"></span>
+            @ViewBag.Beschikbaar
+            @Html.Label("Aantal beschikbaar : ")<span id="beschikbaar" data-text="@ViewBag.Beschikbaar"></span>
         </div>
 
         <div class="form-group">

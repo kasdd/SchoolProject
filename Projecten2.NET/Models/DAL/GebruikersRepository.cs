@@ -18,12 +18,7 @@ namespace Projecten2.NET.Models.DAL
 
         public Gebruiker FindByEmail(string email)
         {
-            if(!email.Equals(null))
                 return gebruikers.FirstOrDefault(g => g.Email == email);
-            else
-            {
-                return null;
-            }
         }
 
         public IQueryable<Gebruiker> FindAll()
