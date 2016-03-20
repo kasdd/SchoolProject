@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 
 namespace Projecten2.NET
 {
@@ -23,7 +25,7 @@ namespace Projecten2.NET
             Reservaties = new List<Reservatie>();
             Verlanglijst = new Verlanglijst();
         }
-        
+
         public void AddMateriaalToVerlanglijst(Materiaal m)
         {
             if (m != null)
@@ -64,7 +66,7 @@ namespace Projecten2.NET
                     if (b.BeginDate == beginDatum)
                     {
                         materiaalAantal -= b.Aantal;
-                    }                       
+                    }
                 }
                 if (materiaalAantal < aantal)
                 {
@@ -82,27 +84,14 @@ namespace Projecten2.NET
                 if (materiaalAantal >= aantal)
                 {
                     SteekInBlokkering(materiaal, aantal, beginDatum);
-                } else{
+                }
+                else
+                {
                     Reservatie res = materiaal.Reservaties.Where(r => r.BeginDate.Equals(beginDatum)).LastOrDefault();
+                   // res
+                    mailStudentAfzeggingReservatie(res.Gebruiker.Email, res.Materiaal.Artikelnaam, res.Aantal);
+            //        res.Gebruiker
 
-                    //    foreach (Blokkering b in materiaal.Blokkeringen)
-                    //{
-                    //    if (b.BeginDate == beginDatum)
-                    //    {
-                    //        materiaalAantal -= b.Aantal;
-                    //    }
-                    //}
-                    //    foreach (Blokkering blokkering in Blokkeringen.Where(blok => blok.Materiaal.Artikelnaam == materiaal.Artikelnaam))
-                    //{
-                    //    if (blokkering.BeginDate == beginDatum)
-                    //    {
-                    //        blokkering.Aantal += aantal;
-                    //        break;
-                    //    }
-                    //}
-                    //Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
-                    //Blokkeringen.Add(b);
-                    //materiaal.Blokkeringen.Add(b);
                 }
             }
             else
@@ -146,7 +135,7 @@ namespace Projecten2.NET
 
         public Blokkering FindBlokkeringByVoorbehoudingId(int voorbehoudingId)
         {
-              return Blokkeringen.FirstOrDefault(b => b.EqualVoorbehoudingId(voorbehoudingId));
+            return Blokkeringen.FirstOrDefault(b => b.EqualVoorbehoudingId(voorbehoudingId));
         }
 
         private Boolean ControleerBeschikbaarheid(Materiaal materiaal, DateTime begindatum, int aantal)
@@ -179,6 +168,10 @@ namespace Projecten2.NET
                     beginDatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
                 }
             }
+            else if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday)
+            {
+                beginDatum = GetNextWeekday(DateTime.Today.AddDays(7), DayOfWeek.Monday);
+            }
             else if (DateTime.Now.DayOfWeek < DayOfWeek.Friday)
             {
                 beginDatum = GetNextWeekday(DateTime.Today.AddDays(1), DayOfWeek.Monday);
@@ -199,32 +192,43 @@ namespace Projecten2.NET
 
         private void SteekInReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
+            Boolean gereserveerd = false;
             foreach (Reservatie reservatie in Reservaties.Where(reservatie => reservatie.Materiaal.Artikelnaam == materiaal.Artikelnaam))
             {
                 if (reservatie.BeginDate == beginDatum)
                 {
                     reservatie.Aantal += aantal;
+                    gereserveerd = true;
                     break;
                 }
             }
-            Reservatie r = new Reservatie(materiaal, beginDatum, aantal);
-            Reservaties.Add(r);
-            materiaal.Reservaties.Add(r);
+            if (!gereserveerd)
+            {
+                Reservatie r = new Reservatie(materiaal, beginDatum, aantal, this);
+                Reservaties.Add(r);
+                materiaal.Reservaties.Add(r);
+            }
+
         }
 
         private void SteekInBlokkering(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
+            Boolean gereserveerd = false;
             foreach (Blokkering blokkering in Blokkeringen.Where(blok => blok.Materiaal.Artikelnaam == materiaal.Artikelnaam))
             {
                 if (blokkering.BeginDate == beginDatum)
                 {
+                    gereserveerd = true;
                     blokkering.Aantal += aantal;
                     break;
                 }
             }
-            Blokkering b = new Blokkering(materiaal, beginDatum, aantal);
-            Blokkeringen.Add(b);
-            materiaal.Blokkeringen.Add(b);
+            if (!gereserveerd)
+            {
+                Blokkering b = new Blokkering(materiaal, beginDatum, aantal, this);
+                Blokkeringen.Add(b);
+                materiaal.Blokkeringen.Add(b);
+            }
         }
 
         public int GetBeschikbaar(Materiaal materiaal, DateTime dateTime)
@@ -236,6 +240,26 @@ namespace Projecten2.NET
                     beschikbaar--;
             }
             return beschikbaar;
+        }
+
+        public void mailStudentAfzeggingReservatie(string email, string artikelnaam, int aantal)
+        {
+            string myGmailAddress = "HoGent.DidactischeLeermiddelen@gmail.com";
+            string appSpecificPassword = "Leermiddelen";
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.EnableSsl = true;
+            client.Port = 587;
+            client.Credentials = new NetworkCredential(myGmailAddress, appSpecificPassword);
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(myGmailAddress);
+            message.Sender = new MailAddress(myGmailAddress);
+            message.To.Add(new MailAddress(email));
+            message.Subject = "Annulatie reservatie van " + artikelnaam;
+            message.Body = "Beste, Uw reservatie van " + aantal + " " + artikelnaam + " is geannuleerd. Het spijt ons voor het ongemak. Met vriendelijke Groeten, HoGent"; //Tijd over : beter uitwerken begin/uitdatum van reservatie.
+
+            client.Send(message);
         }
     }
 }
