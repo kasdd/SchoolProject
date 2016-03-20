@@ -87,11 +87,22 @@ namespace Projecten2.NET
                 }
                 else
                 {
-                    Reservatie res = materiaal.Reservaties.Where(r => r.BeginDate.Equals(beginDatum)).LastOrDefault();
-                   // res
-                    mailStudentAfzeggingReservatie(res.Gebruiker.Email, res.Materiaal.Artikelnaam, res.Aantal);
-            //        res.Gebruiker
-
+                    while (materiaalAantal < aantal)
+                    {
+                        Reservatie res = materiaal.Reservaties.Where(r => r.BeginDate.Equals(beginDatum)).LastOrDefault();
+                        if (res != null)
+                        {
+                            materiaalAantal += res.Aantal;
+                            mailStudentAfzeggingReservatie(res.Gebruiker.Email, res.Materiaal.Artikelnaam, res.Aantal);
+                            res.Gebruiker.Reservaties.Remove(res);
+                            res.Materiaal.Reservaties.Remove(res);
+                        }
+                        else
+                        {
+                            throw new Exception("Reservatie kan nu niet worden verwijderd");
+                        }
+                    }
+                    SteekInBlokkering(materiaal, aantal, beginDatum);
                 }
             }
             else
