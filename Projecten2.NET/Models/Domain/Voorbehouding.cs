@@ -30,9 +30,7 @@ namespace Projecten2.NET.Models.Domain
         public Voorbehouding()
         {
         
-        }
-
-       
+        }       
 
         protected DateTime? StelEinddatumIn(DateTime begin)
         {
