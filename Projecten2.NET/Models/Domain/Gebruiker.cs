@@ -46,6 +46,10 @@ namespace Projecten2.NET
 
         public void ReserveerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
+            if(aantal <= 0)
+            {
+                throw new Exception("Een correct aantal ingeven (groter dan nul), alstublieft");
+            }
             if (materiaal != null && ControleerBeschikbaarheid(materiaal, beginDatum, aantal) &&
                 beginDatum >= GeefCorrecteDatumTerug())
             {
@@ -57,6 +61,10 @@ namespace Projecten2.NET
 
         public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum, IGebruikerRepository gebruikerRepository)
         {
+            if (aantal <= 0)
+            {
+                throw new Exception("Een correct aantal ingeven (groter dan nul), alstublieft");
+            }
             if (materiaal != null && /*ControleerBeschikbaarheid(materiaal, beginDatum, aantal) && */
                 beginDatum >= GeefCorrecteDatumTerug())
             {

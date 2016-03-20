@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using Projecten2.NET.Models.Domain;
 
 namespace Projecten2.NET.Tests.Controllers
 {
