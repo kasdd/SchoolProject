@@ -298,6 +298,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Domain\Domein.cd" />
+    <Content Include="Controllers\Controllerdiagram.cd" />
     <None Include="Properties\PublishProfiles\Didactischeleermaterialengroep18 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Leermaterialen.pubxml" />
     <None Include="Properties\PublishProfiles\ProjectNETgroep18 - Web Deploy.pubxml" />
