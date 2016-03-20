@@ -6,11 +6,7 @@
 <link type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 <script src="~/Scripts/collapse.js"></script>
-<script type="text/javascript">
-    $('.collapse').on('show.bs.collapse', function () {
-        $('.collapse.in').collapse('hide');
-    });
-</script>
+
 <h2>Catalogus</h2>
 
 <div class="searchbar">
@@ -76,14 +72,14 @@
                     {
                         using (Html.BeginForm("AddToVerlanglijst", "Verlanglijst", new {naam = item.Artikelnaam}))
                         {
-                            <button id="button" type="submit" class="btn btn-groen"><span class="glyphicon-plus glyphicon"></span></button>
+                            <button id="button" type="submit" class="btn btn-groen" onclick="noCollapse(event);"><span class="glyphicon-plus glyphicon"></span></button>
                         }
                     }
                     @if (item.InVerlanglijst == true)
                     {
                         using (Html.BeginForm("RemoveFromVerlanglijstInCato", "Verlanglijst", new {naam = item.Artikelnaam}))
                         {
-                            <button id="button" type="submit" class="btn btn-groen donkergroen"><span class="glyphicon-minus glyphicon"></span></button>
+                            <button id="button" type="submit" class="btn btn-groen donkergroen" onclick="noCollapse(event);"><span class="glyphicon-minus glyphicon"></span></button>
                         }
                     }
                 </td>
