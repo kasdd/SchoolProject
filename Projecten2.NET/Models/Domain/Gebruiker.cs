@@ -55,7 +55,7 @@ namespace Projecten2.NET
                 throw new Exception("Reservate kan nu niet worden aangemaakt");
         }
 
-        public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum)
+        public void BlokkeerMateriaal(Materiaal materiaal, int aantal, DateTime beginDatum, IGebruikerRepository gebruikerRepository)
         {
             if (materiaal != null && /*ControleerBeschikbaarheid(materiaal, beginDatum, aantal) && */
                 beginDatum >= GeefCorrecteDatumTerug())
@@ -93,9 +93,11 @@ namespace Projecten2.NET
                         if (res != null)
                         {
                             materiaalAantal += res.Aantal;
-                            mailStudentAfzeggingReservatie(res.Gebruiker.Email, res.Materiaal.Artikelnaam, res.Aantal);
-                            res.Gebruiker.Reservaties.Remove(res);
+                            Gebruiker reservatieGebruiker = gebruikerRepository.FindById(res.GebruikerId);
+                            mailStudentAfzeggingReservatie(reservatieGebruiker.Email, res.Materiaal.Artikelnaam, res.Aantal);
+                     //       res.Gebruiker.Reservaties.Remove(res);
                             res.Materiaal.Reservaties.Remove(res);
+                            reservatieGebruiker.Reservaties.Remove(res);
                         }
                         else
                         {
@@ -204,18 +206,18 @@ namespace Projecten2.NET
         private void SteekInReservatie(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
             Boolean gereserveerd = false;
-            foreach (Reservatie reservatie in Reservaties.Where(reservatie => reservatie.Materiaal.Artikelnaam == materiaal.Artikelnaam))
-            {
-                if (reservatie.BeginDate == beginDatum)
+                foreach (Reservatie reservatie in Reservaties.Where(reservatie => reservatie.Materiaal.Artikelnaam == materiaal.Artikelnaam))
                 {
-                    reservatie.Aantal += aantal;
-                    gereserveerd = true;
-                    break;
+                    if (reservatie.BeginDate == beginDatum)
+                    {
+                        reservatie.Aantal += aantal;
+                        gereserveerd = true;
+                        break;
+                    }
                 }
-            }
             if (!gereserveerd)
             {
-                Reservatie r = new Reservatie(materiaal, beginDatum, aantal, this);
+                Reservatie r = new Reservatie(materiaal, beginDatum, aantal, GebruikerID);
                 Reservaties.Add(r);
                 materiaal.Reservaties.Add(r);
             }
@@ -225,18 +227,18 @@ namespace Projecten2.NET
         private void SteekInBlokkering(Materiaal materiaal, int aantal, DateTime beginDatum)
         {
             Boolean gereserveerd = false;
-            foreach (Blokkering blokkering in Blokkeringen.Where(blok => blok.Materiaal.Artikelnaam == materiaal.Artikelnaam))
-            {
-                if (blokkering.BeginDate == beginDatum)
+                foreach (Blokkering blokkering in Blokkeringen.Where(blok => blok.Materiaal.Artikelnaam == materiaal.Artikelnaam))
                 {
-                    gereserveerd = true;
-                    blokkering.Aantal += aantal;
-                    break;
+                    if (blokkering.BeginDate == beginDatum)
+                    {
+                        gereserveerd = true;
+                        blokkering.Aantal += aantal;
+                        break;
+                    }
                 }
-            }
             if (!gereserveerd)
             {
-                Blokkering b = new Blokkering(materiaal, beginDatum, aantal, this);
+                Blokkering b = new Blokkering(materiaal, beginDatum, aantal, GebruikerID);
                 Blokkeringen.Add(b);
                 materiaal.Blokkeringen.Add(b);
             }

@@ -29,7 +29,10 @@ namespace Projecten2.NET.Infrastructuur
                 }
                 return gebruiker;
             }
-            return null;
+            else
+            {
+                return null;
+            }
 
         }
 

@@ -12,14 +12,15 @@ namespace Projecten2.NET.Models.Domain
         public DateTime? BeginDate { get; protected set; }
         public DateTime? EndDate { get; set; }
         public int Aantal { get; set; }
-        public Gebruiker Gebruiker { get; set; }
+        public int GebruikerId { get; set; }
 
-        public Voorbehouding(Materiaal materiaal, DateTime begin, int aantal) : this()
+        public Voorbehouding(Materiaal materiaal, DateTime begin, int aantal, int GebruikerId) : this()
         {
             this.BeginDate = begin;
             this.EndDate = StelEinddatumIn(begin);
             this.Materiaal = materiaal;
             this.Aantal = aantal;
+            this.GebruikerId = GebruikerId;
         }
 
         public bool EqualVoorbehoudingId(int id)

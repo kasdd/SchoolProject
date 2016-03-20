@@ -18,7 +18,12 @@ namespace Projecten2.NET.Models.DAL
 
         public Gebruiker FindByEmail(string email)
         {
-            return gebruikers.FirstOrDefault(g => g.Email == email);
+            if(!email.Equals(null))
+                return gebruikers.FirstOrDefault(g => g.Email == email);
+            else
+            {
+                return null;
+            }
         }
 
         public IQueryable<Gebruiker> FindAll()
@@ -31,9 +36,9 @@ namespace Projecten2.NET.Models.DAL
             context.SaveChanges();
         }
 
-        public Gebruiker FindByName(string name)
+        public Gebruiker FindById(int id)
         {
-            return gebruikers.Find(name);
+            return gebruikers.Find(id);
         }
 
         public void AddGebruiker(Gebruiker gebruiker)

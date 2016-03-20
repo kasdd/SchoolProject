@@ -8,9 +8,9 @@ namespace Projecten2.NET
     public class Reservatie : Voorbehouding
     {
 
-        public Reservatie(Materiaal materiaal, DateTime begin, int aantal, Gebruiker gebruiker) : base()
+        public Reservatie(Materiaal materiaal, DateTime begin, int aantal, int gebruikerId) : base()
         {
-            this.Gebruiker = gebruiker;
+            this.GebruikerId = gebruikerId;
             this.BeginDate = begin;
             this.EndDate = StelEinddatumIn(begin);
             this.Materiaal = materiaal;
