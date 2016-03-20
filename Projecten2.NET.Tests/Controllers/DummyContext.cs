@@ -33,7 +33,7 @@ namespace Projecten2.NET.Tests.Controllers
             aardrijkskunde = new Leergebied { LeergebiedNaam = "aardrijkskunde", LeergebiedId = 2 };
             kleuters = new Doelgroep { DoelgroepNaam = "kleuters", DoelgroepId = 1 };
             lagerOnderwijs = new Doelgroep { DoelgroepNaam = "lagerOnderwijs", DoelgroepId = 2 };
-            spelborden = new Leergebied {LeergebiedId = 3, LeergebiedNaam = "spelborden"};
+            spelborden = new Leergebied { LeergebiedId = 3, LeergebiedNaam = "spelborden" };
             wereldbol = new Materiaal
             {
                 Aantal = 13,
@@ -66,8 +66,8 @@ namespace Projecten2.NET.Tests.Controllers
                 Artikelnaam = "frozen spelbord",
                 Aantal = 15,
                 ArtikelNummer = "BE523",
-                Doelgroepen = new List<Doelgroep> {kleuters},
-                Leergebieden = new List<Leergebied> { spelborden},
+                Doelgroepen = new List<Doelgroep> { kleuters },
+                Leergebieden = new List<Leergebied> { spelborden },
             };
 
             kleuters.addMateriaal(wereldbol);
@@ -84,21 +84,27 @@ namespace Projecten2.NET.Tests.Controllers
                 Email = "student1@student.hogent.be",
                 Naam = "Student1",
                 Voornaam = "Student1",
-                Type = Type.STUDENT
+                Type = Type.STUDENT,
+                Foto = null,
+                Faculteit = "FBO"
             };
             student2 = new Gebruiker()
             {
                 Email = "student2@student.hogent.be",
                 Naam = "Student2",
                 Voornaam = "Student2",
-                Type = Type.STUDENT
+                Type = Type.STUDENT,
+                Foto = null,
+                Faculteit = "FBO"
             };
             student3 = new Gebruiker()
             {
                 Email = "student2@student.hogent.be",
                 Naam = "Student2",
                 Voornaam = "Student2",
-                Type = Type.STUDENT
+                Type = Type.STUDENT,
+                Foto = null,
+                Faculteit = "FBO"
             };
 
             personeel1 = new Gebruiker()
@@ -106,17 +112,24 @@ namespace Projecten2.NET.Tests.Controllers
                 Email = "personeel1@personeel.hogent.be",
                 Naam = "Personeel1",
                 Voornaam = "Personeel1",
-                Type = Type.PERSONEEL
+                Type = Type.PERSONEEL,
+                Foto = null,
+                Faculteit = "FBO"
             };
             personeel2 = new Gebruiker()
             {
                 Email = "personeel2@personeel.hogent.be",
                 Naam = "personeel2",
                 Voornaam = "personeel2",
-                Type = Type.PERSONEEL
+                Type = Type.PERSONEEL,
+                Foto = null,
+                Faculteit = "FBO"
             };
 
             student1.AddMateriaalToVerlanglijst(wereldbol);
+            student1.AddMateriaalToVerlanglijst(dobbelsteen);
+            // student1.ReserveerMateriaal(wereldbol, 3, DateTime.Today.AddDays(4));
+            personeel1.AddMateriaalToVerlanglijst(wereldbol);
 
         }
         public IQueryable<Materiaal> AllMaterialen
@@ -144,7 +157,7 @@ namespace Projecten2.NET.Tests.Controllers
 
         public Leergebied FindByIdLeergebied(int nummer)
         {
-            if(nummer==1)
+            if (nummer == 1)
                 return spelborden;
             if (nummer == 2)
                 return nederlands;

@@ -18,7 +18,7 @@ namespace Projecten2.NET.Tests.Controllers
         private Mock<IGebruikerRepository> mockGebruikerRepository;
         private DummyContext context;
         private Gebruiker student1;
-        private VerlanglijstViewModel model;
+        private ReservatieViewModel model;
 
         [TestInitialize]
         public void MyTestInitializer()
@@ -48,12 +48,13 @@ namespace Projecten2.NET.Tests.Controllers
             ViewResult result = verlanglijstController.Index(student1) as ViewResult;
             List<VerlanglijstViewModel> models = (result.Model as IEnumerable<VerlanglijstViewModel>).ToList();
             Assert.AreEqual("wereldbol", models[0].Artikelnaam);
+            Assert.AreEqual("dobbelsteen", models[1].Artikelnaam);
         }
         [TestMethod]
         public void NieuwePostVoegtMateriaalToe()
         {
             int aantal = student1.Verlanglijst.Materialen.Count;
-            verlanglijstController.AddToVerlanglijst("dobbelsteen", student1);
+            verlanglijstController.AddToVerlanglijst("frozenSpelbord", student1);
             Assert.AreEqual(aantal+1, student1.Verlanglijst.Materialen.Count);
             mockGebruikerRepository.Verify(g=>g.SaveChanges(), Times.Once);
         }

@@ -3,15 +3,15 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Projecten2.NET.Tests.Models.Domain
+namespace Projecten2.NET.Tests.Controllers
 {
     /// <summary>
-    /// Summary description for Reservatie
+    /// Summary description for BlokkeringControllerTest
     /// </summary>
     [TestClass]
-    public class Reservatie
+    public class BlokkeringControllerTest
     {
-        public Reservatie()
+        public BlokkeringControllerTest()
         {
             //
             // TODO: Add constructor logic here
