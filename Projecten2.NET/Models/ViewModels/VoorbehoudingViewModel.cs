@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Core.Common.EntitySql;
-using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 using Projecten2.NET.Models.Domain;
+using System;
 
 namespace Projecten2.NET.Models.ViewModels
 {
     public class ReservatieViewModel : VoorbehoudingViewModel
     {
-        public ReservatieViewModel (Materiaal materiaal, Gebruiker gebruiker, Reservatie r): base()
+        public ReservatieViewModel(Materiaal materiaal, Gebruiker gebruiker, Reservatie r) : base()
         {
             this.Materiaal = materiaal;
             this.beginDatum = GeefCorrecteDatumTerug();
@@ -166,4 +161,4 @@ namespace Projecten2.NET.Models.ViewModels
             return vandaag.AddDays(daysToAdd);
         }
     }
-    }
+}
